@@ -1,108 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
-// PANTHER PROTOCOL v5.0 - ZERO FRICTION WORKOUT APP
+// PANTHER v6.0 — LOCAL-FIRST DAILY UTILITY
 // ============================================================================
 //
-// FEATURES:
-// - Quick Start: One tap to begin today's workout
-// - Fitness Daily: 6 targeted destruction workouts (15-20 min each)
-// - Progress Tracking: See your workout history and streaks
-// - Nutrition Guide: Healthy restaurants ranked for muscle building
-// - Full Body Stretch: Guided stretch routine by body part with videos
-// - Auto-Resume: Never lose progress if app closes
-// - Audio Alert: Sound when rest timer ends
-// - Keyboard Shortcuts: SPACEBAR to advance, ESC to exit
-// - Screen Wake Lock: Phone stays awake during workout
+// 1. SCRIPT  — Read-only daily workout view with rest timers
+// 2. SHOP    — Import & curate weekly Factor / HelloFresh meals
+// 3. FUEL    — Daily nutrition checklist (staples + selected meals)
+// 4. GAINS   — Bodyweight, weighted pull-up, grip/hang tracking + charts
 //
+// 100% client-side · localStorage persistence · GitHub Pages
 // ============================================================================
 
-// ============================================================================
-// FITNESS DAILY - Targeted Destruction Workouts
-// ============================================================================
-
-const FITNESS_DAILY = {
-  shoulders: {
-    name: "SHOULDER DESTRUCTION",
-    emoji: "🔥",
-    duration: "20 min",
-    description: "All 3 delt heads annihilated",
-    exercises: [
-      { name: "DB Overhead Press", sets: 4, reps: "FAILURE", rest: 60, notes: "15 lb each hand, standing, strict form", video: "qEwKCR5JCog" },
-      { name: "DB Lateral Raises", sets: 4, reps: "FAILURE", rest: 45, notes: "Control the negative, no swinging", video: "3VcKaXpzqRo" },
-      { name: "Pike Push-ups", sets: 4, reps: "FAILURE", rest: 60, notes: "Head toward ground, shoulders burning", video: "sposDXWEB0A" },
-      { name: "Reverse Flyes", sets: 4, reps: "FAILURE", rest: 45, notes: "Bent over, squeeze rear delts", video: "lPt0GqwaqEw" },
-      { name: "Front Raises", sets: 3, reps: "FAILURE", rest: 30, notes: "Alternate arms or both together", video: "Ir97R3vBB0M" }
-    ]
-  },
-  core: {
-    name: "CORE DESTRUCTION",
-    emoji: "🔥",
-    duration: "20 min",
-    description: "Abs, obliques, deep core destroyed",
-    exercises: [
-      { name: "Sit-ups", sets: 5, reps: "FAILURE", rest: 45, notes: "Full range, touch toes at top", video: "1fbU_MkV7NE" },
-      { name: "Russian Twists (15 lb)", sets: 4, reps: "FAILURE", rest: 45, notes: "Feet elevated, touch floor each side", video: "wkD8rjkodUI" },
-      { name: "Hanging Leg Raises", sets: 4, reps: "FAILURE", rest: 60, notes: "Control the swing, legs to 90°", video: "Pr1ieGZ5atk" },
-      { name: "Bicycle Crunches", sets: 4, reps: "FAILURE", rest: 45, notes: "Slow and controlled, elbow to knee", video: "9FGilxCbdz8" },
-      { name: "Plank Hold", sets: 3, reps: "FAILURE (time)", rest: 60, notes: "Straight line, squeeze everything", video: "pSHjTRCQxIw" }
-    ]
-  },
-  hips: {
-    name: "HIP DESTRUCTION",
-    emoji: "🔥",
-    duration: "20 min",
-    description: "Glutes, hip flexors, abductors obliterated",
-    exercises: [
-      { name: "Single-Leg Glute Bridge", sets: 5, reps: "FAILURE each leg", rest: 45, notes: "Squeeze glute hard at top, hold 1 sec", video: "AVAXhy6pl7o" },
-      { name: "Bulgarian Split Squats", sets: 4, reps: "FAILURE each leg", rest: 60, notes: "15 lb each hand, deep stretch", video: "2C-uNgKwPLE" },
-      { name: "Banded Clamshells", sets: 4, reps: "FAILURE each side", rest: 30, notes: "Band above knees, squeeze at top", video: "hbSM9JxBpNg" },
-      { name: "Fire Hydrants", sets: 4, reps: "FAILURE each side", rest: 30, notes: "On all fours, lift leg to side", video: "La3xYT8MGks" },
-      { name: "Deep Squat Hold", sets: 3, reps: "FAILURE (time)", rest: 60, notes: "Sink as deep as possible, breathe", video: "M8xSPpfv2ME" }
-    ]
-  },
-  feetKnees: {
-    name: "FEET-KNEE DESTRUCTION",
-    emoji: "🔥",
-    duration: "20 min",
-    description: "Calves, shins, feet, toes smoked",
-    exercises: [
-      { name: "Single-Leg Calf Raises", sets: 5, reps: "FAILURE each leg", rest: 45, notes: "Full range, 3 sec up, 3 sec down", video: "OeTJ7NHJD7M" },
-      { name: "Tibialis Raises", sets: 5, reps: "FAILURE", rest: 45, notes: "Back against wall, lift toes high", video: "gNS_QjGAs_k" },
-      { name: "Toe Curls (Towel Scrunch)", sets: 4, reps: "FAILURE", rest: 30, notes: "Scrunch towel with toes", video: "Bkz9jVL9bIA" },
-      { name: "Big Toe Raises", sets: 3, reps: "20 each foot", rest: 30, notes: "Lift big toe only, other toes stay down", video: "adbbCKNj1IM" },
-      { name: "Single-Leg Balance (Eyes Closed)", sets: 3, reps: "FAILURE (time) each", rest: 30, notes: "On ball of foot, don't fall", video: "8DLrXqx8Kvc" }
-    ]
-  },
-  forearms: {
-    name: "FOREARM + FINGER DESTRUCTION",
-    emoji: "🔥",
-    duration: "20 min",
-    description: "Flexors, extensors, grip crushed",
-    exercises: [
-      { name: "Wrist Curls", sets: 5, reps: "FAILURE", rest: 45, notes: "Palm up, curl wrist only", video: "7ac_qmBYdms" },
-      { name: "Reverse Wrist Curls", sets: 5, reps: "FAILURE", rest: 45, notes: "Palm down, extend wrist", video: "kMqRqVPUL84" },
-      { name: "Dead Hang", sets: 4, reps: "FAILURE (time)", rest: 60, notes: "Full grip, don't let go", video: "dkOAOjPqaOQ" },
-      { name: "Towel Hang", sets: 3, reps: "FAILURE (time)", rest: 60, notes: "Towel over bar, brutal grip work", video: "IEOwe3xXWcg" },
-      { name: "Finger Extensions (Rubber Band)", sets: 4, reps: "FAILURE", rest: 30, notes: "Band around fingers, spread apart", video: "UHB6wDWiJmk" }
-    ]
-  },
-  neck: {
-    name: "NECK DESTRUCTION",
-    emoji: "🔥",
-    duration: "15 min",
-    description: "360° neck hypertrophy",
-    exercises: [
-      { name: "Neck Curls (Lying Face Up)", sets: 5, reps: "FAILURE", rest: 45, notes: "Head off edge, chin to chest", video: "gA3uw5yk3zU" },
-      { name: "Neck Extensions (Lying Face Down)", sets: 5, reps: "FAILURE", rest: 45, notes: "Head off edge, look up", video: "gA3uw5yk3zU" },
-      { name: "Lateral Neck Curls", sets: 4, reps: "FAILURE each side", rest: 45, notes: "Side-lying, ear to shoulder", video: "gA3uw5yk3zU" },
-      { name: "Isometric Neck Holds", sets: 3, reps: "FAILURE (time) × 4 directions", rest: 30, notes: "Push head into hand, resist", video: "gA3uw5yk3zU" }
-    ]
-  }
-};
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 // ============================================================================
-// WORKOUT DATA - STREAMLINED (Same as v4)
+// WORKOUT DATA
 // ============================================================================
 
 const WORKOUT_DATA = {
@@ -443,1341 +356,824 @@ const WORKOUT_DATA = {
 };
 
 // ============================================================================
-// STRETCH DATA - Full Body Stretch Routine
+// DAILY STAPLES — fixed macros
 // ============================================================================
 
-const STRETCH_DATA = [
-  {
-    id: 1,
-    bodyPart: "Neck",
-    muscles: "Trapezius, Sternocleidomastoid, Scalenes",
-    stretches: [
-      { name: "Neck Side Stretch", duration: "30 sec each side", video: "wQylqaCl8Zc", notes: "Ear to shoulder, gentle pull" },
-      { name: "Neck Forward Stretch", duration: "30 sec", video: "wQylqaCl8Zc", notes: "Chin to chest, hands behind head" },
-      { name: "Neck Rotation", duration: "30 sec each side", video: "wQylqaCl8Zc", notes: "Look over shoulder, gentle" }
-    ]
-  },
-  {
-    id: 2,
-    bodyPart: "Shoulders",
-    muscles: "Deltoids, Rotator Cuff",
-    stretches: [
-      { name: "Cross-Body Shoulder Stretch", duration: "30 sec each arm", video: "Jxz7S1gDiXs", notes: "Pull arm across chest" },
-      { name: "Doorway Chest/Shoulder Stretch", duration: "45 sec each arm", video: "WUdMILZ55S4", notes: "Arm on frame, lean through" },
-      { name: "Behind Back Shoulder Stretch", duration: "30 sec each arm", video: "A-F1LMmYe5Q", notes: "Reach up behind back" }
-    ]
-  },
-  {
-    id: 3,
-    bodyPart: "Chest",
-    muscles: "Pectoralis Major, Pectoralis Minor",
-    stretches: [
-      { name: "Doorway Chest Stretch", duration: "45 sec each side", video: "WUdMILZ55S4", notes: "Elbow at 90°, lean forward" },
-      { name: "Floor Chest Opener", duration: "60 sec", video: "9pON5i7DP0Q", notes: "Lie face down, arms out in T" }
-    ]
-  },
-  {
-    id: 4,
-    bodyPart: "Upper Back",
-    muscles: "Rhomboids, Lats, Traps",
-    stretches: [
-      { name: "Cat Stretch", duration: "30 sec", video: "kqnua4rHVVA", notes: "Round back up, tuck chin" },
-      { name: "Child's Pose with Reach", duration: "60 sec", video: "2JfBwFUA9y4", notes: "Walk hands forward, sink hips" },
-      { name: "Lat Stretch on Wall", duration: "30 sec each side", video: "RWDL68jHCvE", notes: "Arm on wall, lean away" }
-    ]
-  },
-  {
-    id: 5,
-    bodyPart: "Lower Back",
-    muscles: "Erector Spinae, Quadratus Lumborum",
-    stretches: [
-      { name: "Knees to Chest", duration: "45 sec", video: "DqRGodMPxdg", notes: "Hug both knees, rock gently" },
-      { name: "Supine Twist", duration: "45 sec each side", video: "2tM_W8sPtOs", notes: "Knees fall to one side, look opposite" },
-      { name: "Cat-Cow", duration: "10 reps slow", video: "kqnua4rHVVA", notes: "Alternate arch and round" }
-    ]
-  },
-  {
-    id: 6,
-    bodyPart: "Hip Flexors",
-    muscles: "Iliopsoas, Rectus Femoris",
-    stretches: [
-      { name: "Kneeling Hip Flexor Stretch", duration: "60 sec each side", video: "UWIYsL5ewug", notes: "Back knee down, squeeze glute, lean forward" },
-      { name: "Couch Stretch", duration: "60 sec each side", video: "MU07BCmGXuA", notes: "Back foot on wall/couch, stand tall" }
-    ]
-  },
-  {
-    id: 7,
-    bodyPart: "Glutes",
-    muscles: "Gluteus Maximus, Medius, Minimus, Piriformis",
-    stretches: [
-      { name: "Pigeon Pose", duration: "60 sec each side", video: "SzfFkrRWyMQ", notes: "Front shin across, back leg extended" },
-      { name: "Figure 4 Stretch", duration: "45 sec each side", video: "Y2S0fPPFRkU", notes: "Ankle on knee, pull thigh toward chest" },
-      { name: "Seated Glute Stretch", duration: "45 sec each side", video: "mI_jPKJhtxU", notes: "Cross leg over, twist toward knee" }
-    ]
-  },
-  {
-    id: 8,
-    bodyPart: "Groin / Adductors",
-    muscles: "Adductor Magnus, Longus, Brevis",
-    stretches: [
-      { name: "Butterfly Stretch", duration: "60 sec", video: "3vkFbL2gDG8", notes: "Soles together, press knees down" },
-      { name: "Frog Stretch", duration: "60 sec", video: "4Oco8R0XBUY", notes: "Knees wide, sink hips toward floor" },
-      { name: "Side Lunge Stretch", duration: "45 sec each side", video: "_wyPwiGDYec", notes: "Shift weight to one side, other leg straight" }
-    ]
-  },
-  {
-    id: 9,
-    bodyPart: "Quadriceps",
-    muscles: "Rectus Femoris, Vastus Lateralis, Medialis, Intermedius",
-    stretches: [
-      { name: "Standing Quad Stretch", duration: "45 sec each leg", video: "R3u6_eFk_Lo", notes: "Pull heel to glute, knees together" },
-      { name: "Lying Quad Stretch", duration: "60 sec each leg", video: "YUg89eeSfag", notes: "Side-lying, pull heel back" },
-      { name: "Couch Stretch", duration: "60 sec each side", video: "MU07BCmGXuA", notes: "Also hits hip flexors" }
-    ]
-  },
-  {
-    id: 10,
-    bodyPart: "Hamstrings",
-    muscles: "Biceps Femoris, Semitendinosus, Semimembranosus",
-    stretches: [
-      { name: "Standing Hamstring Stretch", duration: "45 sec each leg", video: "Ya-h4vVtbwg", notes: "Heel on elevated surface, hinge forward" },
-      { name: "Lying Hamstring Stretch", duration: "60 sec each leg", video: "FDwpEdxZ4H4", notes: "Use strap/towel, leg up toward ceiling" },
-      { name: "Seated Forward Fold", duration: "60 sec", video: "GZcSJg4k0Ec", notes: "Legs extended, reach for toes" }
-    ]
-  },
-  {
-    id: 11,
-    bodyPart: "Calves",
-    muscles: "Gastrocnemius, Soleus",
-    stretches: [
-      { name: "Wall Calf Stretch", duration: "45 sec each leg", video: "5-NPJrr_C1I", notes: "Hands on wall, back leg straight" },
-      { name: "Bent Knee Calf Stretch", duration: "30 sec each leg", video: "5-NPJrr_C1I", notes: "Same position, bend back knee for soleus" },
-      { name: "Step Drop Stretch", duration: "30 sec each leg", video: "gwbcI1xbsZM", notes: "Heel hanging off step, let it drop" }
-    ]
-  },
-  {
-    id: 12,
-    bodyPart: "Ankles & Feet",
-    muscles: "Tibialis Anterior, Peroneals, Plantar Fascia, Toe Flexors",
-    stretches: [
-      { name: "Ankle Circles", duration: "20 each direction, each foot", video: "S9xxdAewpCk", notes: "Full range of motion" },
-      { name: "Top of Foot Stretch", duration: "30 sec each foot", video: "kH6yvrz-yaM", notes: "Point toe, press top of foot into floor" },
-      { name: "Toe Splay", duration: "30 sec", video: "sON7Lk0x1iE", notes: "Spread toes wide, hold" },
-      { name: "Big Toe Stretch", duration: "30 sec each foot", video: "adbbCKNj1IM", notes: "Pull big toe up and back gently" }
-    ]
-  }
+const DAILY_STAPLES = [
+  { id: 'yogurt',   name: 'Greek Yogurt + Go Raw Pumpkin Seeds', cal: 180, pro: 8 },
+  { id: 'collagen', name: 'Vital Proteins Collagen',             cal: 70,  pro: 18 },
+  { id: 'shake',    name: 'Factor Protein Shake',                cal: 210, pro: 32 },
+  { id: 'bar',      name: "Honey Mama's Protein Bar",            cal: 260, pro: 13 },
 ];
 
 // ============================================================================
-// NUTRITION DATA
+// UTILITIES
 // ============================================================================
 
-const NUTRITION_DATA = [
-  {
-    rank: 1,
-    name: "Health Pack Meals",
-    type: "Meal Prep",
-    score: "10/10",
-    oilStatus: "✅ No Seed Oils",
-    order: "Build-A-Bowl: 10oz Steak or Chicken + Sweet Potato + Broccoli",
-    location: "340 Main St, Gaithersburg",
-    why: "THE BEST. Pre-portioned macros, zero cooking, designed for athletes.",
-    tip: "Get the 'Titan' size for max protein"
-  },
-  {
-    rank: 2,
-    name: "True Food Kitchen",
-    type: "Restaurant",
-    score: "9.5/10",
-    oilStatus: "✅ 100% Seed Oil Free",
-    order: "Grass-Fed Beef Burger (add extra patty) or Grilled Sustainable Salmon",
-    location: "221 Rio Blvd, Gaithersburg",
-    why: "100% seed oil-free. Uses ONLY olive & avocado oil.",
-    tip: "Ask for double protein on any bowl"
-  },
-  {
-    rank: 3,
-    name: "Mezeh Mediterranean",
-    type: "Fast-Casual",
-    score: "9/10",
-    oilStatus: "✅ 100% Seed Oil Free",
-    order: "Build Your Own Bowl: Double Chicken Shawarma + Hummus + Greens",
-    location: "262 Crown Park Ave, Gaithersburg",
-    why: "100% seed oil free! Massive portions. 60g+ protein for ~$18.",
-    tip: "Best value for daily post-training meals"
-  },
-  {
-    rank: 4,
-    name: "Gardenia's Cafe",
-    type: "Cafe",
-    score: "9/10",
-    oilStatus: "✅ No Seed Oils",
-    order: "Rosemary Lamb Burger (grass-fed) or Chicken Taco Salad",
-    location: "8377 Snouffer School Rd, Gaithersburg",
-    why: "Family-run. Only avocado and olive oil. Organic/non-GMO.",
-    tip: "Great for a clean sit-down meal"
-  },
-  {
-    rank: 5,
-    name: "Sweetgreen",
-    type: "Fast-Casual",
-    score: "8/10",
-    oilStatus: "⚠️ Order from Seed Oil-Free Menu",
-    order: "Miso Glazed Salmon Plate (from Seed Oil-Free Menu)",
-    location: "299 Copley Pl, Gaithersburg",
-    why: "Has specific 'Seed Oil-Free Menu' since 2025.",
-    tip: "Ask for the seed oil-free menu specifically"
-  },
-  {
-    rank: 6,
-    name: "ISAAC'S Poultry",
-    type: "Restaurant",
-    score: "7.5/10",
-    oilStatus: "⚠️ Roasted = Clean, Fried = Avoid",
-    order: "Half/Whole Roasted Chicken + Broccoli Salad",
-    location: "12163 Darnestown Rd, Gaithersburg",
-    why: "Roasted chicken is 100% clean (dry rub, no oils).",
-    tip: "Stick to roasted only"
-  },
-  {
-    rank: 7,
-    name: "CAVA",
-    type: "Fast-Casual",
-    score: "6.5/10",
-    oilStatus: "❌ Contains Seed Oils",
-    order: "Braised Lamb + Grilled Chicken Bowl",
-    location: "213 Kentlands Blvd, Gaithersburg",
-    why: "Good protein but uses sunflower/canola oil blends.",
-    tip: "Use only when other options unavailable"
+const parseNum = (s) => parseFloat(s) || 0;
+
+const parseMealMacros = (nutrition) => ({
+  cal: Math.round(parseNum(nutrition?.Calories)),
+  pro: Math.round(parseNum(nutrition?.Protein)),
+});
+
+const todayStr = () => new Date().toISOString().split('T')[0];
+
+const fmtTime = (sec) => {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${s.toString().padStart(2, '0')}`;
+};
+
+const fmtDate = (dateStr) => {
+  const d = new Date(dateStr + 'T12:00:00');
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+};
+
+const playBeep = () => {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.value = 800;
+    osc.type = 'sine';
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.5);
+  } catch (e) {}
+};
+
+const safeJsonParse = (str, fallback) => {
+  try { return JSON.parse(str); } catch { return fallback; }
+};
+
+// ============================================================================
+// MINI CHART — simple SVG line chart
+// ============================================================================
+
+function MiniChart({ data, label, unit, color }) {
+  if (!data || data.length < 2) {
+    return (
+      <div style={S.chartWrap}>
+        <span style={S.chartLabel}>{label}</span>
+        <div style={S.chartEmpty}>Need 2+ entries to chart</div>
+      </div>
+    );
   }
-];
+
+  const W = 320, H = 130;
+  const pad = { t: 15, r: 10, b: 28, l: 42 };
+  const pw = W - pad.l - pad.r;
+  const ph = H - pad.t - pad.b;
+
+  const vals = data.map(d => d.v);
+  const mn = Math.min(...vals);
+  const mx = Math.max(...vals);
+  const rng = mx - mn || 1;
+
+  const pts = data.map((d, i) => ({
+    x: pad.l + (data.length === 1 ? pw / 2 : (i / (data.length - 1)) * pw),
+    y: pad.t + ph - ((d.v - mn) / rng) * ph,
+    ...d,
+  }));
+
+  const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+
+  return (
+    <div style={S.chartWrap}>
+      <span style={S.chartLabel}>{label}</span>
+      <svg viewBox={`0 0 ${W} ${H}`} style={S.chartSvg}>
+        {[0, 0.5, 1].map(f => {
+          const y = pad.t + (1 - f) * ph;
+          const val = (mn + f * rng).toFixed(unit === 'lbs' || unit === 's' ? 0 : 1);
+          return (
+            <g key={f}>
+              <line x1={pad.l} y1={y} x2={W - pad.r} y2={y} stroke="#2C2C2C" strokeWidth="1" />
+              <text x={pad.l - 6} y={y + 3} fill="#666" fontSize="9" textAnchor="end">{val}{unit}</text>
+            </g>
+          );
+        })}
+        <path d={line} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {pts.map((p, i) => (
+          <circle key={i} cx={p.x} cy={p.y} r="4" fill={color} stroke="#000" strokeWidth="1.5" />
+        ))}
+        {pts.length > 0 && (
+          <>
+            <text x={pts[0].x} y={H - 5} fill="#666" fontSize="8" textAnchor="start">
+              {fmtDate(pts[0].date)}
+            </text>
+            {pts.length > 1 && (
+              <text x={pts[pts.length - 1].x} y={H - 5} fill="#666" fontSize="8" textAnchor="end">
+                {fmtDate(pts[pts.length - 1].date)}
+              </text>
+            )}
+          </>
+        )}
+      </svg>
+    </div>
+  );
+}
 
 // ============================================================================
-// APP COMPONENT
+// TAB ICONS
 // ============================================================================
 
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-// Icon components
-const WorkoutIcon = ({ color = 'currentColor' }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="8" width="4" height="8" rx="1"/>
-    <rect x="17" y="8" width="4" height="8" rx="1"/>
-    <path d="M7 12h10"/>
+const ScriptIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#BDC3C7' : '#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="4" y="2" width="16" height="20" rx="2" />
+    <line x1="8" y1="7" x2="16" y2="7" />
+    <line x1="8" y1="11" x2="16" y2="11" />
+    <line x1="8" y1="15" x2="12" y2="15" />
   </svg>
 );
 
-const DailyIcon = ({ color = 'currentColor' }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1.5-2s-1.5.62-1.5 2a2.5 2.5 0 0 0 2.5 2.5z"/>
-    <path d="M12 2a1 1 0 0 1 1 1v1a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1z"/>
-    <path d="M21 11h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2z"/>
-    <path d="M3 11H4a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2z"/>
-    <path d="M18.5 4.5a1 1 0 0 1 .5.87 1 1 0 0 1-.5.87 1 1 0 0 1-.5-.87 1 1 0 0 1 .5-.87z"/>
-    <path d="M5.5 4.5a1 1 0 0 1 .5.87 1 1 0 0 1-.5.87 1 1 0 0 1-.5-.87 1 1 0 0 1 .5-.87z"/>
-    <path d="M18.5 19.5a1 1 0 0 1 .5.87 1 1 0 0 1-.5.87 1 1 0 0 1-.5-.87 1 1 0 0 1 .5-.87z"/>
-    <path d="M8.5 4.5a1 1 0 0 1 .5.87 1 1 0 0 1-.5.87 1 1 0 0 1-.5-.87 1 1 0 0 1 .5-.87z"/>
-    <path d="M12 5.5a6.5 6.5 0 1 0 6.5 6.5 6.5 6.5 0 0 0-6.5-6.5z"/>
+const ShopIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#BDC3C7' : '#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
   </svg>
 );
 
-const ProgressIcon = ({ color = 'currentColor' }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="12" y1="20" x2="12" y2="10"/>
-    <line x1="18" y1="20" x2="18" y2="4"/>
-    <line x1="6" y1="20" x2="6" y2="16"/>
+const FuelIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#BDC3C7' : '#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" />
+    <path d="M12 6v6l4 2" />
   </svg>
 );
 
-const StretchIcon = ({ color = 'currentColor' }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="5" r="2"/>
-    <path d="M12 7v10"/>
-    <path d="M8 21l4-4 4 4"/>
+const GainsIcon = ({ active }) => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? '#BDC3C7' : '#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="18" y1="20" x2="18" y2="10" />
+    <line x1="12" y1="20" x2="12" y2="4" />
+    <line x1="6" y1="20" x2="6" y2="14" />
   </svg>
 );
 
-const FoodIcon = ({ color = 'currentColor' }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
-    <path d="M7 2v20"/>
-    <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3z"/>
-    <path d="M21 15v7"/>
-  </svg>
-);
+// ============================================================================
+// MAIN APP
+// ============================================================================
 
 export default function PantherApp() {
-  // Navigation
-  const [currentTab, setCurrentTab] = useState('workout');
-  
-  // Workout State
-  const [currentDay, setCurrentDay] = useState(DAYS[new Date().getDay()]);
-  const [session, setSession] = useState(null);
-  const [workoutStarted, setWorkoutStarted] = useState(false);
-  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
-  const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
-  const [currentSet, setCurrentSet] = useState(1);
-  const [isResting, setIsResting] = useState(false);
-  const [restTime, setRestTime] = useState(0);
-  const [completedExercises, setCompletedExercises] = useState(0);
-  const [totalExercises, setTotalExercises] = useState(0);
-  const [showResumePrompt, setShowResumePrompt] = useState(false);
-  
-  // Fitness Daily State
-  const [activeFitnessDaily, setActiveFitnessDaily] = useState(null);
-  const [fitnessDailyExerciseIndex, setFitnessDailyExerciseIndex] = useState(0);
-  const [fitnessDailySet, setFitnessDailySet] = useState(1);
-  const [fitnessDailyResting, setFitnessDailyResting] = useState(false);
-  const [fitnessDailyRestTime, setFitnessDailyRestTime] = useState(0);
-  
-  // Stretch State
-  const [stretchMode, setStretchMode] = useState(false);
-  const [currentStretchPartIndex, setCurrentStretchPartIndex] = useState(0);
-  const [currentStretchIndex, setCurrentStretchIndex] = useState(0);
-  
-  // Progress State
-  const [workoutHistory, setWorkoutHistory] = useState([]);
-  const [currentStreak, setCurrentStreak] = useState(0);
+  const [tab, setTab] = useState('script');
 
+  // ---- SCRIPT state ----
+  const [scriptSession, setScriptSession] = useState(() => new Date().getHours() < 14 ? 'am' : 'pm');
+  const [restTimer, setRestTimer] = useState(null);
+  const timerRef = useRef(null);
   const wakeLockRef = useRef(null);
 
-  const dayData = WORKOUT_DATA[currentDay];
-  const sessionData = session ? dayData[session] : null;
+  // ---- SHOP state ----
+  const [factorMeals, setFactorMeals] = useState(() => safeJsonParse(localStorage.getItem('p_factor_meals'), null));
+  const [hfMeals, setHfMeals] = useState(() => safeJsonParse(localStorage.getItem('p_hf_meals'), null));
+  const [factorSel, setFactorSel] = useState(() => safeJsonParse(localStorage.getItem('p_factor_sel'), []));
+  const [hfSel, setHfSel] = useState(() => safeJsonParse(localStorage.getItem('p_hf_sel'), []));
+  const [shopSearch, setShopSearch] = useState('');
+  const [shopSection, setShopSection] = useState('factor');
+  const [showImport, setShowImport] = useState(null);
+  const [importText, setImportText] = useState('');
 
-  // Load saved state on mount
+  // ---- FUEL state ----
+  const [fuelDate, setFuelDate] = useState(todayStr);
+  const [fuelChecks, setFuelChecks] = useState({});
+
+  // ---- GAINS state ----
+  const [gainsLog, setGainsLog] = useState(() => safeJsonParse(localStorage.getItem('p_gains'), []));
+  const [gForm, setGForm] = useState({ bodyweight: '', puWeight: '', puReps: '', puSets: '', hangEdge: '', hangWeight: '', hangTime: '' });
+  const [gainsView, setGainsView] = useState('log');
+
+  const today = DAYS[new Date().getDay()];
+  const dayData = WORKOUT_DATA[today];
+
+  // ---- Load fuel checks for current date ----
   useEffect(() => {
-    const history = localStorage.getItem('pantherHistory');
-    if (history) {
-      setWorkoutHistory(JSON.parse(history));
-    }
-    calculateStreak();
-    
-    const saved = localStorage.getItem('pantherWorkout');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        const savedDate = new Date(parsed.date).toDateString();
-        const today = new Date().toDateString();
-        if (savedDate === today && parsed.workoutStarted) {
-          setShowResumePrompt(true);
-        } else {
-          localStorage.removeItem('pantherWorkout');
-        }
-      } catch (e) {
-        localStorage.removeItem('pantherWorkout');
-      }
-    }
-  }, []);
+    const saved = localStorage.getItem(`p_fuel_${fuelDate}`);
+    setFuelChecks(saved ? safeJsonParse(saved, {}) : {});
+  }, [fuelDate]);
 
-  const calculateStreak = () => {
-    const history = JSON.parse(localStorage.getItem('pantherHistory') || '[]');
-    if (history.length === 0) {
-      setCurrentStreak(0);
-      return;
-    }
-    
-    let streak = 0;
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    for (let i = 0; i < 365; i++) {
-      const checkDate = new Date(today);
-      checkDate.setDate(checkDate.getDate() - i);
-      const dateStr = checkDate.toISOString().split('T')[0];
-      
-      const hasWorkout = history.some(w => w.date === dateStr);
-      if (hasWorkout || i === 0) {
-        if (hasWorkout) streak++;
-      } else {
-        break;
-      }
-    }
-    
-    setCurrentStreak(streak);
-  };
+  // ---- Persist shop data ----
+  useEffect(() => { if (factorMeals) localStorage.setItem('p_factor_meals', JSON.stringify(factorMeals)); }, [factorMeals]);
+  useEffect(() => { if (hfMeals) localStorage.setItem('p_hf_meals', JSON.stringify(hfMeals)); }, [hfMeals]);
+  useEffect(() => { localStorage.setItem('p_factor_sel', JSON.stringify(factorSel)); }, [factorSel]);
+  useEffect(() => { localStorage.setItem('p_hf_sel', JSON.stringify(hfSel)); }, [hfSel]);
 
-  // Save workout state
+  // ---- Rest timer tick ----
   useEffect(() => {
-    if (workoutStarted) {
-      const state = {
-        currentDay,
-        session,
-        workoutStarted,
-        currentSectionIndex,
-        currentExerciseIndex,
-        currentSet,
-        isResting,
-        restTime,
-        completedExercises,
-        date: new Date().toISOString()
-      };
-      localStorage.setItem('pantherWorkout', JSON.stringify(state));
+    if (restTimer !== null && restTimer > 0) {
+      timerRef.current = setTimeout(() => {
+        setRestTimer(r => {
+          if (r <= 1) { playBeep(); return null; }
+          return r - 1;
+        });
+      }, 1000);
     }
-  }, [currentDay, session, workoutStarted, currentSectionIndex, currentExerciseIndex, currentSet, isResting, restTime, completedExercises]);
+    return () => clearTimeout(timerRef.current);
+  }, [restTimer]);
 
-  const resumeWorkout = () => {
-    const saved = localStorage.getItem('pantherWorkout');
-    if (saved) {
-      const state = JSON.parse(saved);
-      setCurrentDay(state.currentDay);
-      setSession(state.session);
-      setWorkoutStarted(state.workoutStarted);
-      setCurrentSectionIndex(state.currentSectionIndex);
-      setCurrentExerciseIndex(state.currentExerciseIndex);
-      setCurrentSet(state.currentSet);
-      setIsResting(state.isResting);
-      setRestTime(state.restTime);
-      setCompletedExercises(state.completedExercises);
-      setShowResumePrompt(false);
-    }
-  };
-
-  const dismissResume = () => {
-    localStorage.removeItem('pantherWorkout');
-    setShowResumePrompt(false);
-  };
-
-  // Keyboard shortcuts
+  // ---- Screen wake lock when timer running ----
   useEffect(() => {
-    const handleKeyPress = (e) => {
-      if (stretchMode) {
-        if (e.code === 'Space') {
-          e.preventDefault();
-          nextStretch();
-        } else if (e.code === 'Escape') {
-          e.preventDefault();
-          setStretchMode(false);
-          setCurrentStretchPartIndex(0);
-          setCurrentStretchIndex(0);
-        }
-        return;
-      }
-      
-      if (activeFitnessDaily) {
-        if (e.code === 'Space') {
-          e.preventDefault();
-          if (fitnessDailyResting) {
-            skipFitnessDailyRest();
-          } else {
-            completeFitnessDailySet();
-          }
-      } else if (e.code === 'Escape') {
-        e.preventDefault();
-        exitFitnessDaily();
-      }
-        return;
-      }
-      
-      if (!workoutStarted) return;
-      if (e.code === 'Space') {
-        e.preventDefault();
-        if (isResting) {
-          skipRest();
-        } else {
-          completeSet();
-        }
-      } else if (e.code === 'Escape') {
-        e.preventDefault();
-        resetWorkout();
+    const acquire = async () => {
+      if (restTimer !== null && 'wakeLock' in navigator) {
+        try { wakeLockRef.current = await navigator.wakeLock.request('screen'); } catch {}
       }
     };
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [workoutStarted, isResting, stretchMode, currentStretchPartIndex, currentStretchIndex, activeFitnessDaily, fitnessDailyResting]);
-
-  // Screen wake lock
-  useEffect(() => {
-    const requestWakeLock = async () => {
-      if ((workoutStarted || stretchMode || activeFitnessDaily) && 'wakeLock' in navigator) {
-        try {
-          wakeLockRef.current = await navigator.wakeLock.request('screen');
-        } catch (err) {}
-      }
-    };
-    const releaseWakeLock = async () => {
+    const release = async () => {
       if (wakeLockRef.current) {
-        try {
-          await wakeLockRef.current.release();
-          wakeLockRef.current = null;
-        } catch (err) {}
+        try { await wakeLockRef.current.release(); wakeLockRef.current = null; } catch {}
       }
     };
-    if (workoutStarted || stretchMode || activeFitnessDaily) {
-      requestWakeLock();
-    } else {
-      releaseWakeLock();
-    }
-    return () => releaseWakeLock();
-  }, [workoutStarted, stretchMode, activeFitnessDaily]);
+    if (restTimer !== null) acquire(); else release();
+    return () => release();
+  }, [restTimer !== null]);
 
-  useEffect(() => {
-    if (sessionData) {
-      let total = 0;
-      sessionData.sections.forEach(s => { total += s.exercises.length; });
-      setTotalExercises(total);
-    }
-  }, [sessionData]);
+  // ---- Handlers ----
 
-  // Rest timer for main workout
-  useEffect(() => {
-    let timer;
-    if (isResting && restTime > 0) {
-      timer = setInterval(() => {
-        setRestTime(t => {
-          if (t <= 1) {
-            playNotification();
-            setIsResting(false);
-            return 0;
-          }
-          return t - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [isResting, restTime]);
+  const startRest = (seconds) => setRestTimer(seconds);
+  const cancelRest = () => { setRestTimer(null); clearTimeout(timerRef.current); };
 
-  // Rest timer for Fitness Daily
-  useEffect(() => {
-    let timer;
-    if (fitnessDailyResting && fitnessDailyRestTime > 0) {
-      timer = setInterval(() => {
-        setFitnessDailyRestTime(t => {
-          if (t <= 1) {
-            playNotification();
-            setFitnessDailyResting(false);
-            return 0;
-          }
-          return t - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [fitnessDailyResting, fitnessDailyRestTime]);
-
-  const playNotification = () => {
-    try {
-      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      const oscillator = audioContext.createOscillator();
-      const gainNode = audioContext.createGain();
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContext.destination);
-      oscillator.frequency.value = 800;
-      oscillator.type = 'sine';
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.5);
-    } catch (e) {}
+  const importMeals = (brand) => {
+    let raw;
+    try { raw = JSON.parse(importText); } catch { alert('Invalid JSON'); return; }
+    const meals = (raw.meals || []).map(m => ({
+      name: m.meal || m.name || 'Unknown',
+      headline: m.headline || '',
+      ...parseMealMacros(m.nutrition),
+      category: (typeof m.category === 'object' ? m.category?.name : m.category) || '',
+      type: m.meal_type || 'Meal',
+    }));
+    if (meals.length === 0) { alert('No meals found in JSON'); return; }
+    const data = { week: raw.week || '', scraped: raw.scraped_on || '', meals };
+    if (brand === 'factor') { setFactorMeals(data); setFactorSel([]); }
+    else { setHfMeals(data); setHfSel([]); }
+    setImportText('');
+    setShowImport(null);
   };
 
-  const getCurrentExercise = () => {
-    if (!sessionData) return null;
-    const section = sessionData.sections[currentSectionIndex];
-    if (!section) return null;
-    return section.exercises[currentExerciseIndex];
-  };
-
-  const getCurrentSection = () => {
-    if (!sessionData) return null;
-    return sessionData.sections[currentSectionIndex];
-  };
-
-  const completeSet = () => {
-    const exercise = getCurrentExercise();
-    if (!exercise) return;
-    if (currentSet < exercise.sets) {
-      setCurrentSet(currentSet + 1);
-      if (exercise.rest > 0) {
-        setIsResting(true);
-        setRestTime(exercise.rest);
-      }
-    } else {
-      nextExercise();
-    }
-  };
-
-  const nextExercise = () => {
-    const section = getCurrentSection();
-    setCompletedExercises(c => c + 1);
-    if (currentExerciseIndex < section.exercises.length - 1) {
-      setCurrentExerciseIndex(currentExerciseIndex + 1);
-      setCurrentSet(1);
-    } else if (currentSectionIndex < sessionData.sections.length - 1) {
-      setCurrentSectionIndex(currentSectionIndex + 1);
-      setCurrentExerciseIndex(0);
-      setCurrentSet(1);
-    } else {
-      finishWorkout();
-    }
-  };
-
-  const previousExercise = () => {
-    if (currentExerciseIndex > 0) {
-      setCurrentExerciseIndex(currentExerciseIndex - 1);
-      const prevSection = sessionData.sections[currentSectionIndex];
-      const prevExercise = prevSection.exercises[currentExerciseIndex - 1];
-      setCurrentSet(prevExercise ? prevExercise.sets : 1);
-      setCompletedExercises(c => Math.max(0, c - 1));
-    } else if (currentSectionIndex > 0) {
-      const prevSection = sessionData.sections[currentSectionIndex - 1];
-      setCurrentSectionIndex(currentSectionIndex - 1);
-      setCurrentExerciseIndex(prevSection.exercises.length - 1);
-      const prevExercise = prevSection.exercises[prevSection.exercises.length - 1];
-      setCurrentSet(prevExercise ? prevExercise.sets : 1);
-      setCompletedExercises(c => Math.max(0, c - 1));
-    }
-  };
-
-  const finishWorkout = () => {
-    const today = new Date().toISOString().split('T')[0];
-    const newEntry = {
-      date: today,
-      day: currentDay,
-      session: session,
-      title: sessionData.title,
-      completedAt: new Date().toISOString()
+  const handleFileImport = (brand, file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      let raw;
+      try { raw = JSON.parse(e.target.result); } catch { alert('Invalid JSON file'); return; }
+      const meals = (raw.meals || []).map(m => ({
+        name: m.meal || m.name || 'Unknown',
+        headline: m.headline || '',
+        ...parseMealMacros(m.nutrition),
+        category: (typeof m.category === 'object' ? m.category?.name : m.category) || '',
+        type: m.meal_type || 'Meal',
+      }));
+      if (meals.length === 0) { alert('No meals found'); return; }
+      const data = { week: raw.week || '', scraped: raw.scraped_on || '', meals };
+      if (brand === 'factor') { setFactorMeals(data); setFactorSel([]); }
+      else { setHfMeals(data); setHfSel([]); }
     };
-    
-    const history = JSON.parse(localStorage.getItem('pantherHistory') || '[]');
-    history.unshift(newEntry);
-    localStorage.setItem('pantherHistory', JSON.stringify(history.slice(0, 100)));
-    setWorkoutHistory(history.slice(0, 100));
-    calculateStreak();
-    
-    setWorkoutStarted(false);
-    setSession(null);
-    setCurrentSectionIndex(0);
-    setCurrentExerciseIndex(0);
-    setCurrentSet(1);
-    setCompletedExercises(0);
-    localStorage.removeItem('pantherWorkout');
+    reader.readAsText(file);
   };
 
-  const skipRest = () => {
-    setIsResting(false);
-    setRestTime(0);
-  };
-
-  const resetWorkout = () => {
-    setWorkoutStarted(false);
-    setSession(null);
-    setCurrentSectionIndex(0);
-    setCurrentExerciseIndex(0);
-    setCurrentSet(1);
-    setIsResting(false);
-    setRestTime(0);
-    setCompletedExercises(0);
-  };
-
-  const quickStartToday = () => {
-    const hour = new Date().getHours();
-    const todaySession = hour < 14 ? 'am' : 'pm';
-    setSession(todaySession);
-    setWorkoutStarted(true);
-  };
-
-  const formatTime = (seconds) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m}:${s.toString().padStart(2, '0')}`;
-  };
-
-  const clearHistory = () => {
-    if (window.confirm('Clear all workout history?')) {
-      localStorage.removeItem('pantherHistory');
-      setWorkoutHistory([]);
-      setCurrentStreak(0);
-    }
-  };
-
-  // Fitness Daily functions
-  const startFitnessDaily = (key) => {
-    setActiveFitnessDaily(key);
-    setFitnessDailyExerciseIndex(0);
-    setFitnessDailySet(1);
-    setFitnessDailyResting(false);
-  };
-
-  const completeFitnessDailySet = () => {
-    const workout = FITNESS_DAILY[activeFitnessDaily];
-    const exercise = workout.exercises[fitnessDailyExerciseIndex];
-    
-    if (fitnessDailySet < exercise.sets) {
-      setFitnessDailySet(fitnessDailySet + 1);
-      if (exercise.rest > 0) {
-        setFitnessDailyResting(true);
-        setFitnessDailyRestTime(exercise.rest);
-      }
+  const toggleShopSel = (brand, idx) => {
+    if (brand === 'factor') {
+      setFactorSel(prev => prev.includes(idx) ? prev.filter(i => i !== idx) : prev.length < 7 ? [...prev, idx] : prev);
     } else {
-      nextFitnessDailyExercise();
+      setHfSel(prev => prev.includes(idx) ? prev.filter(i => i !== idx) : prev.length < 7 ? [...prev, idx] : prev);
     }
   };
 
-  const nextFitnessDailyExercise = () => {
-    const workout = FITNESS_DAILY[activeFitnessDaily];
-    if (fitnessDailyExerciseIndex < workout.exercises.length - 1) {
-      setFitnessDailyExerciseIndex(fitnessDailyExerciseIndex + 1);
-      setFitnessDailySet(1);
-    } else {
-      finishFitnessDaily();
-    }
-  };
-
-  const previousFitnessDailyExercise = () => {
-    if (fitnessDailyExerciseIndex > 0) {
-      setFitnessDailyExerciseIndex(fitnessDailyExerciseIndex - 1);
-      const workout = FITNESS_DAILY[activeFitnessDaily];
-      const prevExercise = workout.exercises[fitnessDailyExerciseIndex - 1];
-      setFitnessDailySet(prevExercise ? prevExercise.sets : 1);
-    }
-  };
-
-  const finishFitnessDaily = () => {
-    const workout = FITNESS_DAILY[activeFitnessDaily];
-    const today = new Date().toISOString().split('T')[0];
-    const newEntry = {
-      date: today,
-      day: DAYS[new Date().getDay()],
-      session: 'daily',
-      title: workout.name,
-      completedAt: new Date().toISOString()
-    };
-    
-    const history = JSON.parse(localStorage.getItem('pantherHistory') || '[]');
-    history.unshift(newEntry);
-    localStorage.setItem('pantherHistory', JSON.stringify(history.slice(0, 100)));
-    setWorkoutHistory(history.slice(0, 100));
-    calculateStreak();
-    
-    exitFitnessDaily();
-  };
-
-  const skipFitnessDailyRest = () => {
-    setFitnessDailyResting(false);
-    setFitnessDailyRestTime(0);
-  };
-
-  const exitFitnessDaily = () => {
-    setActiveFitnessDaily(null);
-    setFitnessDailyExerciseIndex(0);
-    setFitnessDailySet(1);
-    setFitnessDailyResting(false);
-    setFitnessDailyRestTime(0);
-  };
-
-  // Stretch functions
-  const startStretch = () => {
-    setStretchMode(true);
-    setCurrentStretchPartIndex(0);
-    setCurrentStretchIndex(0);
-  };
-
-  const nextStretch = () => {
-    const currentPart = STRETCH_DATA[currentStretchPartIndex];
-    if (currentStretchIndex < currentPart.stretches.length - 1) {
-      setCurrentStretchIndex(currentStretchIndex + 1);
-    } else if (currentStretchPartIndex < STRETCH_DATA.length - 1) {
-      setCurrentStretchPartIndex(currentStretchPartIndex + 1);
-      setCurrentStretchIndex(0);
-    } else {
-      setStretchMode(false);
-      setCurrentStretchPartIndex(0);
-      setCurrentStretchIndex(0);
-    }
-  };
-
-  const prevStretch = () => {
-    if (currentStretchIndex > 0) {
-      setCurrentStretchIndex(currentStretchIndex - 1);
-    } else if (currentStretchPartIndex > 0) {
-      const prevPart = STRETCH_DATA[currentStretchPartIndex - 1];
-      setCurrentStretchPartIndex(currentStretchPartIndex - 1);
-      setCurrentStretchIndex(prevPart.stretches.length - 1);
-    }
-  };
-
-  const exitStretch = () => {
-    setStretchMode(false);
-    setCurrentStretchPartIndex(0);
-    setCurrentStretchIndex(0);
-  };
-
-  // ============================================================================
-  // RENDER
-  // ============================================================================
-
-  // Fitness Daily Active
-  if (activeFitnessDaily) {
-    const workout = FITNESS_DAILY[activeFitnessDaily];
-    const exercise = workout.exercises[fitnessDailyExerciseIndex];
-    const totalEx = workout.exercises.length;
-    
-    if (fitnessDailyResting) {
-      return (
-        <div style={styles.container}>
-          <div style={styles.centerContent}>
-            <p style={styles.restLabel}>REST</p>
-            <div style={styles.restTimer}>{formatTime(fitnessDailyRestTime)}</div>
-            <p style={styles.nextUpLabel}>Next: Set {fitnessDailySet}/{exercise.sets}</p>
-            <button onClick={skipFitnessDailyRest} style={styles.secondaryButton}>SKIP</button>
-          </div>
-        </div>
-      );
-    }
-
-    return (
-      <div style={styles.container}>
-        <div style={styles.workoutHeader}>
-          <button onClick={exitFitnessDaily} style={styles.exitButton}>✕</button>
-          <div style={styles.progress}>
-            <div style={styles.progressText}>{fitnessDailyExerciseIndex + 1}/{totalEx}</div>
-            <div style={styles.progressBar}>
-              <div style={{...styles.progressFill, width: `${((fitnessDailyExerciseIndex + 1) / totalEx) * 100}%`}} />
-            </div>
-          </div>
-        </div>
-
-        <p style={styles.sectionTag}>{workout.name}</p>
-        
-        <div style={styles.exerciseMain}>
-          <h1 style={styles.exerciseName}>{exercise.name}</h1>
-          
-          <div style={styles.setRepsRow}>
-            <div style={styles.statBox}>
-              <span style={styles.statLabel}>SET</span>
-              <span style={styles.statValue}>{fitnessDailySet}/{exercise.sets}</span>
-            </div>
-            <div style={styles.statBox}>
-              <span style={styles.statLabel}>REPS</span>
-              <span style={styles.statValueWhite}>{exercise.reps}</span>
-            </div>
-          </div>
-
-          {exercise.notes && <p style={styles.notes}>{exercise.notes}</p>}
-        </div>
-
-        {exercise.video && (
-          <div style={styles.videoContainer}>
-            <iframe
-              src={`https://www.youtube.com/embed/${exercise.video}?rel=0&modestbranding=1`}
-              style={styles.video}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title={exercise.name}
-            />
-          </div>
-        )}
-
-        <div style={styles.exerciseNavButtons}>
-          <button 
-            onClick={previousFitnessDailyExercise} 
-            style={{...styles.navButton, opacity: fitnessDailyExerciseIndex === 0 ? 0.3 : 1}}
-            disabled={fitnessDailyExerciseIndex === 0}
-          >
-            ← PREV
-          </button>
-          <button onClick={completeFitnessDailySet} style={styles.primaryButton}>
-            {fitnessDailySet < exercise.sets ? `DONE SET ${fitnessDailySet}` : 'NEXT →'}
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Stretch Mode
-  if (stretchMode) {
-    const currentPart = STRETCH_DATA[currentStretchPartIndex];
-    const currentStretchData = currentPart.stretches[currentStretchIndex];
-    const totalParts = STRETCH_DATA.length;
-    const totalStretchesInPart = currentPart.stretches.length;
-    
-    let totalStretches = 0;
-    let completedStretches = 0;
-    STRETCH_DATA.forEach((part, pIdx) => {
-      part.stretches.forEach((s, sIdx) => {
-        totalStretches++;
-        if (pIdx < currentStretchPartIndex || (pIdx === currentStretchPartIndex && sIdx < currentStretchIndex)) {
-          completedStretches++;
-        }
-      });
+  const toggleFuel = (key) => {
+    setFuelChecks(prev => {
+      const next = { ...prev, [key]: !prev[key] };
+      localStorage.setItem(`p_fuel_${fuelDate}`, JSON.stringify(next));
+      return next;
     });
+  };
 
+  const shiftFuelDate = (days) => {
+    const d = new Date(fuelDate + 'T12:00:00');
+    d.setDate(d.getDate() + days);
+    setFuelDate(d.toISOString().split('T')[0]);
+  };
+
+  const logGains = () => {
+    const entry = {
+      date: todayStr(),
+      bodyweight: parseFloat(gForm.bodyweight) || null,
+      pullup: (gForm.puWeight || gForm.puReps) ? {
+        weight: parseFloat(gForm.puWeight) || 0,
+        reps: parseInt(gForm.puReps) || 0,
+        sets: parseInt(gForm.puSets) || 1,
+      } : null,
+      hang: (gForm.hangEdge || gForm.hangTime) ? {
+        edge: parseFloat(gForm.hangEdge) || 0,
+        weight: parseFloat(gForm.hangWeight) || 0,
+        time: parseFloat(gForm.hangTime) || 0,
+      } : null,
+    };
+    if (!entry.bodyweight && !entry.pullup && !entry.hang) return;
+    const next = [entry, ...gainsLog].slice(0, 500);
+    setGainsLog(next);
+    localStorage.setItem('p_gains', JSON.stringify(next));
+    setGForm({ bodyweight: '', puWeight: '', puReps: '', puSets: '', hangEdge: '', hangWeight: '', hangTime: '' });
+  };
+
+  const deleteGains = (idx) => {
+    const next = gainsLog.filter((_, i) => i !== idx);
+    setGainsLog(next);
+    localStorage.setItem('p_gains', JSON.stringify(next));
+  };
+
+  // ---- Computed: fuel macros ----
+  const getSelectedMeals = (brand) => {
+    const src = brand === 'factor' ? factorMeals : hfMeals;
+    const sel = brand === 'factor' ? factorSel : hfSel;
+    if (!src) return [];
+    return sel.map(i => src.meals[i]).filter(Boolean);
+  };
+
+  const fuelTotal = (() => {
+    let cal = 0, pro = 0;
+    DAILY_STAPLES.forEach(s => { if (fuelChecks[`s_${s.id}`]) { cal += s.cal; pro += s.pro; } });
+    getSelectedMeals('factor').forEach((m, i) => { if (fuelChecks[`f_${i}`]) { cal += m.cal; pro += m.pro; } });
+    getSelectedMeals('hf').forEach((m, i) => { if (fuelChecks[`h_${i}`]) { cal += m.cal; pro += m.pro; } });
+    return { cal, pro };
+  })();
+
+  // ============================================================================
+  // RENDER: SCRIPT TAB
+  // ============================================================================
+
+  const renderScript = () => {
+    const session = dayData[scriptSession];
     return (
-      <div style={styles.container}>
-        <div style={styles.workoutHeader}>
-          <button onClick={exitStretch} style={styles.exitButton}>✕</button>
-          <div style={styles.progress}>
-            <div style={styles.progressText}>{completedStretches + 1}/{totalStretches} stretches</div>
-            <div style={styles.progressBar}>
-              <div style={{...styles.progressFill, width: `${((completedStretches + 1) / totalStretches) * 100}%`}} />
-            </div>
-          </div>
+      <>
+        <div style={S.scriptHeader}>
+          <h1 style={S.scriptDay}>{today.toUpperCase()}</h1>
+          <p style={S.scriptFocus}>{dayData.name}</p>
         </div>
 
-        <div style={styles.stretchPartCard}>
-          <div style={styles.stretchPartNumber}>{currentStretchPartIndex + 1}/{totalParts}</div>
-          <h2 style={styles.stretchPartName}>{currentPart.bodyPart}</h2>
-          <p style={styles.stretchPartMuscles}>{currentPart.muscles}</p>
+        <div style={S.sessionToggle}>
+          <button
+            onClick={() => setScriptSession('am')}
+            style={{...S.toggleBtn, ...(scriptSession === 'am' ? S.toggleActive : {})}}
+          >AM — {dayData.am.title}</button>
+          <button
+            onClick={() => setScriptSession('pm')}
+            style={{...S.toggleBtn, ...(scriptSession === 'pm' ? S.toggleActive : {})}}
+          >PM — {dayData.pm.title}</button>
         </div>
 
-        <div style={styles.stretchMain}>
-          <p style={styles.stretchCount}>Stretch {currentStretchIndex + 1} of {totalStretchesInPart}</p>
-          <h1 style={styles.stretchName}>{currentStretchData.name}</h1>
-          <div style={styles.stretchDuration}>{currentStretchData.duration}</div>
-          {currentStretchData.notes && <p style={styles.stretchNotes}>{currentStretchData.notes}</p>}
+        <div style={S.sessionMeta}>
+          <span style={S.metaDuration}>{session.duration}</span>
         </div>
 
-        {currentStretchData.video && (
-          <div style={styles.videoContainer}>
-            <iframe
-              src={`https://www.youtube.com/embed/${currentStretchData.video}?rel=0&modestbranding=1`}
-              style={styles.video}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title={currentStretchData.name}
-            />
-          </div>
-        )}
-
-        <div style={styles.stretchNavButtons}>
-          <button 
-            onClick={prevStretch} 
-            style={{...styles.stretchNavButton, opacity: (currentStretchPartIndex === 0 && currentStretchIndex === 0) ? 0.3 : 1}}
-            disabled={currentStretchPartIndex === 0 && currentStretchIndex === 0}
-          >
-            ← PREV
-          </button>
-          <button onClick={nextStretch} style={styles.primaryButton}>
-            {currentStretchPartIndex === STRETCH_DATA.length - 1 && currentStretchIndex === currentPart.stretches.length - 1 
-              ? 'FINISH' 
-              : 'NEXT →'}
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Resume prompt
-  if (showResumePrompt) {
-    return (
-      <div style={styles.container}>
-        <div style={styles.centerContent}>
-          <h1 style={styles.resumeTitle}>CONTINUE?</h1>
-          <p style={styles.resumeText}>Unfinished workout from today</p>
-          <div style={styles.resumeButtons}>
-            <button onClick={resumeWorkout} style={styles.primaryButton}>RESUME</button>
-            <button onClick={dismissResume} style={styles.secondaryButton}>Start Fresh</button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Active Workout
-  if (workoutStarted && sessionData) {
-    const exercise = getCurrentExercise();
-    const section = getCurrentSection();
-
-    if (!exercise) {
-      return (
-        <div style={styles.container}>
-          <div style={styles.centerContent}>
-            <div style={styles.completeIcon}>✓</div>
-            <h1 style={styles.completeTitle}>DONE</h1>
-            <p style={styles.completeText}>Workout logged. Rest and recover.</p>
-            <p style={styles.streakText}>🔥 {currentStreak} day streak</p>
-            <button onClick={() => { setSession(null); setCurrentTab('workout'); }} style={styles.primaryButton}>BACK</button>
-          </div>
-        </div>
-      );
-    }
-
-    if (isResting) {
-      return (
-        <div style={styles.container}>
-          <div style={styles.centerContent}>
-            <p style={styles.restLabel}>REST</p>
-            <div style={styles.restTimer}>{formatTime(restTime)}</div>
-            <p style={styles.nextUpLabel}>Next: Set {currentSet}/{exercise.sets}</p>
-            <button onClick={skipRest} style={styles.secondaryButton}>SKIP</button>
-          </div>
-        </div>
-      );
-    }
-
-    const canGoBack = currentSectionIndex > 0 || currentExerciseIndex > 0;
-
-    return (
-      <div style={styles.container}>
-        <div style={styles.workoutHeader}>
-          <button onClick={resetWorkout} style={styles.exitButton}>✕</button>
-          <div style={styles.progress}>
-            <div style={styles.progressBar}>
-              <div style={{...styles.progressFill, width: `${(completedExercises / totalExercises) * 100}%`}} />
-            </div>
-          </div>
-        </div>
-
-        <p style={styles.sectionTag}>{section.name}</p>
-        
-        <div style={styles.exerciseMain}>
-          <h1 style={styles.exerciseName}>{exercise.name}</h1>
-          
-          <div style={styles.setRepsRow}>
-            <div style={styles.statBox}>
-              <span style={styles.statLabel}>SET</span>
-              <span style={styles.statValue}>{currentSet}/{exercise.sets}</span>
-            </div>
-            <div style={styles.statBox}>
-              <span style={styles.statLabel}>REPS</span>
-              <span style={styles.statValueWhite}>{exercise.reps}</span>
-            </div>
-          </div>
-
-          {exercise.notes && <p style={styles.notes}>{exercise.notes}</p>}
-        </div>
-
-        {exercise.video && (
-          <div style={styles.videoContainer}>
-            <iframe
-              src={`https://www.youtube.com/embed/${exercise.video}?rel=0&modestbranding=1`}
-              style={styles.video}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title={exercise.name}
-            />
-          </div>
-        )}
-
-        <div style={styles.exerciseNavButtons}>
-          <button 
-            onClick={previousExercise} 
-            style={{...styles.navButton, opacity: canGoBack ? 1 : 0.3}}
-            disabled={!canGoBack}
-          >
-            ← PREV
-          </button>
-          <button onClick={completeSet} style={styles.primaryButton}>
-            {currentSet < exercise.sets ? `DONE SET ${currentSet}` : 'NEXT →'}
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Progress Tab
-  if (currentTab === 'progress') {
-    return (
-      <div style={styles.container}>
-        <div style={styles.tabHeader}>
-          <h1 style={styles.tabTitle}>PROGRESS</h1>
-        </div>
-
-        <div style={styles.streakCard}>
-          <span style={styles.streakEmoji}>🔥</span>
-          <span style={styles.streakNumber}>{currentStreak}</span>
-          <span style={styles.streakLabel}>DAY STREAK</span>
-        </div>
-
-        <div style={styles.statsRow}>
-          <div style={styles.miniStat}>
-            <span style={styles.miniStatNumber}>{workoutHistory.length}</span>
-            <span style={styles.miniStatLabel}>Total</span>
-          </div>
-          <div style={styles.miniStat}>
-            <span style={styles.miniStatNumber}>{workoutHistory.filter(w => w.session === 'am').length}</span>
-            <span style={styles.miniStatLabel}>AM</span>
-          </div>
-          <div style={styles.miniStat}>
-            <span style={styles.miniStatNumber}>{workoutHistory.filter(w => w.session === 'pm').length}</span>
-            <span style={styles.miniStatLabel}>PM</span>
-          </div>
-        </div>
-
-        <h2 style={styles.sectionHeader}>Recent Workouts</h2>
-        
-        <div style={styles.historyList}>
-          {workoutHistory.length === 0 ? (
-            <p style={styles.emptyText}>No workouts yet. Start training!</p>
-          ) : (
-            workoutHistory.slice(0, 20).map((w, i) => (
-              <div key={i} style={styles.historyItem}>
-                <div style={styles.historyLeft}>
-                  <span style={styles.historyTitle}>{w.title}</span>
-                  <span style={styles.historyMeta}>{w.day} • {w.session.toUpperCase()}</span>
+        {session.sections.map((sec, si) => (
+          <div key={si} style={S.scriptSection}>
+            <div style={S.sectionTag}>{sec.name}</div>
+            {sec.exercises.map((ex, ei) => (
+              <div key={ei} style={S.scriptCard}>
+                <div style={S.scriptCardTop}>
+                  <h3 style={S.scriptExName}>{ex.name}</h3>
+                  {ex.video && (
+                    <a
+                      href={`https://www.youtube.com/watch?v=${ex.video}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={S.videoLink}
+                      title="Watch form video"
+                    >▶</a>
+                  )}
                 </div>
-                <span style={styles.historyDate}>{new Date(w.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                <div style={S.scriptMeta}>
+                  <span style={S.scriptSets}>{ex.sets} × {ex.reps}</span>
+                  {ex.rest > 0 && (
+                    <button
+                      onClick={() => startRest(ex.rest)}
+                      style={S.restBtn}
+                    >REST {ex.rest}s</button>
+                  )}
+                </div>
+                {ex.notes && <p style={S.scriptNotes}>{ex.notes}</p>}
               </div>
-            ))
-          )}
+            ))}
+          </div>
+        ))}
+      </>
+    );
+  };
+
+  // ============================================================================
+  // RENDER: SHOP TAB
+  // ============================================================================
+
+  const renderShop = () => {
+    const src = shopSection === 'factor' ? factorMeals : hfMeals;
+    const sel = shopSection === 'factor' ? factorSel : hfSel;
+    const brand = shopSection === 'factor' ? 'factor' : 'hf';
+    const brandLabel = shopSection === 'factor' ? 'Factor' : 'HelloFresh';
+
+    const filteredMeals = src ? src.meals.filter(m =>
+      m.name.toLowerCase().includes(shopSearch.toLowerCase()) ||
+      m.headline.toLowerCase().includes(shopSearch.toLowerCase()) ||
+      m.category.toLowerCase().includes(shopSearch.toLowerCase())
+    ) : [];
+
+    const filteredIndices = src ? src.meals.map((m, i) => i).filter(i => {
+      const m = src.meals[i];
+      return m.name.toLowerCase().includes(shopSearch.toLowerCase()) ||
+        m.headline.toLowerCase().includes(shopSearch.toLowerCase()) ||
+        m.category.toLowerCase().includes(shopSearch.toLowerCase());
+    }) : [];
+
+    return (
+      <>
+        <div style={S.tabHeader}>
+          <h1 style={S.tabTitle}>SHOP MODE</h1>
+          <p style={S.tabSub}>Select 7 meals from each service</p>
         </div>
 
-        {workoutHistory.length > 0 && (
-          <button onClick={clearHistory} style={styles.dangerButton}>Clear History</button>
+        <div style={S.sessionToggle}>
+          <button
+            onClick={() => { setShopSection('factor'); setShopSearch(''); }}
+            style={{...S.toggleBtn, ...(shopSection === 'factor' ? S.toggleActive : {})}}
+          >Factor ({factorSel.length}/7)</button>
+          <button
+            onClick={() => { setShopSection('hf'); setShopSearch(''); }}
+            style={{...S.toggleBtn, ...(shopSection === 'hf' ? S.toggleActive : {})}}
+          >HelloFresh ({hfSel.length}/7)</button>
+        </div>
+
+        {!src ? (
+          <div style={S.emptyState}>
+            <p style={S.emptyTitle}>No {brandLabel} meals imported</p>
+            <p style={S.emptyText}>Run the scraper, then import the JSON here</p>
+            <div style={S.importBtns}>
+              <label style={S.primaryBtn}>
+                Upload JSON File
+                <input
+                  type="file"
+                  accept=".json"
+                  style={{ display: 'none' }}
+                  onChange={(e) => e.target.files[0] && handleFileImport(brand, e.target.files[0])}
+                />
+              </label>
+              <button onClick={() => { setShowImport(brand); setImportText(''); }} style={S.secondaryBtn}>
+                Paste JSON
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div style={S.shopMeta}>
+              <span style={S.shopWeek}>{src.week || `Scraped ${src.scraped}`}</span>
+              <span style={S.shopCount}>{src.meals.length} meals</span>
+            </div>
+
+            <div style={S.importBtnsSmall}>
+              <label style={S.smallBtn}>
+                Re-import
+                <input
+                  type="file"
+                  accept=".json"
+                  style={{ display: 'none' }}
+                  onChange={(e) => e.target.files[0] && handleFileImport(brand, e.target.files[0])}
+                />
+              </label>
+              <button onClick={() => { setShowImport(brand); setImportText(''); }} style={S.smallBtn}>
+                Paste JSON
+              </button>
+            </div>
+
+            <input
+              type="text"
+              placeholder="Search meals..."
+              value={shopSearch}
+              onChange={(e) => setShopSearch(e.target.value)}
+              style={S.searchInput}
+            />
+
+            {sel.length > 0 && (
+              <div style={S.selectedSection}>
+                <div style={S.sectionTag}>SELECTED ({sel.length}/7)</div>
+                {sel.map(idx => {
+                  const m = src.meals[idx];
+                  if (!m) return null;
+                  return (
+                    <button key={idx} onClick={() => toggleShopSel(brand, idx)} style={S.selectedChip}>
+                      <span style={S.chipName}>{m.name}</span>
+                      <span style={S.chipMacro}>{m.cal} cal · {m.pro}g</span>
+                      <span style={S.chipX}>✕</span>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            <div style={S.mealList}>
+              {filteredIndices.map(idx => {
+                const m = src.meals[idx];
+                const isSelected = sel.includes(idx);
+                const isDisabled = !isSelected && sel.length >= 7;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => !isDisabled && toggleShopSel(brand, idx)}
+                    style={{
+                      ...S.mealCard,
+                      opacity: isDisabled ? 0.35 : 1,
+                      borderColor: isSelected ? '#5D6D7E' : '#2C2C2C',
+                    }}
+                    disabled={isDisabled}
+                  >
+                    <div style={S.mealCheck}>{isSelected ? '✓' : ''}</div>
+                    <div style={S.mealInfo}>
+                      <span style={S.mealName}>{m.name}</span>
+                      {m.headline && <span style={S.mealHeadline}>{m.headline}</span>}
+                      <span style={S.mealMacro}>{m.cal} cal · {m.pro}g protein · {m.category}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </>
         )}
 
-        <div style={styles.bottomNav}>
-          <button onClick={() => setCurrentTab('workout')} style={styles.navItem}>
-            <span style={styles.navIcon}><WorkoutIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Workout</span>
-          </button>
-          <button onClick={() => setCurrentTab('daily')} style={styles.navItem}>
-            <span style={styles.navIcon}><DailyIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Daily</span>
-          </button>
-          <button onClick={() => setCurrentTab('progress')} style={{...styles.navItem, ...styles.navItemActive}}>
-            <span style={styles.navIcon}><ProgressIcon color="currentColor" /></span>
-            <span style={styles.navLabelActive}>Progress</span>
-          </button>
-          <button onClick={() => setCurrentTab('stretch')} style={styles.navItem}>
-            <span style={styles.navIcon}><StretchIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Stretch</span>
-          </button>
-          <button onClick={() => setCurrentTab('nutrition')} style={styles.navItem}>
-            <span style={styles.navIcon}><FoodIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Food</span>
-          </button>
-        </div>
-      </div>
+        {showImport && (
+          <div style={S.modal}>
+            <div style={S.modalBox}>
+              <h3 style={S.modalTitle}>Paste {showImport === 'factor' ? 'Factor' : 'HelloFresh'} JSON</h3>
+              <textarea
+                value={importText}
+                onChange={(e) => setImportText(e.target.value)}
+                placeholder="Paste the contents of the JSON file here..."
+                style={S.modalTextarea}
+              />
+              <div style={S.modalBtns}>
+                <button onClick={() => importMeals(showImport)} style={S.primaryBtn}>Import</button>
+                <button onClick={() => { setShowImport(null); setImportText(''); }} style={S.secondaryBtn}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     );
-  }
+  };
 
-  // Fitness Daily Tab
-  if (currentTab === 'daily') {
+  // ============================================================================
+  // RENDER: FUEL TAB
+  // ============================================================================
+
+  const renderFuel = () => {
+    const factorSelected = getSelectedMeals('factor');
+    const hfSelected = getSelectedMeals('hf');
+    const hasMeals = factorSelected.length > 0 || hfSelected.length > 0;
+
     return (
-      <div style={styles.container}>
-        <div style={styles.tabHeader}>
-          <h1 style={styles.tabTitle}>FITNESS DAILY</h1>
-          <p style={styles.tabSubtitle}>15-20 min destruction workouts</p>
+      <>
+        <div style={S.tabHeader}>
+          <div style={S.fuelDateRow}>
+            <button onClick={() => shiftFuelDate(-1)} style={S.dateArrow}>‹</button>
+            <div style={S.fuelDateCenter}>
+              <span style={S.fuelDateLabel}>{fmtDate(fuelDate)}</span>
+              {fuelDate !== todayStr() && (
+                <button onClick={() => setFuelDate(todayStr())} style={S.todayBtn}>Today</button>
+              )}
+            </div>
+            <button onClick={() => shiftFuelDate(1)} style={S.dateArrow}>›</button>
+          </div>
         </div>
 
-        <div style={styles.dailyList}>
-          {Object.entries(FITNESS_DAILY).map(([key, workout]) => (
+        <div style={S.macroBar}>
+          <div style={S.macroItem}>
+            <span style={S.macroNum}>{fuelTotal.cal.toLocaleString()}</span>
+            <span style={S.macroLabel}>CALORIES</span>
+          </div>
+          <div style={S.macroDivider} />
+          <div style={S.macroItem}>
+            <span style={S.macroNum}>{fuelTotal.pro}g</span>
+            <span style={S.macroLabel}>PROTEIN</span>
+          </div>
+        </div>
+
+        <div style={S.fuelSection}>
+          <div style={S.sectionTag}>STAPLES</div>
+          {DAILY_STAPLES.map(s => (
             <button
-              key={key}
-              onClick={() => startFitnessDaily(key)}
-              style={styles.dailyCard}
+              key={s.id}
+              onClick={() => toggleFuel(`s_${s.id}`)}
+              style={{...S.fuelRow, borderColor: fuelChecks[`s_${s.id}`] ? '#5D6D7E' : '#2C2C2C'}}
             >
-              <div style={styles.dailyCardLeft}>
-                <span style={styles.dailyEmoji}>{workout.emoji}</span>
-                <div>
-                  <span style={styles.dailyName}>{workout.name}</span>
-                  <span style={styles.dailyDesc}>{workout.description}</span>
-                </div>
+              <div style={{...S.fuelCheck, backgroundColor: fuelChecks[`s_${s.id}`] ? '#5D6D7E' : 'transparent'}}>
+                {fuelChecks[`s_${s.id}`] && '✓'}
               </div>
-              <span style={styles.dailyDuration}>{workout.duration}</span>
+              <div style={S.fuelInfo}>
+                <span style={{...S.fuelName, textDecoration: fuelChecks[`s_${s.id}`] ? 'line-through' : 'none', opacity: fuelChecks[`s_${s.id}`] ? 0.5 : 1}}>{s.name}</span>
+                <span style={S.fuelMacro}>{s.cal} cal · {s.pro}g protein</span>
+              </div>
             </button>
           ))}
         </div>
 
-        <div style={styles.bottomNav}>
-          <button onClick={() => setCurrentTab('workout')} style={styles.navItem}>
-            <span style={styles.navIcon}><WorkoutIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Workout</span>
-          </button>
-          <button onClick={() => setCurrentTab('daily')} style={{...styles.navItem, ...styles.navItemActive}}>
-            <span style={styles.navIcon}><DailyIcon color="currentColor" /></span>
-            <span style={styles.navLabelActive}>Daily</span>
-          </button>
-          <button onClick={() => setCurrentTab('progress')} style={styles.navItem}>
-            <span style={styles.navIcon}><ProgressIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Progress</span>
-          </button>
-          <button onClick={() => setCurrentTab('stretch')} style={styles.navItem}>
-            <span style={styles.navIcon}><StretchIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Stretch</span>
-          </button>
-          <button onClick={() => setCurrentTab('nutrition')} style={styles.navItem}>
-            <span style={styles.navIcon}><FoodIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Food</span>
-          </button>
+        <div style={S.fuelSection}>
+          <div style={S.sectionTag}>LUNCH — Factor</div>
+          {factorSelected.length === 0 ? (
+            <p style={S.fuelEmpty}>Select Factor meals in Shop Mode first</p>
+          ) : (
+            factorSelected.map((m, i) => (
+              <button
+                key={i}
+                onClick={() => toggleFuel(`f_${i}`)}
+                style={{...S.fuelRow, borderColor: fuelChecks[`f_${i}`] ? '#5D6D7E' : '#2C2C2C'}}
+              >
+                <div style={{...S.fuelCheck, backgroundColor: fuelChecks[`f_${i}`] ? '#5D6D7E' : 'transparent'}}>
+                  {fuelChecks[`f_${i}`] && '✓'}
+                </div>
+                <div style={S.fuelInfo}>
+                  <span style={{...S.fuelName, textDecoration: fuelChecks[`f_${i}`] ? 'line-through' : 'none', opacity: fuelChecks[`f_${i}`] ? 0.5 : 1}}>{m.name}</span>
+                  <span style={S.fuelMacro}>{m.cal} cal · {m.pro}g protein</span>
+                </div>
+              </button>
+            ))
+          )}
         </div>
-      </div>
+
+        <div style={S.fuelSection}>
+          <div style={S.sectionTag}>DINNER — HelloFresh</div>
+          {hfSelected.length === 0 ? (
+            <p style={S.fuelEmpty}>Select HelloFresh meals in Shop Mode first</p>
+          ) : (
+            hfSelected.map((m, i) => (
+              <button
+                key={i}
+                onClick={() => toggleFuel(`h_${i}`)}
+                style={{...S.fuelRow, borderColor: fuelChecks[`h_${i}`] ? '#5D6D7E' : '#2C2C2C'}}
+              >
+                <div style={{...S.fuelCheck, backgroundColor: fuelChecks[`h_${i}`] ? '#5D6D7E' : 'transparent'}}>
+                  {fuelChecks[`h_${i}`] && '✓'}
+                </div>
+                <div style={S.fuelInfo}>
+                  <span style={{...S.fuelName, textDecoration: fuelChecks[`h_${i}`] ? 'line-through' : 'none', opacity: fuelChecks[`h_${i}`] ? 0.5 : 1}}>{m.name}</span>
+                  <span style={S.fuelMacro}>{m.cal} cal · {m.pro}g protein</span>
+                </div>
+              </button>
+            ))
+          )}
+        </div>
+      </>
     );
-  }
+  };
 
-  // Stretch Tab
-  if (currentTab === 'stretch') {
+  // ============================================================================
+  // RENDER: GAINS TAB
+  // ============================================================================
+
+  const renderGains = () => {
+    const bwData = gainsLog.filter(e => e.bodyweight).map(e => ({ date: e.date, v: e.bodyweight })).reverse();
+    const puData = gainsLog.filter(e => e.pullup?.weight).map(e => ({ date: e.date, v: e.pullup.weight })).reverse();
+    const hangData = gainsLog.filter(e => e.hang?.time).map(e => ({ date: e.date, v: e.hang.time })).reverse();
+
     return (
-      <div style={styles.container}>
-        <div style={styles.tabHeader}>
-          <h1 style={styles.tabTitle}>FULL BODY STRETCH</h1>
-          <p style={styles.tabSubtitle}>12 body parts • ~20 minutes</p>
+      <>
+        <div style={S.tabHeader}>
+          <h1 style={S.tabTitle}>GAINS</h1>
+          <p style={S.tabSub}>Track progression metrics</p>
         </div>
 
-        <button onClick={startStretch} style={styles.quickStartButton}>
-          START STRETCH ROUTINE
-        </button>
+        <div style={S.sessionToggle}>
+          <button onClick={() => setGainsView('log')} style={{...S.toggleBtn, ...(gainsView === 'log' ? S.toggleActive : {})}}>Log</button>
+          <button onClick={() => setGainsView('charts')} style={{...S.toggleBtn, ...(gainsView === 'charts' ? S.toggleActive : {})}}>Charts</button>
+          <button onClick={() => setGainsView('history')} style={{...S.toggleBtn, ...(gainsView === 'history' ? S.toggleActive : {})}}>History</button>
+        </div>
 
-        <h2 style={styles.sectionHeader}>Body Parts Covered</h2>
-        
-        <div style={styles.stretchList}>
-          {STRETCH_DATA.map((part, i) => (
-            <div key={i} style={styles.stretchListItem}>
-              <div style={styles.stretchListNumber}>{i + 1}</div>
-              <div style={styles.stretchListInfo}>
-                <span style={styles.stretchListName}>{part.bodyPart}</span>
-                <span style={styles.stretchListMuscles}>{part.stretches.length} stretches</span>
+        {gainsView === 'log' && (
+          <div style={S.gainsForm}>
+            <div style={S.sectionTag}>BODYWEIGHT</div>
+            <div style={S.inputRow}>
+              <input
+                type="number"
+                placeholder="Weight"
+                value={gForm.bodyweight}
+                onChange={(e) => setGForm(p => ({...p, bodyweight: e.target.value}))}
+                style={S.numInput}
+              />
+              <span style={S.inputUnit}>lbs</span>
+            </div>
+
+            <div style={{...S.sectionTag, marginTop: 20}}>WEIGHTED PULL-UPS</div>
+            <div style={S.inputGrid}>
+              <div style={S.inputCol}>
+                <label style={S.inputLabel}>Added Weight</label>
+                <div style={S.inputRow}>
+                  <input type="number" placeholder="0" value={gForm.puWeight} onChange={(e) => setGForm(p => ({...p, puWeight: e.target.value}))} style={S.numInput} />
+                  <span style={S.inputUnit}>lbs</span>
+                </div>
+              </div>
+              <div style={S.inputCol}>
+                <label style={S.inputLabel}>Reps</label>
+                <input type="number" placeholder="0" value={gForm.puReps} onChange={(e) => setGForm(p => ({...p, puReps: e.target.value}))} style={S.numInput} />
+              </div>
+              <div style={S.inputCol}>
+                <label style={S.inputLabel}>Sets</label>
+                <input type="number" placeholder="0" value={gForm.puSets} onChange={(e) => setGForm(p => ({...p, puSets: e.target.value}))} style={S.numInput} />
               </div>
             </div>
-          ))}
-        </div>
 
-        <div style={styles.bottomNav}>
-          <button onClick={() => setCurrentTab('workout')} style={styles.navItem}>
-            <span style={styles.navIcon}><WorkoutIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Workout</span>
-          </button>
-          <button onClick={() => setCurrentTab('daily')} style={styles.navItem}>
-            <span style={styles.navIcon}><DailyIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Daily</span>
-          </button>
-          <button onClick={() => setCurrentTab('progress')} style={styles.navItem}>
-            <span style={styles.navIcon}><ProgressIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Progress</span>
-          </button>
-          <button onClick={() => setCurrentTab('stretch')} style={{...styles.navItem, ...styles.navItemActive}}>
-            <span style={styles.navIcon}><StretchIcon color="currentColor" /></span>
-            <span style={styles.navLabelActive}>Stretch</span>
-          </button>
-          <button onClick={() => setCurrentTab('nutrition')} style={styles.navItem}>
-            <span style={styles.navIcon}><FoodIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Food</span>
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // Nutrition Tab
-  if (currentTab === 'nutrition') {
-    return (
-      <div style={styles.container}>
-        <div style={styles.tabHeader}>
-          <h1 style={styles.tabTitle}>NUTRITION</h1>
-          <p style={styles.tabSubtitle}>Muscle-building • No seed oils</p>
-        </div>
-
-        <div style={styles.nutritionList}>
-          {NUTRITION_DATA.map((r, i) => (
-            <div key={i} style={styles.restaurantCard}>
-              <div style={styles.restaurantHeader}>
-                <span style={styles.restaurantRank}>#{r.rank}</span>
-                <span style={styles.restaurantScore}>{r.score}</span>
+            <div style={{...S.sectionTag, marginTop: 20}}>GRIP / HANGS</div>
+            <div style={S.inputGrid}>
+              <div style={S.inputCol}>
+                <label style={S.inputLabel}>Edge</label>
+                <div style={S.inputRow}>
+                  <input type="number" placeholder="0" value={gForm.hangEdge} onChange={(e) => setGForm(p => ({...p, hangEdge: e.target.value}))} style={S.numInput} />
+                  <span style={S.inputUnit}>mm</span>
+                </div>
               </div>
-              <h3 style={styles.restaurantName}>{r.name}</h3>
-              <p style={styles.restaurantType}>{r.type} • {r.location}</p>
-              <div style={styles.restaurantOil}>{r.oilStatus}</div>
-              <p style={styles.restaurantOrder}>🥊 {r.order}</p>
-              <p style={styles.restaurantWhy}>{r.why}</p>
-              {r.tip && <p style={styles.restaurantTip}>💡 {r.tip}</p>}
+              <div style={S.inputCol}>
+                <label style={S.inputLabel}>Added Wt</label>
+                <div style={S.inputRow}>
+                  <input type="number" placeholder="0" value={gForm.hangWeight} onChange={(e) => setGForm(p => ({...p, hangWeight: e.target.value}))} style={S.numInput} />
+                  <span style={S.inputUnit}>lbs</span>
+                </div>
+              </div>
+              <div style={S.inputCol}>
+                <label style={S.inputLabel}>Hold</label>
+                <div style={S.inputRow}>
+                  <input type="number" placeholder="0" value={gForm.hangTime} onChange={(e) => setGForm(p => ({...p, hangTime: e.target.value}))} style={S.numInput} />
+                  <span style={S.inputUnit}>sec</span>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
 
-        <div style={styles.bottomNav}>
-          <button onClick={() => setCurrentTab('workout')} style={styles.navItem}>
-            <span style={styles.navIcon}><WorkoutIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Workout</span>
-          </button>
-          <button onClick={() => setCurrentTab('daily')} style={styles.navItem}>
-            <span style={styles.navIcon}><DailyIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Daily</span>
-          </button>
-          <button onClick={() => setCurrentTab('progress')} style={styles.navItem}>
-            <span style={styles.navIcon}><ProgressIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Progress</span>
-          </button>
-          <button onClick={() => setCurrentTab('stretch')} style={styles.navItem}>
-            <span style={styles.navIcon}><StretchIcon color="currentColor" /></span>
-            <span style={styles.navLabel}>Stretch</span>
-          </button>
-          <button onClick={() => setCurrentTab('nutrition')} style={{...styles.navItem, ...styles.navItemActive}}>
-            <span style={styles.navIcon}><FoodIcon color="currentColor" /></span>
-            <span style={styles.navLabelActive}>Food</span>
-          </button>
-        </div>
-      </div>
+            <button onClick={logGains} style={{...S.primaryBtn, marginTop: 24}}>LOG ENTRY</button>
+          </div>
+        )}
+
+        {gainsView === 'charts' && (
+          <div style={S.chartsContainer}>
+            <MiniChart data={bwData} label="Bodyweight" unit="lbs" color="#7FB3D8" />
+            <MiniChart data={puData} label="Pull-up Weight" unit="lbs" color="#A8D8A8" />
+            <MiniChart data={hangData} label="Hang Time" unit="s" color="#D8A87F" />
+          </div>
+        )}
+
+        {gainsView === 'history' && (
+          <div style={S.historyList}>
+            {gainsLog.length === 0 ? (
+              <p style={S.fuelEmpty}>No entries yet</p>
+            ) : (
+              gainsLog.slice(0, 50).map((e, i) => (
+                <div key={i} style={S.historyCard}>
+                  <div style={S.historyTop}>
+                    <span style={S.historyDate}>{fmtDate(e.date)}</span>
+                    <button onClick={() => deleteGains(i)} style={S.historyDel}>✕</button>
+                  </div>
+                  {e.bodyweight && <div style={S.historyRow}><span style={S.historyLabel}>BW</span><span style={S.historyVal}>{e.bodyweight} lbs</span></div>}
+                  {e.pullup && <div style={S.historyRow}><span style={S.historyLabel}>Pull-up</span><span style={S.historyVal}>+{e.pullup.weight}lbs × {e.pullup.reps} reps × {e.pullup.sets} sets</span></div>}
+                  {e.hang && <div style={S.historyRow}><span style={S.historyLabel}>Hang</span><span style={S.historyVal}>{e.hang.edge}mm edge · +{e.hang.weight}lbs · {e.hang.time}s</span></div>}
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </>
     );
-  }
+  };
 
-  // Workout Tab (Home)
+  // ============================================================================
+  // MAIN RENDER
+  // ============================================================================
+
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <img src="/panther-logo.svg" alt="Panther Logo" style={styles.logoImage} />
-        <h1 style={styles.title}>PANTHER</h1>
-        {currentStreak > 0 && <p style={styles.headerStreak}>🔥 {currentStreak} day streak</p>}
-      </div>
+    <div style={S.container}>
+      {/* Rest timer overlay */}
+      {restTimer !== null && (
+        <div style={S.timerBar}>
+          <span style={S.timerLabel}>REST</span>
+          <span style={S.timerTime}>{fmtTime(restTimer)}</span>
+          <button onClick={cancelRest} style={S.timerCancel}>SKIP</button>
+        </div>
+      )}
 
-      <button onClick={quickStartToday} style={styles.quickStartButton}>
-        START TODAY'S WORKOUT
-      </button>
+      {/* Tab content */}
+      {tab === 'script' && renderScript()}
+      {tab === 'shop' && renderShop()}
+      {tab === 'fuel' && renderFuel()}
+      {tab === 'gains' && renderGains()}
 
-      <div style={styles.divider}>
-        <span style={styles.dividerText}>or choose</span>
-      </div>
-
-      <select
-        value={currentDay}
-        onChange={(e) => setCurrentDay(e.target.value)}
-        style={styles.select}
-      >
-        {DAYS.map(day => (
-          <option key={day} value={day}>{day}</option>
+      {/* Bottom nav */}
+      <div style={S.bottomNav}>
+        {[
+          { id: 'script', label: 'Script', Icon: ScriptIcon },
+          { id: 'shop',   label: 'Shop',   Icon: ShopIcon },
+          { id: 'fuel',   label: 'Fuel',   Icon: FuelIcon },
+          { id: 'gains',  label: 'Gains',  Icon: GainsIcon },
+        ].map(t => (
+          <button
+            key={t.id}
+            onClick={() => setTab(t.id)}
+            style={{...S.navItem, ...(tab === t.id ? S.navActive : {})}}
+          >
+            <t.Icon active={tab === t.id} />
+            <span style={{...S.navLabel, color: tab === t.id ? '#BDC3C7' : '#666'}}>{t.label}</span>
+          </button>
         ))}
-      </select>
-
-      <div style={styles.dayCard}>
-        <h2 style={styles.dayName}>{currentDay.toUpperCase()}</h2>
-        <h3 style={styles.dayFocus}>{dayData.name}</h3>
-      </div>
-
-      <div style={styles.sessionButtons}>
-        <button
-          onClick={() => { setSession('am'); setWorkoutStarted(true); }}
-          style={styles.sessionButton}
-        >
-          <div>
-            <span style={styles.sessionTime}>AM</span>
-            <span style={styles.sessionTitle}>{dayData.am.title}</span>
-          </div>
-          <span style={styles.sessionDuration}>{dayData.am.duration}</span>
-        </button>
-
-        <button
-          onClick={() => { setSession('pm'); setWorkoutStarted(true); }}
-          style={{...styles.sessionButton, ...styles.pmButton}}
-        >
-          <div>
-            <span style={{...styles.sessionTime, color: '#ECF0F1'}}>PM</span>
-            <span style={{...styles.sessionTitle, color: '#ECF0F1'}}>{dayData.pm.title}</span>
-          </div>
-          <span style={{...styles.sessionDuration, color: '#BDC3C7'}}>{dayData.pm.duration}</span>
-        </button>
-      </div>
-
-      <div style={styles.bottomNav}>
-        <button onClick={() => setCurrentTab('workout')} style={{...styles.navItem, ...styles.navItemActive}}>
-          <span style={styles.navIcon}><WorkoutIcon color="currentColor" /></span>
-          <span style={styles.navLabelActive}>Workout</span>
-        </button>
-        <button onClick={() => setCurrentTab('daily')} style={styles.navItem}>
-          <span style={styles.navIcon}><DailyIcon color="currentColor" /></span>
-          <span style={styles.navLabel}>Daily</span>
-        </button>
-        <button onClick={() => setCurrentTab('progress')} style={styles.navItem}>
-          <span style={styles.navIcon}><ProgressIcon color="currentColor" /></span>
-          <span style={styles.navLabel}>Progress</span>
-        </button>
-        <button onClick={() => setCurrentTab('stretch')} style={styles.navItem}>
-          <span style={styles.navIcon}><StretchIcon color="currentColor" /></span>
-          <span style={styles.navLabel}>Stretch</span>
-        </button>
-        <button onClick={() => setCurrentTab('nutrition')} style={styles.navItem}>
-          <span style={styles.navIcon}><FoodIcon color="currentColor" /></span>
-          <span style={styles.navLabel}>Food</span>
-        </button>
       </div>
     </div>
   );
@@ -1787,761 +1183,253 @@ export default function PantherApp() {
 // STYLES
 // ============================================================================
 
-const styles = {
+const S = {
   container: {
     minHeight: '100vh',
     backgroundColor: '#000',
     color: '#fff',
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     padding: '20px',
-    paddingBottom: '100px',
+    paddingBottom: '90px',
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '430px',
     margin: '0 auto',
     boxSizing: 'border-box',
-    transition: 'opacity 0.3s ease-in-out',
   },
-  header: {
-    textAlign: 'center',
-    marginBottom: '24px',
-    paddingTop: '16px',
-  },
-  logoImage: {
-    width: '80px',
-    height: '80px',
-    marginBottom: '12px',
-    display: 'block',
-    margin: '0 auto 12px auto',
-  },
-  title: {
-    fontSize: '32px',
-    fontWeight: '800',
-    letterSpacing: '6px',
-    margin: 0,
-  },
-  headerStreak: {
-    fontSize: '14px',
-    color: '#95A5A6',
-    marginTop: '8px',
-  },
-  quickStartButton: {
-    backgroundColor: '#5D6D7E',
-    color: '#ECF0F1',
-    border: 'none',
-    borderRadius: '16px',
-    padding: '20px 24px',
-    fontSize: '17px',
-    fontWeight: '700',
-    letterSpacing: '0.5px',
-    cursor: 'pointer',
-    marginBottom: '24px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.3), 0 2px 4px rgba(0,0,0,0.2)',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  divider: {
-    textAlign: 'center',
-    marginBottom: '16px',
-  },
-  dividerText: {
-    fontSize: '12px',
-    color: '#666',
-    letterSpacing: '1px',
-  },
-  select: {
-    width: '100%',
-    padding: '16px 40px 16px 16px',
-    fontSize: '16px',
-    backgroundColor: '#1A1A1A',
-    color: '#ECF0F1',
-    border: '2px solid #2C2C2C',
-    borderRadius: '12px',
-    marginBottom: '16px',
-    appearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2395A5A6' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 12px center',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    cursor: 'pointer',
-  },
-  dayCard: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: '16px',
-    padding: '24px',
-    textAlign: 'center',
-    marginBottom: '16px',
-    border: '2px solid #2C2C2C',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  dayName: {
-    fontSize: '11px',
-    letterSpacing: '3px',
-    color: '#666',
-    margin: '0 0 6px 0',
-  },
-  dayFocus: {
-    fontSize: '22px',
-    fontWeight: '700',
-    margin: 0,
-    color: '#95A5A6',
-  },
-  sessionButtons: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  sessionButton: {
-    backgroundColor: '#1A1A1A',
-    border: '2px solid #2C2C2C',
-    borderRadius: '16px',
-    padding: '20px',
-    cursor: 'pointer',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  },
-  pmButton: {
-    backgroundColor: '#5D6D7E',
-    borderColor: '#5D6D7E',
-    boxShadow: '0 4px 12px rgba(93, 109, 126, 0.3), 0 2px 4px rgba(0,0,0,0.2)',
-  },
-  sessionTime: {
-    display: 'block',
-    fontSize: '11px',
-    letterSpacing: '1px',
-    color: '#95A5A6',
-    fontWeight: '600',
-  },
-  sessionTitle: {
-    display: 'block',
-    fontSize: '16px',
-    fontWeight: '600',
-    color: '#fff',
-    marginTop: '2px',
-  },
-  sessionDuration: {
-    fontSize: '13px',
-    color: '#666',
-  },
+
+  // ---- Bottom Nav ----
   bottomNav: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#1A1A1A',
-    borderTop: '1px solid #2C2C2C',
-    display: 'flex',
-    justifyContent: 'space-around',
-    padding: '10px 0',
-    maxWidth: '430px',
-    margin: '0 auto',
-    boxShadow: '0 -2px 8px rgba(0,0,0,0.5)',
+    position: 'fixed', bottom: 0, left: 0, right: 0,
+    backgroundColor: '#111', borderTop: '1px solid #2C2C2C',
+    display: 'flex', justifyContent: 'space-around',
+    padding: '8px 0 12px', maxWidth: '430px', margin: '0 auto',
+    boxShadow: '0 -2px 8px rgba(0,0,0,0.6)',
   },
   navItem: {
-    background: 'none',
-    border: 'none',
-    color: '#666',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '2px',
-    cursor: 'pointer',
-    padding: '6px 8px',
+    background: 'none', border: 'none', color: '#666',
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px',
+    cursor: 'pointer', padding: '4px 12px',
   },
-  navItemActive: {
-    color: '#BDC3C7',
+  navActive: { color: '#BDC3C7' },
+  navLabel: { fontSize: '10px', letterSpacing: '0.5px' },
+
+  // ---- Tab headers ----
+  tabHeader: { textAlign: 'center', marginBottom: '20px', paddingTop: '12px' },
+  tabTitle: { fontSize: '22px', fontWeight: '800', letterSpacing: '4px', margin: 0 },
+  tabSub: { fontSize: '12px', color: '#666', marginTop: '6px' },
+
+  // ---- Toggle buttons ----
+  sessionToggle: { display: 'flex', gap: '8px', marginBottom: '16px' },
+  toggleBtn: {
+    flex: 1, padding: '12px 8px', fontSize: '12px', fontWeight: '600',
+    backgroundColor: '#1A1A1A', border: '2px solid #2C2C2C', borderRadius: '10px',
+    color: '#888', cursor: 'pointer', letterSpacing: '0.3px', textAlign: 'center',
   },
-  navIcon: {
-    fontSize: '18px',
-  },
-  navLabel: {
-    fontSize: '9px',
-    letterSpacing: '0.5px',
-  },
-  navLabelActive: {
-    fontSize: '9px',
-    letterSpacing: '0.5px',
-    color: '#BDC3C7',
-  },
-  workoutHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    marginBottom: '16px',
-  },
-  exitButton: {
-    backgroundColor: 'rgba(93, 109, 126, 0.2)',
-    border: '2px solid rgba(93, 109, 126, 0.3)',
-    color: '#95A5A6',
-    width: '40px',
-    height: '40px',
-    borderRadius: '12px',
-    cursor: 'pointer',
-    fontSize: '18px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  progress: {
-    flex: 1,
-  },
-  progressText: {
-    fontSize: '11px',
-    color: '#666',
-    marginBottom: '4px',
-  },
-  progressBar: {
-    height: '4px',
-    backgroundColor: '#2C2C2C',
-    borderRadius: '2px',
-    overflow: 'hidden',
-    boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.5)',
-  },
-  progressFill: {
-    height: '100%',
-    background: 'linear-gradient(90deg, #7F8C8D, #95A5A6)',
-    transition: 'width 0.3s',
-    boxShadow: 'inset 0 1px 2px rgba(255,255,255,0.2)',
-  },
+  toggleActive: { borderColor: '#5D6D7E', color: '#ECF0F1', backgroundColor: '#1E2A35' },
+
+  // ---- Section tag ----
   sectionTag: {
-    fontSize: '11px',
-    letterSpacing: '2px',
-    color: '#95A5A6',
-    textTransform: 'uppercase',
-    marginBottom: '8px',
+    fontSize: '10px', letterSpacing: '2px', color: '#5D6D7E',
+    textTransform: 'uppercase', marginBottom: '10px', fontWeight: '700',
   },
-  exerciseMain: {
-    textAlign: 'center',
-    marginBottom: '16px',
+
+  // ---- SCRIPT ----
+  scriptHeader: { textAlign: 'center', marginBottom: '16px', paddingTop: '12px' },
+  scriptDay: { fontSize: '26px', fontWeight: '800', letterSpacing: '5px', margin: 0 },
+  scriptFocus: { fontSize: '14px', color: '#95A5A6', marginTop: '4px', fontWeight: '500' },
+  sessionMeta: { textAlign: 'center', marginBottom: '16px' },
+  metaDuration: { fontSize: '13px', color: '#666', letterSpacing: '1px' },
+  scriptSection: { marginBottom: '20px' },
+  scriptCard: {
+    backgroundColor: '#111', borderRadius: '12px', padding: '14px 16px',
+    marginBottom: '8px', border: '1px solid #222',
   },
-  exerciseName: {
-    fontSize: '20px',
-    fontWeight: '700',
-    margin: '0 0 16px 0',
-    lineHeight: 1.3,
+  scriptCardTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+  scriptExName: { fontSize: '15px', fontWeight: '700', margin: 0, flex: 1 },
+  videoLink: {
+    width: '30px', height: '30px', borderRadius: '8px',
+    backgroundColor: 'rgba(93,109,126,0.2)', border: '1px solid rgba(93,109,126,0.3)',
+    color: '#95A5A6', fontSize: '12px', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', textDecoration: 'none', flexShrink: 0,
   },
-  setRepsRow: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '16px',
-    marginBottom: '12px',
+  scriptMeta: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '8px' },
+  scriptSets: { fontSize: '14px', color: '#BDC3C7', fontWeight: '600' },
+  restBtn: {
+    padding: '6px 12px', fontSize: '11px', fontWeight: '700', letterSpacing: '0.5px',
+    backgroundColor: 'rgba(93,109,126,0.15)', border: '1px solid #5D6D7E',
+    borderRadius: '6px', color: '#95A5A6', cursor: 'pointer',
   },
-  statBox: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#1A1A1A',
-    padding: '16px 24px',
-    borderRadius: '12px',
-    border: '2px solid #2C2C2C',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+  scriptNotes: { fontSize: '12px', color: '#888', margin: '8px 0 0', lineHeight: 1.4 },
+
+  // ---- Timer bar ----
+  timerBar: {
+    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+    backgroundColor: '#1A1A1A', borderBottom: '2px solid #5D6D7E',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px',
+    padding: '14px 20px', maxWidth: '430px', margin: '0 auto',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.6)',
   },
-  statLabel: {
-    fontSize: '10px',
-    letterSpacing: '1px',
-    color: '#666',
-    marginBottom: '2px',
+  timerLabel: { fontSize: '11px', letterSpacing: '3px', color: '#666' },
+  timerTime: { fontSize: '36px', fontWeight: '700', color: '#BDC3C7', fontFamily: 'monospace' },
+  timerCancel: {
+    padding: '8px 16px', fontSize: '12px', fontWeight: '700',
+    backgroundColor: 'transparent', border: '1px solid #5D6D7E',
+    borderRadius: '6px', color: '#95A5A6', cursor: 'pointer',
   },
-  statValue: {
-    fontSize: '24px',
-    fontWeight: '700',
-    color: '#BDC3C7',
-    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+
+  // ---- SHOP ----
+  emptyState: { textAlign: 'center', padding: '40px 0' },
+  emptyTitle: { fontSize: '16px', fontWeight: '600', marginBottom: '8px' },
+  emptyText: { fontSize: '13px', color: '#666', marginBottom: '24px' },
+  importBtns: { display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'center' },
+  importBtnsSmall: { display: 'flex', gap: '8px', marginBottom: '12px' },
+  primaryBtn: {
+    backgroundColor: '#5D6D7E', color: '#ECF0F1', border: 'none', borderRadius: '10px',
+    padding: '14px 24px', fontSize: '14px', fontWeight: '600', cursor: 'pointer',
+    textAlign: 'center', display: 'inline-block', width: '100%',
   },
-  statValueWhite: {
-    fontSize: '24px',
-    fontWeight: '700',
-    color: '#fff',
+  secondaryBtn: {
+    backgroundColor: 'transparent', border: '2px solid #5D6D7E', color: '#95A5A6',
+    borderRadius: '10px', padding: '12px 24px', fontSize: '14px', fontWeight: '600',
+    cursor: 'pointer', width: '100%',
   },
-  notes: {
-    fontSize: '13px',
-    color: '#BDC3C7',
-    margin: 0,
-    padding: '10px 14px',
-    backgroundColor: '#1A1A1A',
-    borderRadius: '8px',
+  smallBtn: {
+    backgroundColor: '#1A1A1A', border: '1px solid #2C2C2C', color: '#888',
+    borderRadius: '8px', padding: '8px 14px', fontSize: '11px', fontWeight: '600',
+    cursor: 'pointer', display: 'inline-block', textAlign: 'center',
+  },
+  shopMeta: { display: 'flex', justifyContent: 'space-between', marginBottom: '12px' },
+  shopWeek: { fontSize: '12px', color: '#95A5A6', fontWeight: '500' },
+  shopCount: { fontSize: '12px', color: '#666' },
+  searchInput: {
+    width: '100%', padding: '12px 16px', fontSize: '14px',
+    backgroundColor: '#111', color: '#ECF0F1', border: '1px solid #2C2C2C',
+    borderRadius: '10px', marginBottom: '16px', boxSizing: 'border-box',
+    outline: 'none',
+  },
+  selectedSection: { marginBottom: '16px' },
+  selectedChip: {
+    display: 'flex', alignItems: 'center', gap: '8px', width: '100%',
+    padding: '10px 14px', marginBottom: '6px', backgroundColor: '#1E2A35',
+    border: '1px solid #5D6D7E', borderRadius: '8px', cursor: 'pointer',
     textAlign: 'left',
+  },
+  chipName: { flex: 1, fontSize: '13px', fontWeight: '600', color: '#ECF0F1' },
+  chipMacro: { fontSize: '11px', color: '#95A5A6' },
+  chipX: { fontSize: '14px', color: '#888', marginLeft: '4px' },
+  mealList: { display: 'flex', flexDirection: 'column', gap: '6px' },
+  mealCard: {
+    display: 'flex', alignItems: 'flex-start', gap: '12px', width: '100%',
+    padding: '12px 14px', backgroundColor: '#111', border: '2px solid #2C2C2C',
+    borderRadius: '10px', cursor: 'pointer', textAlign: 'left',
+    transition: 'border-color 0.2s',
+  },
+  mealCheck: {
+    width: '24px', height: '24px', borderRadius: '6px', flexShrink: 0,
+    border: '2px solid #5D6D7E', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', fontSize: '14px', fontWeight: '700',
+    color: '#ECF0F1', backgroundColor: 'transparent', marginTop: '2px',
+  },
+  mealInfo: { display: 'flex', flexDirection: 'column', flex: 1 },
+  mealName: { fontSize: '14px', fontWeight: '600', color: '#ECF0F1' },
+  mealHeadline: { fontSize: '11px', color: '#888', marginTop: '2px' },
+  mealMacro: { fontSize: '11px', color: '#5D6D7E', marginTop: '4px', fontWeight: '500' },
+
+  // ---- Modal ----
+  modal: {
+    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 200,
+    backgroundColor: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', padding: '20px',
+  },
+  modalBox: {
+    backgroundColor: '#1A1A1A', borderRadius: '16px', padding: '24px',
+    width: '100%', maxWidth: '400px', border: '1px solid #2C2C2C',
+  },
+  modalTitle: { fontSize: '16px', fontWeight: '700', marginBottom: '16px', marginTop: 0 },
+  modalTextarea: {
+    width: '100%', height: '200px', padding: '12px', fontSize: '12px',
+    backgroundColor: '#111', color: '#ECF0F1', border: '1px solid #2C2C2C',
+    borderRadius: '8px', resize: 'vertical', fontFamily: 'monospace',
+    boxSizing: 'border-box', outline: 'none',
+  },
+  modalBtns: { display: 'flex', gap: '10px', marginTop: '16px' },
+
+  // ---- FUEL ----
+  fuelDateRow: { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' },
+  dateArrow: {
+    background: 'none', border: 'none', color: '#95A5A6', fontSize: '28px',
+    cursor: 'pointer', padding: '4px 12px', fontWeight: '300',
+  },
+  fuelDateCenter: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
+  fuelDateLabel: { fontSize: '16px', fontWeight: '700', letterSpacing: '0.5px' },
+  todayBtn: {
+    background: 'none', border: '1px solid #5D6D7E', color: '#95A5A6',
+    borderRadius: '4px', padding: '2px 8px', fontSize: '10px', cursor: 'pointer',
+    marginTop: '4px',
+  },
+  macroBar: {
+    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '24px',
+    backgroundColor: '#111', borderRadius: '14px', padding: '20px',
+    marginBottom: '20px', border: '2px solid #2C2C2C',
+  },
+  macroItem: { display: 'flex', flexDirection: 'column', alignItems: 'center' },
+  macroNum: { fontSize: '28px', fontWeight: '800', color: '#ECF0F1' },
+  macroLabel: { fontSize: '9px', letterSpacing: '2px', color: '#666', marginTop: '2px' },
+  macroDivider: { width: '1px', height: '36px', backgroundColor: '#2C2C2C' },
+  fuelSection: { marginBottom: '20px' },
+  fuelRow: {
+    display: 'flex', alignItems: 'center', gap: '12px', width: '100%',
+    padding: '14px', marginBottom: '6px', backgroundColor: '#111',
+    border: '2px solid #2C2C2C', borderRadius: '10px', cursor: 'pointer',
+    textAlign: 'left', transition: 'border-color 0.2s',
+  },
+  fuelCheck: {
+    width: '22px', height: '22px', borderRadius: '6px', flexShrink: 0,
+    border: '2px solid #5D6D7E', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', fontSize: '13px', fontWeight: '700', color: '#ECF0F1',
+    transition: 'background-color 0.2s',
+  },
+  fuelInfo: { display: 'flex', flexDirection: 'column', flex: 1 },
+  fuelName: { fontSize: '14px', fontWeight: '600', color: '#ECF0F1', transition: 'all 0.2s' },
+  fuelMacro: { fontSize: '11px', color: '#5D6D7E', marginTop: '3px', fontWeight: '500' },
+  fuelEmpty: { fontSize: '13px', color: '#555', padding: '16px 0', textAlign: 'center' },
+
+  // ---- GAINS ----
+  gainsForm: { marginBottom: '20px' },
+  inputRow: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' },
+  inputGrid: { display: 'flex', gap: '10px' },
+  inputCol: { flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' },
+  inputLabel: { fontSize: '10px', color: '#666', letterSpacing: '0.5px' },
+  numInput: {
+    width: '100%', padding: '12px', fontSize: '16px', fontWeight: '600',
+    backgroundColor: '#111', color: '#ECF0F1', border: '1px solid #2C2C2C',
+    borderRadius: '8px', boxSizing: 'border-box', outline: 'none',
+    textAlign: 'center',
+  },
+  inputUnit: { fontSize: '12px', color: '#666', flexShrink: 0, width: '30px' },
+
+  chartsContainer: { display: 'flex', flexDirection: 'column', gap: '16px' },
+  chartWrap: {
+    backgroundColor: '#111', borderRadius: '12px', padding: '14px',
     border: '1px solid #2C2C2C',
-    boxShadow: 'inset -1px -1px 3px rgba(0,0,0,0.4), inset 1px 1px 3px rgba(255,255,255,0.03)',
   },
-  videoContainer: {
-    aspectRatio: '16/9',
-    marginBottom: '16px',
-    borderRadius: '10px',
-    overflow: 'hidden',
-    backgroundColor: '#1A1A1A',
-    border: '1px solid #3A3A3A',
-    boxShadow: 'inset -2px -2px 4px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.3)',
-  },
-  video: {
-    width: '100%',
-    height: '100%',
-    border: 'none',
-  },
-  primaryButton: {
-    backgroundColor: '#5D6D7E',
-    color: '#ECF0F1',
-    border: 'none',
-    borderRadius: '12px',
-    padding: '18px 24px',
-    fontSize: '16px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    width: '100%',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.1)',
-  },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    border: '2px solid #5D6D7E',
-    color: '#95A5A6',
-    borderRadius: '12px',
-    padding: '16px 24px',
-    fontSize: '15px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    background: 'rgba(93, 109, 126, 0.1)',
-  },
-  dangerButton: {
-    background: 'none',
-    border: '1px solid #500',
-    color: '#a00',
-    borderRadius: '12px',
-    padding: '12px',
-    fontSize: '13px',
-    cursor: 'pointer',
-    marginTop: '16px',
-  },
-  centerContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    textAlign: 'center',
-  },
-  restLabel: {
-    fontSize: '13px',
-    letterSpacing: '4px',
-    color: '#666',
-    margin: '0 0 12px 0',
-  },
-  restTimer: {
-    fontSize: '64px',
-    fontWeight: '700',
-    color: '#BDC3C7',
-    margin: '0 0 12px 0',
-    fontFamily: "monospace",
-    textShadow: '2px 2px 4px rgba(0,0,0,0.5), -1px -1px 2px rgba(255,255,255,0.1)',
-  },
-  nextUpLabel: {
-    fontSize: '14px',
-    color: '#888',
-    marginBottom: '24px',
-  },
-  completeIcon: {
-    width: '70px',
-    height: '70px',
-    borderRadius: '50%',
-    backgroundColor: '#5D6D7E',
-    color: '#ECF0F1',
-    fontSize: '36px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '20px',
-    background: 'linear-gradient(145deg, #6B7D8E, #4D5D6E)',
-    boxShadow: 'inset -2px -2px 6px rgba(0,0,0,0.5), inset 2px 2px 6px rgba(255,255,255,0.1), 0 4px 8px rgba(0,0,0,0.3)',
-  },
-  completeTitle: {
-    fontSize: '26px',
-    fontWeight: '700',
-    margin: '0 0 8px 0',
-  },
-  completeText: {
-    fontSize: '15px',
-    color: '#888',
-    margin: '0 0 8px 0',
-  },
-  streakText: {
-    fontSize: '18px',
-    color: '#95A5A6',
-    margin: '0 0 24px 0',
-  },
-  resumeTitle: {
-    fontSize: '24px',
-    fontWeight: '700',
-    marginBottom: '12px',
-  },
-  resumeText: {
-    fontSize: '15px',
-    color: '#888',
-    marginBottom: '32px',
-  },
-  resumeButtons: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-    width: '100%',
-    maxWidth: '280px',
-  },
-  tabHeader: {
-    textAlign: 'center',
-    marginBottom: '24px',
-    paddingTop: '16px',
-  },
-  tabTitle: {
-    fontSize: '24px',
-    fontWeight: '800',
-    letterSpacing: '4px',
-    margin: 0,
-  },
-  tabSubtitle: {
-    fontSize: '12px',
-    color: '#666',
-    marginTop: '6px',
-  },
-  streakCard: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: '16px',
-    padding: '28px',
-    textAlign: 'center',
-    marginBottom: '20px',
-    border: '2px solid #2C2C2C',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  streakEmoji: {
-    fontSize: '36px',
-    marginBottom: '8px',
-  },
-  streakNumber: {
-    fontSize: '48px',
-    fontWeight: '800',
-    color: '#BDC3C7',
-    textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-  },
-  streakLabel: {
-    fontSize: '11px',
-    letterSpacing: '2px',
-    color: '#666',
-    marginTop: '4px',
-  },
-  statsRow: {
-    display: 'flex',
-    gap: '10px',
-    marginBottom: '24px',
-  },
-  miniStat: {
-    flex: 1,
-    backgroundColor: '#1A1A1A',
-    borderRadius: '12px',
-    padding: '16px',
-    textAlign: 'center',
-    border: '2px solid #2C2C2C',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  miniStatNumber: {
-    display: 'block',
-    fontSize: '22px',
-    fontWeight: '700',
-    color: '#fff',
-  },
-  miniStatLabel: {
-    display: 'block',
-    fontSize: '10px',
-    color: '#666',
-    marginTop: '4px',
-  },
-  sectionHeader: {
-    fontSize: '12px',
-    letterSpacing: '2px',
-    color: '#666',
-    margin: '0 0 12px 0',
-  },
-  historyList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-  historyItem: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: '12px',
-    padding: '16px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    border: '2px solid #2C2C2C',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  historyLeft: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  historyTitle: {
-    fontSize: '14px',
-    fontWeight: '600',
-    color: '#fff',
-  },
-  historyMeta: {
-    fontSize: '11px',
-    color: '#666',
-    marginTop: '2px',
-  },
-  historyDate: {
-    fontSize: '12px',
-    color: '#666',
-  },
-  emptyText: {
-    fontSize: '14px',
-    color: '#666',
-    textAlign: 'center',
-    padding: '40px 0',
-  },
-  nutritionList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-  },
-  restaurantCard: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: '16px',
-    padding: '18px',
-    border: '2px solid #2C2C2C',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  restaurantHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: '8px',
-  },
-  restaurantRank: {
-    fontSize: '14px',
-    fontWeight: '800',
-    color: '#BDC3C7',
-  },
-  restaurantScore: {
-    fontSize: '13px',
-    color: '#4CAF50',
-    fontWeight: '600',
-  },
-  restaurantName: {
-    fontSize: '18px',
-    fontWeight: '700',
-    margin: '0 0 4px 0',
-  },
-  restaurantType: {
-    fontSize: '12px',
-    color: '#666',
-    margin: '0 0 8px 0',
-  },
-  restaurantOil: {
-    fontSize: '12px',
-    marginBottom: '10px',
-    padding: '6px 10px',
-    backgroundColor: '#1a1a1a',
-    borderRadius: '6px',
-    display: 'inline-block',
-  },
-  restaurantOrder: {
-    fontSize: '14px',
-    color: '#95A5A6',
-    margin: '0 0 8px 0',
-    fontWeight: '600',
-  },
-  restaurantWhy: {
-    fontSize: '13px',
-    color: '#aaa',
-    margin: '0 0 8px 0',
-    lineHeight: 1.5,
-  },
-  restaurantTip: {
-    fontSize: '12px',
-    color: '#4CAF50',
-    margin: 0,
-    fontStyle: 'italic',
-  },
-  // Fitness Daily styles
-  dailyList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  dailyCard: {
-    backgroundColor: '#1A1A1A',
-    border: '2px solid #2C2C2C',
-    borderRadius: '16px',
-    padding: '18px',
-    cursor: 'pointer',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    textAlign: 'left',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  },
-  dailyCardLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-  },
-  dailyEmoji: {
-    fontSize: '24px',
-  },
-  dailyName: {
-    display: 'block',
-    fontSize: '14px',
-    fontWeight: '700',
-    color: '#fff',
-  },
-  dailyDesc: {
-    display: 'block',
-    fontSize: '11px',
-    color: '#666',
-    marginTop: '2px',
-  },
-  dailyDuration: {
-    fontSize: '12px',
-    color: '#95A5A6',
-    fontWeight: '600',
-  },
-  // Stretch styles
-  stretchList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '8px',
-  },
-  stretchListItem: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: '12px',
-    padding: '16px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '14px',
-    border: '2px solid #2C2C2C',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  stretchListNumber: {
-    width: '36px',
-    height: '36px',
-    borderRadius: '50%',
-    backgroundColor: '#5D6D7E',
-    color: '#ECF0F1',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: '14px',
-    fontWeight: '700',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  stretchListInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  stretchListName: {
-    fontSize: '15px',
-    fontWeight: '600',
-    color: '#fff',
-  },
-  stretchListMuscles: {
-    fontSize: '12px',
-    color: '#666',
-    marginTop: '2px',
-  },
-  stretchPartCard: {
-    backgroundColor: '#1A1A1A',
-    borderRadius: '16px',
-    padding: '20px',
-    textAlign: 'center',
-    marginBottom: '16px',
-    border: '2px solid #5D6D7E',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  },
-  stretchPartNumber: {
-    fontSize: '11px',
-    color: '#666',
-    letterSpacing: '2px',
-    marginBottom: '4px',
-  },
-  stretchPartName: {
-    fontSize: '24px',
-    fontWeight: '800',
-    color: '#BDC3C7',
-    margin: '0 0 4px 0',
-    textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-  },
-  stretchPartMuscles: {
-    fontSize: '12px',
-    color: '#888',
-    margin: 0,
-  },
-  stretchMain: {
-    textAlign: 'center',
-    marginBottom: '16px',
-  },
-  stretchCount: {
-    fontSize: '11px',
-    color: '#666',
-    letterSpacing: '1px',
-    marginBottom: '8px',
-  },
-  stretchName: {
-    fontSize: '20px',
-    fontWeight: '700',
-    margin: '0 0 12px 0',
-  },
-  stretchDuration: {
-    fontSize: '18px',
-    color: '#95A5A6',
-    fontWeight: '600',
-    marginBottom: '8px',
-  },
-  stretchNotes: {
-    fontSize: '13px',
-    color: '#888',
-    margin: 0,
-  },
-  stretchNavButtons: {
-    display: 'flex',
-    gap: '12px',
-    marginTop: 'auto',
-  },
-  stretchNavButton: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    border: '2px solid #5D6D7E',
-    color: '#95A5A6',
-    borderRadius: '12px',
-    padding: '16px',
-    fontSize: '15px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    background: 'rgba(93, 109, 126, 0.1)',
-  },
-  navButton: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    border: '2px solid #5D6D7E',
-    color: '#95A5A6',
-    borderRadius: '12px',
-    padding: '16px',
-    fontSize: '15px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    background: 'rgba(93, 109, 126, 0.1)',
-  },
-  exerciseNavButtons: {
-    display: 'flex',
-    gap: '12px',
-    marginTop: 'auto',
-  },
+  chartLabel: { fontSize: '11px', fontWeight: '700', letterSpacing: '1px', color: '#95A5A6', display: 'block', marginBottom: '8px' },
+  chartSvg: { width: '100%', height: 'auto', display: 'block' },
+  chartEmpty: { fontSize: '12px', color: '#555', textAlign: 'center', padding: '20px 0' },
+
+  historyList: { display: 'flex', flexDirection: 'column', gap: '8px' },
+  historyCard: {
+    backgroundColor: '#111', borderRadius: '10px', padding: '14px',
+    border: '1px solid #222',
+  },
+  historyTop: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' },
+  historyDate: { fontSize: '12px', fontWeight: '600', color: '#95A5A6' },
+  historyDel: {
+    background: 'none', border: 'none', color: '#555', fontSize: '14px',
+    cursor: 'pointer', padding: '2px 6px',
+  },
+  historyRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' },
+  historyLabel: { fontSize: '11px', color: '#666', fontWeight: '600', letterSpacing: '0.5px' },
+  historyVal: { fontSize: '13px', color: '#BDC3C7', fontWeight: '500' },
 };
