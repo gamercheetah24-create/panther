@@ -1,0 +1,49 @@
+name: Scrape Meals
+
+on:
+  schedule:
+    - cron: '0 12 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  scrape-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python deps
+        run: pip install requests
+      - name: Run scraper
+        working-directory: scraper
+        run: python hellofresh_scraper.py
+      - name: Move JSON outputs to public/data
+        run: |
+          mkdir -p public/data
+          [ -f scraper/factor_output/factor_week.json ] && cp scraper/factor_output/factor_week.json public/data/factor_week.json || echo "No Factor JSON"
+          [ -f scraper/hellofresh_output/hellofresh_week.json ] && cp scraper/hellofresh_output/hellofresh_week.json public/data/hellofresh_week.json || echo "No HelloFresh JSON"
+      - name: Commit updated meal data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/
+          git diff --staged --quiet || git commit -m "Update meal data $(date -I)"
+          git push
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install & build
+        run: |
+          npm ci
+          npm run build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
