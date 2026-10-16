@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
-// PANTHER v7.0 — LOCAL-FIRST DAILY UTILITY
+// PANTHER v7.1 — LOCAL-FIRST DAILY UTILITY
 // ============================================================================
 //
 // 1. SCRIPT   — Read-only daily view + one-tap step-through workout runner
-// 2. SHOP     — Import & curate weekly Factor / HelloFresh meals
+// 2. SHOP     — Import & curate weekly Factor / HelloFresh meals (auto-fetch)
 // 3. FUEL     — Daily nutrition checklist (staples + selected meals)
-// 4. STRETCH  — Full body guided stretch routine
+// 4. STRETCH  — Full body guided stretch routine (importable)
 // 5. PROGRESS — Streak, gains logging, charts, workout history
 //
-// Workout routine loaded from text file (WorkoutRoutine_style.txt format)
+// Workout & stretch routines importable via text files
+// Meals auto-fetched from GitHub Actions or imported manually
+// Video links: YouTube embeds inline, any other URL opens in new tab
 // 100% client-side · localStorage persistence · GitHub Pages
 // ============================================================================
 
@@ -212,7 +214,7 @@ const DEFAULT_WORKOUT = {
 };
 
 // ============================================================================
-// STRETCH DATA
+// DEFAULT STRETCH DATA — used if no text file imported
 // ============================================================================
 
 const STRETCH_DATA = [
@@ -311,13 +313,17 @@ const playBeep = () => {
   } catch {}
 };
 
-const extractVideoId = (str) => {
+const parseVideoRef = (str) => {
   if (!str) return null;
   str = str.trim();
   if (/^[\w-]{10,12}$/.test(str)) return str;
   const m = str.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/|embed\/)|youtu\.be\/)([\w-]+)/);
-  return m ? m[1] : str;
+  if (m) return m[1];
+  if (/^https?:\/\//i.test(str)) return str;
+  return str;
 };
+
+const isYtId = (v) => v && /^[\w-]{10,12}$/.test(v);
 
 // ============================================================================
 // WORKOUT TEXT PARSER
@@ -357,11 +363,47 @@ function parseWorkoutText(text) {
         } else if (/^rest:\s*\d+/i.test(p)) {
           ex.rest = parseInt(p.replace(/^rest:\s*/i, ''));
         } else if (/^video:\s*.+/i.test(p)) {
-          ex.video = extractVideoId(p.replace(/^video:\s*/i, ''));
+          ex.video = parseVideoRef(p.replace(/^video:\s*/i, ''));
         } else { notes.push(p); }
       }
       ex.notes = notes.join(', ');
       curSec.exercises.push(ex);
+    }
+  }
+  return data;
+}
+
+// ============================================================================
+// STRETCH TEXT PARSER
+// ============================================================================
+
+function parseStretchText(text) {
+  const data = [];
+  let curPart = null;
+  for (const raw of text.split('\n')) {
+    const ln = raw.trim();
+    if (!ln || ln.startsWith('//')) continue;
+    if (ln.startsWith('# ') && !ln.startsWith('## ')) {
+      const p = ln.slice(2).split('|').map(s => s.trim());
+      curPart = { id: data.length + 1, bodyPart: p[0], muscles: p[1] || '', stretches: [] };
+      data.push(curPart);
+    } else if (ln.startsWith('- ')) {
+      if (!curPart) continue;
+      const parts = ln.slice(2).split('|').map(s => s.trim());
+      const str = { name: parts[0], duration: '', notes: '', video: null };
+      const noteParts = [];
+      for (let i = 1; i < parts.length; i++) {
+        const p = parts[i];
+        if (/^video:\s*.+/i.test(p)) {
+          str.video = parseVideoRef(p.replace(/^video:\s*/i, ''));
+        } else if (!str.duration && (/\d+\s*(sec|min|rep)/i.test(p) || /each/i.test(p))) {
+          str.duration = p;
+        } else {
+          noteParts.push(p);
+        }
+      }
+      str.notes = noteParts.join(', ');
+      curPart.stretches.push(str);
     }
   }
   return data;
@@ -392,6 +434,30 @@ function MiniChart({ data, label, unit, color }) {
 }
 
 // ============================================================================
+// VIDEO RENDER HELPERS
+// ============================================================================
+
+function VideoEmbed({ video, title }) {
+  if (!video) return null;
+  if (isYtId(video)) return (
+    <div style={S.videoWrap}>
+      <iframe src={`https://www.youtube.com/embed/${video}?rel=0&modestbranding=1`} style={S.video} allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen title={title}/>
+    </div>
+  );
+  return (
+    <a href={video} target="_blank" rel="noopener noreferrer" style={S.extVideoBtn}>
+      ▶ Watch Demo Video
+    </a>
+  );
+}
+
+function VideoLink({ video }) {
+  if (!video) return null;
+  const href = isYtId(video) ? `https://www.youtube.com/watch?v=${video}` : video;
+  return <a href={href} target="_blank" rel="noopener noreferrer" style={S.vidLink}>▶</a>;
+}
+
+// ============================================================================
 // ICONS
 // ============================================================================
 
@@ -411,6 +477,10 @@ export default function PantherApp() {
   // Workout data (parsed from text or default)
   const [workoutData, setWorkoutData] = useState(DEFAULT_WORKOUT);
   const [routineSource, setRoutineSource] = useState('default');
+
+  // Stretch data (importable)
+  const [stretchData, setStretchData] = useState(STRETCH_DATA);
+  const [stretchSource, setStretchSource] = useState('default');
 
   // Script tab
   const [scriptSession, setScriptSession] = useState(()=>new Date().getHours()<14?'am':'pm');
@@ -454,9 +524,11 @@ export default function PantherApp() {
   const [currentStreak, setCurrentStreak] = useState(0);
   const [progView, setProgView] = useState('overview');
 
-  // Import modal
+  // Import modals
   const [showRoutineImport, setShowRoutineImport] = useState(false);
   const [routineText, setRoutineText] = useState('');
+  const [showStretchImport, setShowStretchImport] = useState(false);
+  const [stretchText, setStretchText] = useState('');
 
   const wakeLockRef = useRef(null);
   const today = DAYS[new Date().getDay()];
@@ -473,6 +545,17 @@ export default function PantherApp() {
     }
   }, []);
 
+  // ---- Load saved stretch routine ----
+  useEffect(() => {
+    const saved = localStorage.getItem('p_stretch_text');
+    if (saved) {
+      try {
+        const parsed = parseStretchText(saved);
+        if (parsed.length > 0) { setStretchData(parsed); setStretchSource('imported'); }
+      } catch {}
+    }
+  }, []);
+
   // ---- Load fuel ----
   useEffect(() => { setFuelChecks(safeJson(localStorage.getItem(`p_fuel_${fuelDate}`),{})); }, [fuelDate]);
 
@@ -481,6 +564,27 @@ export default function PantherApp() {
   useEffect(()=>{if(hfMeals)localStorage.setItem('p_hf_meals',JSON.stringify(hfMeals));},[hfMeals]);
   useEffect(()=>{localStorage.setItem('p_factor_sel',JSON.stringify(factorSel));},[factorSel]);
   useEffect(()=>{localStorage.setItem('p_hf_sel',JSON.stringify(hfSel));},[hfSel]);
+
+  // ---- Auto-fetch meal data from GitHub Actions ----
+  useEffect(() => {
+    const base = import.meta.env.BASE_URL || '/panther/';
+    if (!factorMeals) {
+      fetch(`${base}data/factor_week.json`).then(r=>r.ok?r.json():null).then(d=>{
+        if(d?.meals?.length){
+          const meals=d.meals.map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
+          setFactorMeals({week:d.week||'',scraped:d.scraped_on||'',meals});
+        }
+      }).catch(()=>{});
+    }
+    if (!hfMeals) {
+      fetch(`${base}data/hellofresh_week.json`).then(r=>r.ok?r.json():null).then(d=>{
+        if(d?.meals?.length){
+          const meals=d.meals.map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
+          setHfMeals({week:d.week||'',scraped:d.scraped_on||'',meals});
+        }
+      }).catch(()=>{});
+    }
+  }, []);
 
   // ---- Streak calc ----
   useEffect(() => {
@@ -587,14 +691,14 @@ export default function PantherApp() {
 
   // ---- Stretch helpers ----
   const nextStretch = () => {
-    const p=STRETCH_DATA[strPartIdx];
+    const p=stretchData[strPartIdx];
     if(strIdx<p.stretches.length-1)setStrIdx(strIdx+1);
-    else if(strPartIdx<STRETCH_DATA.length-1){setStrPartIdx(strPartIdx+1);setStrIdx(0);}
+    else if(strPartIdx<stretchData.length-1){setStrPartIdx(strPartIdx+1);setStrIdx(0);}
     else exitStretch();
   };
   const prevStretch = () => {
     if(strIdx>0)setStrIdx(strIdx-1);
-    else if(strPartIdx>0){const pp=STRETCH_DATA[strPartIdx-1];setStrPartIdx(strPartIdx-1);setStrIdx(pp.stretches.length-1);}
+    else if(strPartIdx>0){const pp=stretchData[strPartIdx-1];setStrPartIdx(strPartIdx-1);setStrIdx(pp.stretches.length-1);}
   };
   const exitStretch = () => { setStretchOn(false); setStrPartIdx(0); setStrIdx(0); };
 
@@ -642,6 +746,17 @@ export default function PantherApp() {
   };
   const handleRoutineFile = (file) => { const r=new FileReader();r.onload=(e)=>importRoutine(e.target.result);r.readAsText(file); };
   const resetRoutine = () => { setWorkoutData(DEFAULT_WORKOUT); setRoutineSource('default'); localStorage.removeItem('p_workout_text'); };
+
+  // ---- Stretch import ----
+  const importStretch = (text) => {
+    const parsed = parseStretchText(text);
+    if (parsed.length === 0) { alert('Could not parse any body parts. Check the format.'); return; }
+    setStretchData(parsed); setStretchSource('imported');
+    localStorage.setItem('p_stretch_text', text);
+    setShowStretchImport(false); setStretchText('');
+  };
+  const handleStretchFile = (file) => { const r=new FileReader();r.onload=(e)=>importStretch(e.target.result);r.readAsText(file); };
+  const resetStretch = () => { setStretchData(STRETCH_DATA); setStretchSource('default'); localStorage.removeItem('p_stretch_text'); };
 
   // ============================================================================
   // WORKOUT RUNNER (full-screen step-through)
@@ -698,7 +813,7 @@ export default function PantherApp() {
           </div>
           {ex.notes&&<p style={S.notes}>{ex.notes}</p>}
         </div>
-        {ex.video&&<div style={S.videoWrap}><iframe src={`https://www.youtube.com/embed/${ex.video}?rel=0&modestbranding=1`} style={S.video} allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen title={ex.name}/></div>}
+        <VideoEmbed video={ex.video} title={ex.name}/>
         <div style={{display:'flex',gap:12,marginTop:'auto'}}>
           <button onClick={prevWkExercise} style={{...S.navBtn,opacity:canBack?1:0.3}} disabled={!canBack}>← PREV</button>
           <button onClick={completeWkSet} style={S.primaryBtn}>{wkSet<ex.sets?`DONE SET ${wkSet}`:'NEXT →'}</button>
@@ -712,8 +827,8 @@ export default function PantherApp() {
   // ============================================================================
 
   if (stretchOn) {
-    const part=STRETCH_DATA[strPartIdx],str=part.stretches[strIdx];
-    let totalS=0,doneS=0;STRETCH_DATA.forEach((p,pi)=>p.stretches.forEach((_,si)=>{totalS++;if(pi<strPartIdx||(pi===strPartIdx&&si<strIdx))doneS++;}));
+    const part=stretchData[strPartIdx],str=part.stretches[strIdx];
+    let totalS=0,doneS=0;stretchData.forEach((p,pi)=>p.stretches.forEach((_,si)=>{totalS++;if(pi<strPartIdx||(pi===strPartIdx&&si<strIdx))doneS++;}));
     return (
       <div style={S.container}>
         <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:16}}>
@@ -721,7 +836,7 @@ export default function PantherApp() {
           <div style={{flex:1}}><div style={{fontSize:11,color:'#666',marginBottom:4}}>{doneS+1}/{totalS}</div><div style={S.progressBar}><div style={{...S.progressFill,width:`${((doneS+1)/totalS)*100}%`}}/></div></div>
         </div>
         <div style={{backgroundColor:'#1A1A1A',borderRadius:16,padding:20,textAlign:'center',marginBottom:16,border:'2px solid #5D6D7E'}}>
-          <div style={{fontSize:11,color:'#666',letterSpacing:2}}>{strPartIdx+1}/{STRETCH_DATA.length}</div>
+          <div style={{fontSize:11,color:'#666',letterSpacing:2}}>{strPartIdx+1}/{stretchData.length}</div>
           <h2 style={{fontSize:24,fontWeight:800,color:'#BDC3C7',margin:'4px 0'}}>{part.bodyPart}</h2>
           <p style={{fontSize:12,color:'#888',margin:0}}>{part.muscles}</p>
         </div>
@@ -731,10 +846,10 @@ export default function PantherApp() {
           <div style={{fontSize:18,color:'#95A5A6',fontWeight:600,marginBottom:8}}>{str.duration}</div>
           {str.notes&&<p style={{fontSize:13,color:'#888',margin:0}}>{str.notes}</p>}
         </div>
-        {str.video&&<div style={S.videoWrap}><iframe src={`https://www.youtube.com/embed/${str.video}?rel=0&modestbranding=1`} style={S.video} allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen title={str.name}/></div>}
+        <VideoEmbed video={str.video} title={str.name}/>
         <div style={{display:'flex',gap:12,marginTop:'auto'}}>
           <button onClick={prevStretch} style={{...S.navBtn,opacity:(strPartIdx===0&&strIdx===0)?0.3:1}} disabled={strPartIdx===0&&strIdx===0}>← PREV</button>
-          <button onClick={nextStretch} style={S.primaryBtn}>{strPartIdx===STRETCH_DATA.length-1&&strIdx===part.stretches.length-1?'FINISH':'NEXT →'}</button>
+          <button onClick={nextStretch} style={S.primaryBtn}>{strPartIdx===stretchData.length-1&&strIdx===part.stretches.length-1?'FINISH':'NEXT →'}</button>
         </div>
       </div>
     );
@@ -767,7 +882,7 @@ export default function PantherApp() {
             <div key={ei} style={S.scriptCard}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <h3 style={{fontSize:15,fontWeight:700,margin:0,flex:1}}>{ex.name}</h3>
-                {ex.video&&<a href={`https://www.youtube.com/watch?v=${ex.video}`} target="_blank" rel="noopener noreferrer" style={S.vidLink}>▶</a>}
+                <VideoLink video={ex.video}/>
               </div>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:8}}>
                 <span style={{fontSize:14,color:'#BDC3C7',fontWeight:600}}>{ex.sets} × {ex.reps}</span>
@@ -899,17 +1014,34 @@ export default function PantherApp() {
   // ============================================================================
 
   const renderStretch = () => (<>
-    <div style={S.tabHeader}><h1 style={S.tabTitle}>FULL BODY STRETCH</h1><p style={S.tabSub}>12 body parts · ~20 minutes</p></div>
+    <div style={S.tabHeader}><h1 style={S.tabTitle}>FULL BODY STRETCH</h1><p style={S.tabSub}>{stretchData.length} body parts · ~20 minutes</p></div>
     <button onClick={()=>{setStretchOn(true);setStrPartIdx(0);setStrIdx(0);}} style={{...S.primaryBtn,marginBottom:20,padding:'20px 24px',fontSize:17}}>START STRETCH ROUTINE</button>
     <div style={S.sectionTag}>BODY PARTS COVERED</div>
     <div style={{display:'flex',flexDirection:'column',gap:8}}>
-      {STRETCH_DATA.map((p,i)=>(
+      {stretchData.map((p,i)=>(
         <div key={i} style={{backgroundColor:'#111',borderRadius:12,padding:16,display:'flex',alignItems:'center',gap:14,border:'1px solid #222'}}>
           <div style={{width:36,height:36,borderRadius:'50%',backgroundColor:'#5D6D7E',color:'#ECF0F1',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14,fontWeight:700,flexShrink:0}}>{i+1}</div>
           <div><span style={{fontSize:15,fontWeight:600,color:'#fff',display:'block'}}>{p.bodyPart}</span><span style={{fontSize:12,color:'#666',marginTop:2,display:'block'}}>{p.stretches.length} stretches</span></div>
         </div>
       ))}
     </div>
+    <div style={{display:'flex',gap:8,marginTop:16}}>
+      <button onClick={()=>setShowStretchImport(true)} style={S.smallBtn}>Import Stretches</button>
+      {stretchSource==='imported'&&<button onClick={resetStretch} style={S.smallBtn}>Reset to Default</button>}
+    </div>
+    <p style={{fontSize:11,color:'#555',marginTop:12,lineHeight:1.5}}>Import saves to this browser. Use StretchRoutine_style.txt format.</p>
+    {showStretchImport&&(
+      <div style={S.modal}><div style={S.modalBox}>
+        <h3 style={{fontSize:16,fontWeight:700,marginBottom:16,marginTop:0}}>Import Stretch Routine</h3>
+        <p style={{fontSize:12,color:'#888',marginBottom:12}}>Paste text in StretchRoutine_style.txt format, or upload a .txt file</p>
+        <label style={{...S.primaryBtn,marginBottom:10,display:'block'}}>Upload .txt File<input type="file" accept=".txt" style={{display:'none'}} onChange={e=>e.target.files[0]&&handleStretchFile(e.target.files[0])}/></label>
+        <textarea value={stretchText} onChange={e=>setStretchText(e.target.value)} placeholder="Paste stretch routine here..." style={S.modalTextarea}/>
+        <div style={{display:'flex',gap:10,marginTop:16}}>
+          <button onClick={()=>importStretch(stretchText)} style={S.primaryBtn}>Import</button>
+          <button onClick={()=>{setShowStretchImport(false);setStretchText('');}} style={S.secondaryBtn}>Cancel</button>
+        </div>
+      </div></div>
+    )}
   </>);
 
   // ============================================================================
@@ -1035,6 +1167,7 @@ const S={
   notes:{fontSize:13,color:'#BDC3C7',margin:0,padding:'10px 14px',backgroundColor:'#1A1A1A',borderRadius:8,textAlign:'left',border:'1px solid #2C2C2C'},
   videoWrap:{aspectRatio:'16/9',marginBottom:16,borderRadius:10,overflow:'hidden',backgroundColor:'#1A1A1A',border:'1px solid #3A3A3A'},
   video:{width:'100%',height:'100%',border:'none'},
+  extVideoBtn:{display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:'16px 24px',marginBottom:16,backgroundColor:'rgba(93,109,126,0.15)',border:'2px solid rgba(93,109,126,0.3)',borderRadius:12,color:'#95A5A6',fontSize:15,fontWeight:600,textDecoration:'none',cursor:'pointer'},
   scriptCard:{backgroundColor:'#111',borderRadius:12,padding:'14px 16px',marginBottom:8,border:'1px solid #222'},
   vidLink:{width:30,height:30,borderRadius:8,backgroundColor:'rgba(93,109,126,0.2)',border:'1px solid rgba(93,109,126,0.3)',color:'#95A5A6',fontSize:12,display:'flex',alignItems:'center',justifyContent:'center',textDecoration:'none',flexShrink:0},
   modal:{position:'fixed',top:0,left:0,right:0,bottom:0,zIndex:200,backgroundColor:'rgba(0,0,0,0.85)',display:'flex',alignItems:'center',justifyContent:'center',padding:20},
