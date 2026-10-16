@@ -407,7 +407,8 @@ const playBeep = () => {
 };
 
 const safeJsonParse = (str, fallback) => {
-  try { return JSON.parse(str); } catch { return fallback; }
+  if (str == null) return fallback;
+  try { const r = JSON.parse(str); return r != null ? r : fallback; } catch { return fallback; }
 };
 
 // ============================================================================
