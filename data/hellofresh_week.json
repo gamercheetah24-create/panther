@@ -1,0 +1,3792 @@
+{
+  "source": "HelloFresh weekly menu",
+  "scraped_on": "2026-10-16",
+  "week": "",
+  "meal_count": 80,
+  "meals": [
+    {
+      "meal": "Crispy Parmesan Chicken",
+      "headline": "with Garlic Scallion Couscous & Lemony Roasted Carrots",
+      "url": "https://www.hellofresh.com/recipes/crispy-parmesan-chicken-6819dfd55efe69a088447ef3",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "40 min",
+      "surcharge": "",
+      "tags": [
+        "High Fiber",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "720 kcal",
+        "Fat": "33 g",
+        "Saturated Fat": "13 g",
+        "Carbohydrate": "57 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "49 g",
+        "Cholesterol": "170 mg",
+        "Sodium": "370 mg"
+      },
+      "ingredients": [
+        "Sour Cream (1.5 tablespoon)",
+        "Pearl Couscous (0.5 cup)",
+        "Carrot (12 ounce)",
+        "Lemon (1 unit)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Chili Powder (0.06 teaspoon)",
+        "Paprika (1 teaspoon)",
+        "Chicken Cutlets (12 ounce)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Garlic (1 clove)",
+        "Scallions (2 unit)",
+        "Salt",
+        "Olive Oil (4 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Beef Shawarma Lettuce Wraps",
+      "headline": "with Tomato & Garlicky White Sauce",
+      "url": "https://www.hellofresh.com/recipes/beef-shawarma-lettuce-wraps-68503de241dee31aa69cc7f8",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Carb Conscious",
+        "Easy Prep",
+        "Gluten-Free Friendly",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Quick",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "510 kcal",
+        "Fat": "37 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "16 g",
+        "Sugar": "7 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "30 g",
+        "Cholesterol": "110 mg",
+        "Sodium": "580 mg"
+      },
+      "ingredients": [
+        "Baby Lettuce (1 unit)",
+        "Ground Beef (10 ounce)",
+        "Chicken Stock Concentrate (1 unit)",
+        "Yogurt (2 tablespoon)",
+        "Red Wine Vinegar (5 teaspoon)",
+        "Shawarma Spice Blend (0.66 tablespoon)",
+        "Mayonnaise (2 tablespoon)",
+        "Tomato (1 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Shallot (1 unit)",
+        "Salt (1 teaspoon (tsp))",
+        "Sugar (0.5 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Mango Salsa Pork Tacos",
+      "headline": "with Cilantro & Sour Cream",
+      "url": "https://www.hellofresh.com/recipes/mango-salsa-pork-tacos-67bc47b9fb63c027ee472682",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "High Protein",
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "790 kcal",
+        "Fat": "42 g",
+        "Saturated Fat": "16 g",
+        "Carbohydrate": "67 g",
+        "Sugar": "22 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "30 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "1570 mg"
+      },
+      "ingredients": [
+        "Sour Cream (1.5 tablespoon)",
+        "Onion (1 unit)",
+        "Mango (4 ounce)",
+        "Long Green Pepper (1 unit)",
+        "Ground Pork (10 ounce)",
+        "Lime (1 unit)",
+        "Flour Tortillas (6 unit)",
+        "Tex-Mex Paste (1 unit)",
+        "Southwest Spice Blend (1 tablespoon)",
+        "Cilantro (0.25 ounce)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Pork & Pepper Enchiladas",
+      "headline": "with Pico de Gallo & Lime Crema",
+      "url": "https://www.hellofresh.com/recipes/pork-pepper-enchiladas-6874f42949312dd1756bb57a",
+      "category": "Pork",
+      "difficulty": 2,
+      "prep_time": "40 min",
+      "surcharge": "",
+      "tags": [
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "920 kcal",
+        "Fat": "58 g",
+        "Saturated Fat": "23 g",
+        "Carbohydrate": "56 g",
+        "Sugar": "13 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "38 g",
+        "Cholesterol": "175 mg",
+        "Sodium": "1760 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (1 unit)",
+        "Sour Cream (3 tablespoon)",
+        "Tomato Paste (1 unit)",
+        "Ground Pork (10 ounce)",
+        "Tomato (1 unit)",
+        "Lime (1 unit)",
+        "Flour Tortillas (6 unit)",
+        "Scallions (2 unit)",
+        "Tex-Mex Paste (1 unit)",
+        "Southwest Spice Blend (1 tablespoon)",
+        "Mexican Cheese Blend (0.5 cup)",
+        "Salt",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Sesame-Soy Pork Bowls",
+      "headline": "Now get 50% more protein per serving in this HelloFresh classic!",
+      "url": "https://www.hellofresh.com/recipes/sesame-soy-pork-bowls-69c436e81f98ec4533c53d6a",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "$0.99/serving",
+      "tags": [
+        "Easy Prep",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "1270 kcal",
+        "Fat": "73 g",
+        "Saturated Fat": "22 g",
+        "Carbohydrate": "100 g",
+        "Sugar": "25 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "51 g",
+        "Cholesterol": "170 mg",
+        "Sodium": "1480 mg"
+      },
+      "ingredients": [
+        "Shredded Carrots (4 ounce)",
+        "Sesame Dressing (1.5 ounce)",
+        "Jasmine Rice (0.75 cup)",
+        "Edamame (4 ounce)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Mayonnaise (2 tablespoon)",
+        "Ground Pork (15 ounce)",
+        "Lime (1 unit)",
+        "Crispy Fried Onions (1 unit)",
+        "Sriracha (1 teaspoon)",
+        "Cilantro (0.25 ounce)",
+        "Salt",
+        "Sugar (0.5 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Soy",
+        "Wheat",
+        "Eggs",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Zucchini & Sun-Dried Tomato Risotto",
+      "headline": "with Roma Tomato & Parmesan",
+      "url": "https://www.hellofresh.com/recipes/zucchini-and-sun-dried-tomato-risotto-6920a5413dd63e95b72343ed",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "40 min",
+      "surcharge": "",
+      "tags": [
+        "Gluten-Free Friendly",
+        "Kid Friendly",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "660 kcal",
+        "Fat": "27 g",
+        "Saturated Fat": "14 g",
+        "Carbohydrate": "83 g",
+        "Sugar": "15 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "13 g",
+        "Cholesterol": "65 mg",
+        "Sodium": "1110 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (2 unit)",
+        "Zucchini (1 unit)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Arborio Rice (0.75 cup)",
+        "Sun-Dried Tomatoes (1.5 ounce)",
+        "Tomato (1 unit)",
+        "Tuscan Heat Spice (0.33 tablespoon)",
+        "Garlic (2 clove)",
+        "Shallot (1 unit)",
+        "Cream Sauce Base (4 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Ricotta Tomato Stuffed Ravioli",
+      "headline": "with Toasted Panko, Lemony Zucchini & Parsley",
+      "url": "https://www.hellofresh.com/recipes/ricotta-tomato-stuffed-ravioli-67c6b107c7d7f8f46885d8de",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Quick",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "630 kcal",
+        "Fat": "34 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "65 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "18 g",
+        "Cholesterol": "125 mg",
+        "Sodium": "980 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (1 unit)",
+        "Tomato Paste (1 unit)",
+        "Zucchini (1 unit)",
+        "Crème Fraîche (4 tablespoon)",
+        "Cream Cheese (2 tablespoon)",
+        "Lemon (1 unit)",
+        "Italian Seasoning (0.5 tablespoon)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Garlic (2 clove)",
+        "Parsley (0.25 ounce)",
+        "Fresh Tomato Ricotta Ravioli (9 ounce)",
+        "Salt",
+        "Sugar (0.25 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Eggs"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "One-Pot Chickpea, Kale & Tomato Soup",
+      "headline": "with Couscous, Parmesan & Garlic Ciabatta",
+      "url": "https://www.hellofresh.com/recipes/one-pot-chickpea-kale-and-tomato-soup-67f4bbcad0f23136022c407a",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Easy Prep",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "870 kcal",
+        "Fat": "27 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "122 g",
+        "Sugar": "22 g",
+        "Dietary Fiber": "14 g",
+        "Protein": "29 g",
+        "Cholesterol": "40 mg",
+        "Sodium": "1450 mg"
+      },
+      "ingredients": [
+        "Carrot (3 ounce)",
+        "Veggie Stock Concentrate (1 unit)",
+        "Chickpeas (1 unit)",
+        "Ciabatta (1 unit)",
+        "Onion (0.5 unit)",
+        "Crushed Tomatoes (1 unit)",
+        "Kale (4 ounce)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Mushroom Stock Concentrate (1 unit)",
+        "Garlic (1 clove)",
+        "Tuscan Heat Spice (1 tablespoon)",
+        "Garlic Powder (1 teaspoon)",
+        "Pearl Couscous (0.75 cup)",
+        "Salt",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Milk"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Cajun-Spiced Steak with Shrimp Dirty Rice",
+      "headline": "plus Roasted Green Beans & Dijon Pan Sauce",
+      "url": "https://www.hellofresh.com/recipes/cajun-spiced-steak-with-shrimp-dirty-rice-67b339292ccb8b03ddc0f4a1",
+      "category": "Seafood",
+      "difficulty": 3,
+      "prep_time": "40 min",
+      "surcharge": "$9.99/serving",
+      "tags": [
+        "Gluten-Free Friendly",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar"
+      ],
+      "nutrition": {
+        "Calories": "910 kcal",
+        "Fat": "36 g",
+        "Saturated Fat": "11 g",
+        "Carbohydrate": "87 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "55 g",
+        "Cholesterol": "325 mg",
+        "Sodium": "2030 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (1 unit)",
+        "Sour Cream (3 tablespoon)",
+        "Seafood Stock Concentrate (2 unit)",
+        "Onion (1 unit)",
+        "Green Beans (8 ounce)",
+        "Bavette Steak (10 ounce)",
+        "Chicken Stock Concentrate (1 unit)",
+        "Shrimp (10 ounce)",
+        "Cajun Spice Blend (1 tablespoon)",
+        "Parsley (0.25 ounce)",
+        "Dijon Mustard (2 teaspoon)",
+        "Jasmine Rice (0.75 cup)",
+        "Salt",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Fish",
+        "Shellfish"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Creamy Tex-Mex Steak Rigatoni",
+      "headline": "with Corn, Grape Tomatoes & Red Pepper Crema",
+      "url": "https://www.hellofresh.com/recipes/creamy-tex-mex-steak-rigatoni-69e91aa2fe534c766c45a33a",
+      "category": "Beef",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "$9.99/serving",
+      "tags": [
+        "Easy Prep",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "1000 kcal",
+        "Fat": "50 g",
+        "Saturated Fat": "22 g",
+        "Carbohydrate": "84 g",
+        "Sugar": "13 g",
+        "Dietary Fiber": "7 g",
+        "Protein": "51 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "1390 mg"
+      },
+      "ingredients": [
+        "Rigatoni Pasta (6 ounce)",
+        "Corn (2 unit)",
+        "Cotija Cheese (0.5 cup)",
+        "Bavette Steak (10 ounce)",
+        "Cream Cheese (4 tablespoon)",
+        "Chicken Stock Concentrate (1 unit)",
+        "Smoky Red Pepper Crema (4 tablespoon)",
+        "Grape Tomatoes (4 ounce)",
+        "Lime (1 unit)",
+        "Scallions (2 unit)",
+        "Tex-Mex Paste (0.5 unit)",
+        "Cilantro (0.25 ounce)",
+        "Salt",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Chicken Sausage & Creamy Pesto Penne",
+      "headline": "Enjoy an abundant 3-course meal with a main, sides, and appetizers",
+      "url": "https://www.hellofresh.com/recipes/chicken-sausage-and-creamy-pesto-penne-6a6263bacf069c65a6eb485d",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "$6.99/serving",
+      "tags": [
+        "New"
+      ],
+      "nutrition": {
+        "Calories": "1100 kcal",
+        "Fat": "56 g",
+        "Saturated Fat": "17 g",
+        "Carbohydrate": "92 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "44 g",
+        "Cholesterol": "165 mg",
+        "Sodium": "2100 mg"
+      },
+      "ingredients": [
+        "Pesto (4 tablespoon)",
+        "Italian Chicken Sausage Mix (9 ounce)",
+        "Spinach (2.5 ounce)",
+        "Cream Sauce Base (4 ounce)",
+        "Italian Dressing (1.5 ounce)",
+        "Mixed Greens (4 ounce)",
+        "Penne Pasta (6 ounce)",
+        "Red Wine Vinegar (2.5 teaspoon)",
+        "Parmesan Cheese Block (1 unit)",
+        "Tomato (2 unit)",
+        "Scallions (2 unit)",
+        "Demi-Baguette (1 unit)",
+        "Salt",
+        "Olive Oil (2 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Sweet & Spicy Shrimp Ramen Stir-Fry",
+      "headline": "with Green Beans, Cabbage, Cilantro & Peanuts",
+      "url": "https://www.hellofresh.com/recipes/sweet-and-spicy-shrimp-ramen-stir-fry-68f10fa8a267a9c2fb001d1f",
+      "category": "Seafood",
+      "difficulty": 1,
+      "prep_time": "15 min",
+      "surcharge": "$1.99/serving",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "660 kcal",
+        "Fat": "18 g",
+        "Saturated Fat": "6 g",
+        "Carbohydrate": "85 g",
+        "Sugar": "29 g",
+        "Dietary Fiber": "7 g",
+        "Protein": "31 g",
+        "Cholesterol": "235 mg",
+        "Sodium": "2090 mg"
+      },
+      "ingredients": [
+        "Sweet Thai Chili Sauce (1 ounce)",
+        "Green Beans (8 ounce)",
+        "Shrimp (10 ounce)",
+        "Korean Chili Flakes (1 teaspoon)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Lime (1 unit)",
+        "Coleslaw Mix (4 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Ramen Noodles (4.5 ounce)",
+        "Cilantro (0.25 ounce)",
+        "Peanuts (0.5 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Shellfish",
+        "Sesame",
+        "Soy",
+        "Wheat",
+        "Peanuts",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Cajun Crab Cakes with Linguine",
+      "headline": "plus Creamy Bell Pepper Sauce & Parmesan Garlic Bread",
+      "url": "https://www.hellofresh.com/recipes/cajun-crab-cakes-with-linguine-6995e1c224dac753f49989ee",
+      "category": "Seafood",
+      "difficulty": 2,
+      "prep_time": "45 min",
+      "surcharge": "$12.99/serving",
+      "tags": [],
+      "nutrition": {
+        "Calories": "1130 kcal",
+        "Fat": "55 g",
+        "Saturated Fat": "24 g",
+        "Carbohydrate": "118 g",
+        "Sugar": "16 g",
+        "Dietary Fiber": "11 g",
+        "Protein": "36 g",
+        "Cholesterol": "235 mg",
+        "Sodium": "2320 mg"
+      },
+      "ingredients": [
+        "Seafood Stock Concentrate (2 unit)",
+        "Ciabatta (1 unit)",
+        "Onion (1 unit)",
+        "Cream Sauce Base (4 ounce)",
+        "Lemon (1 unit)",
+        "Linguine Pasta (6 ounce)",
+        "Cajun Spice Blend (1 tablespoon)",
+        "Parmesan Cheese Block (1 unit)",
+        "Garlic Herb Butter (2 tablespoon)",
+        "Garlic (2 clove)",
+        "Parsley (0.25 ounce)",
+        "Bell Pepper (1 unit)",
+        "Crab Cakes (8 ounce)",
+        "Celery (2.5 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Fish",
+        "Shellfish",
+        "Wheat",
+        "Soy",
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 2.6
+    },
+    {
+      "meal": "Parmesan Chive Organic Chicken & Potatoes",
+      "headline": "with Mixed Greens & Honey Dijon Dressing",
+      "url": "https://www.hellofresh.com/recipes/parmesan-chive-organic-chicken-and-potatoes-69f0ca934c854ae4e256b002",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "15 min",
+      "surcharge": "$3.99/serving",
+      "tags": [
+        "Easy Prep",
+        "Gluten-Free Friendly",
+        "High Protein",
+        "Organic Protein",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "780 kcal",
+        "Fat": "43 g",
+        "Saturated Fat": "17 g",
+        "Carbohydrate": "51 g",
+        "Sugar": "10 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "48 g",
+        "Cholesterol": "210 mg",
+        "Sodium": "700 mg"
+      },
+      "ingredients": [
+        "Cream Sauce Base (4 ounce)",
+        "Honey Dijon Dressing (1.5 ounce)",
+        "Mini Cucumber (1 unit)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Chives (0.25 ounce)",
+        "Garlic Herb Butter (2 tablespoon)",
+        "Tomato (1 unit)",
+        "Mixed Greens (2 ounce)",
+        "Organic Chicken Cutlets (12 ounce)",
+        "Potatoes (5 unit)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Spicy Tunisian Bulgur Bowls",
+      "headline": "with Zucchini, Carrots, Chermoula & Creamy Lemon Sauce",
+      "url": "https://www.hellofresh.com/recipes/spicy-tunisian-bulgur-bowls-69a6edd4e566b4ce79fdd212",
+      "category": "Veggie",
+      "difficulty": 3,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "High Fiber",
+        "Sodium Smart",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "590 kcal",
+        "Fat": "31 g",
+        "Saturated Fat": "9 g",
+        "Carbohydrate": "69 g",
+        "Sugar": "23 g",
+        "Dietary Fiber": "14 g",
+        "Protein": "12 g",
+        "Cholesterol": "30 mg",
+        "Sodium": "500 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (2 unit)",
+        "Sour Cream (3 tablespoon)",
+        "Zucchini (1 unit)",
+        "Pistachios (0.5 ounce)",
+        "Lemon (0.5 unit)",
+        "Dried Apricots (1 ounce)",
+        "Harissa Powder (0.08 tablespoon)",
+        "Tomato (1 unit)",
+        "Chili Flakes (1 teaspoon)",
+        "Carrot (9 ounce)",
+        "Bulgur Wheat (0.5 cup)",
+        "Garlic Powder (1 teaspoon)",
+        "Cilantro (0.25 ounce)",
+        "Tunisian Spice Blend (0.5 tablespoon)",
+        "Salt",
+        "Olive Oil (1.5 tablespoon (tbsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Tree Nuts",
+        "Wheat"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Falafel Wraps with Cucumber Tomato Salad",
+      "headline": "plus Garlicky White Sauce & Roasted Potato Wedges",
+      "url": "https://www.hellofresh.com/recipes/falafel-wraps-with-cucumber-tomato-salad-68d65548681e58ed6e5b30e5",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Fiber",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "740 kcal",
+        "Fat": "34 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "95 g",
+        "Sugar": "8 g",
+        "Dietary Fiber": "10 g",
+        "Protein": "16 g",
+        "Cholesterol": "25 mg",
+        "Sodium": "870 mg"
+      },
+      "ingredients": [
+        "Flour Tortillas (2 unit)",
+        "Sour Cream (4.5 tablespoon)",
+        "Falafel (10 unit)",
+        "Mini Cucumber (1 unit)",
+        "Tomato (1 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Potatoes (5 unit)",
+        "Hot Sauce (1 teaspoon)",
+        "Salt",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Milk",
+        "Sesame"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Za’atar-Roasted Zucchini & Pepper Sandos",
+      "headline": "with Griddled Onion, Sweet Potato Wedges & Harissa Mayo",
+      "url": "https://www.hellofresh.com/recipes/zaatar-roasted-zucchini-pepper-sandos-6846e8054b128cef4ed185dd",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Kid Friendly",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "830 kcal",
+        "Fat": "44 g",
+        "Saturated Fat": "13 g",
+        "Carbohydrate": "88 g",
+        "Sugar": "19 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "14 g",
+        "Cholesterol": "65 mg",
+        "Sodium": "970 mg"
+      },
+      "ingredients": [
+        "Feta Cheese (0.5 cup)",
+        "Onion (1 unit)",
+        "Zucchini (1 unit)",
+        "Sweet Potato (2 unit)",
+        "Mayonnaise (4 tablespoon)",
+        "Red Pepper Jam (0.5 unit)",
+        "Harissa Powder (0.16 tablespoon)",
+        "Bell Pepper (1 unit)",
+        "Demi-Baguette (2 unit)",
+        "Za'atar Spice (1 tablespoon)",
+        "Salt",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs",
+        "Soy",
+        "Wheat",
+        "Sesame"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Balsamic-Glazed Pork Meatloaves",
+      "headline": "with Thyme-Roasted Brussels Sprouts & Sweet Potato Jumble",
+      "url": "https://www.hellofresh.com/recipes/balsamic-glazed-pork-meatloaves-67fdd6350650f0227cb1815d",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "40 min",
+      "surcharge": "",
+      "tags": [
+        "High Fiber",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "750 kcal",
+        "Fat": "41 g",
+        "Saturated Fat": "14 g",
+        "Carbohydrate": "64 g",
+        "Sugar": "32 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "29 g",
+        "Cholesterol": "150 mg",
+        "Sodium": "530 mg"
+      },
+      "ingredients": [
+        "Plum Jam (2 unit)",
+        "Red Onion (1 unit)",
+        "Balsamic Vinegar (5 teaspoon)",
+        "Brussels Sprouts (8 ounce)",
+        "Chicken Stock Concentrate (1 unit)",
+        "Sweet Potato (1 unit)",
+        "Dried Thyme (0.5 teaspoon)",
+        "Ground Pork (10 ounce)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Garlic (1 clove)",
+        "Dijon Mustard (2 teaspoon)",
+        "Salt",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Smashed Black Bean Tostadas",
+      "headline": "with Green Pepper, Pico de Gallo & Lime Crema",
+      "url": "https://www.hellofresh.com/recipes/smashed-black-bean-tostadas-69a99dc7e566b4ce79046858",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "890 kcal",
+        "Fat": "43 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "93 g",
+        "Sugar": "16 g",
+        "Dietary Fiber": "14 g",
+        "Protein": "29 g",
+        "Cholesterol": "55 mg",
+        "Sodium": "1910 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Onion (1 unit)",
+        "Long Green Pepper (1 unit)",
+        "Grape Tomatoes (4 ounce)",
+        "Black Beans (1 unit)",
+        "Lime (1 unit)",
+        "Flour Tortillas (6 unit)",
+        "Tex-Mex Paste (1 unit)",
+        "Southwest Spice Blend (1 tablespoon)",
+        "Cilantro (0.25 ounce)",
+        "Mexican Cheese Blend (0.5 cup)",
+        "Salt",
+        "Olive Oil (1 tablespoon (tbsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Chicken Sausage Supreme Pizzas",
+      "headline": "with Green Pepper, Onion, Pesto & Balsamic Glaze",
+      "url": "https://www.hellofresh.com/recipes/chicken-sausage-supreme-pizzas-686380dd6c81f96af0603980",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "1 min",
+      "surcharge": "",
+      "tags": [],
+      "nutrition": {
+        "Calories": "1390 kcal",
+        "Fat": "53 g",
+        "Saturated Fat": "13 g",
+        "Carbohydrate": "161 g",
+        "Sugar": "32 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "67 g",
+        "Cholesterol": "155 mg",
+        "Sodium": "2840 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (1 unit)",
+        "Pesto (4 tablespoon)",
+        "Italian Chicken Sausage Mix (9 ounce)",
+        "Onion (1 unit)",
+        "Button Mushrooms (4 ounce)",
+        "Mozzarella Cheese (1 cup)",
+        "Pizza Dough (2 unit)",
+        "Balsamic Glaze (5 teaspoon)",
+        "Flour (0.5 cup)",
+        "Marinara Sauce (5 ounce)",
+        "Salt",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.7
+    },
+    {
+      "meal": "Zesty Chicken & Black Bean Salad",
+      "headline": "with Dark Meat Chicken, Tortilla Chips, Sour Cream & Hot Sauce",
+      "url": "https://www.hellofresh.com/recipes/zesty-chicken-and-black-bean-salad-67990b2635c238be91c9a87d",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "820 kcal",
+        "Fat": "32 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "77 g",
+        "Sugar": "9 g",
+        "Dietary Fiber": "10 g",
+        "Protein": "48 g",
+        "Cholesterol": "150 mg",
+        "Sodium": "1070 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Diced Chicken Thighs (10 ounce)",
+        "Fajita Spice Blend (0.5 tablespoon)",
+        "Black Beans (1 unit)",
+        "Tomato (1 unit)",
+        "Lime (1 unit)",
+        "Flour Tortillas (6 unit)",
+        "Hot Sauce (2 teaspoon)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.1
+    },
+    {
+      "meal": "Vegan Spicy Lemon Maple Tofu",
+      "headline": "with Roasted Broccoli & Rice",
+      "url": "https://www.hellofresh.com/recipes/vegan-spicy-lemon-maple-tofu-6886faa5c2892140d719b0c0",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "Sodium Smart",
+        "Vegan"
+      ],
+      "nutrition": {
+        "Calories": "750 kcal",
+        "Fat": "20 g",
+        "Saturated Fat": "2.5 g",
+        "Carbohydrate": "109 g",
+        "Sugar": "25 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "27 g",
+        "Cholesterol": "0 mg",
+        "Sodium": "610 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (1 unit)",
+        "Cornstarch (2 tablespoon)",
+        "Sweet Thai Chili Sauce (1 ounce)",
+        "Lemon (1 unit)",
+        "Tofu (1 unit)",
+        "Broccoli (1 unit)",
+        "Mushroom Stock Concentrate (1 unit)",
+        "Chili Flakes (1 teaspoon)",
+        "Garlic (2 clove)",
+        "Maple Syrup (2 tablespoon)",
+        "Jasmine Rice (0.75 cup)",
+        "Salt",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Soy"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Sloppy Joe “Spiders” with Pork Sausage",
+      "headline": "plus Roasted Potato Wedges & Cheddar Cheese",
+      "url": "https://www.hellofresh.com/recipes/sloppy-joe-spiders-with-pork-sausage-6a336268962b251b8d568e4f",
+      "category": "Pork",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Kid Friendly",
+        "New"
+      ],
+      "nutrition": {
+        "Calories": "1050 kcal",
+        "Fat": "63 g",
+        "Saturated Fat": "20 g",
+        "Carbohydrate": "81 g",
+        "Sugar": "22 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "32 g",
+        "Cholesterol": "110 mg",
+        "Sodium": "1710 mg"
+      },
+      "ingredients": [
+        "Fry Seasoning (1 tablespoon)",
+        "Tomato Paste (1 unit)",
+        "Onion (1 unit)",
+        "Ketchup (2 unit)",
+        "Mayonnaise (2 tablespoon)",
+        "Brioche Buns (2 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Italian Pork Sausage (9 ounce)",
+        "Russet Potato (1 unit)",
+        "Sliced Mild Cheddar Cheese (2 slice)",
+        "Salt",
+        "Cooking Oil (3 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Eggs",
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "One-Pan Halloumi Crunchy Wraps",
+      "headline": "with Pico de Gallo, Blue Corn Chips & Guacamole",
+      "url": "https://www.hellofresh.com/recipes/one-pan-halloumi-crunchy-wraps-6a6cdfdbda9bb148d36312a5",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "25 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "750 kcal",
+        "Fat": "50 g",
+        "Saturated Fat": "22 g",
+        "Carbohydrate": "57 g",
+        "Sugar": "10 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "26 g",
+        "Cholesterol": "100 mg",
+        "Sodium": "1290 mg"
+      },
+      "ingredients": [
+        "Flour Tortillas (2 unit)",
+        "Sour Cream (1.5 tablespoon)",
+        "Onion (1 unit)",
+        "Blue Corn Tortilla Chips (1.5 ounce)",
+        "Grilling Cheese (6 ounce)",
+        "Red Wine Vinegar (2.5 teaspoon)",
+        "Jalapeño (1 unit)",
+        "Fajita Spice Blend (1 tablespoon)",
+        "Tomato (1 unit)",
+        "Guacamole (4 tablespoon)",
+        "Hot Sauce (1 teaspoon)",
+        "Salt",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Milk",
+        "Sesame"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Mozzarella & Herb Chicken",
+      "headline": "Now get 50% more protein per serving in this HelloFresh classic!",
+      "url": "https://www.hellofresh.com/recipes/mozzarella-and-herb-chicken-688778c0276dc73629579a2b",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "35 min",
+      "surcharge": "$0.99/serving",
+      "tags": [
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "1050 kcal",
+        "Fat": "50 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "73 g",
+        "Sugar": "7 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "77 g",
+        "Cholesterol": "255 mg",
+        "Sodium": "850 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Panko Breadcrumbs (0.5 cup)",
+        "Pearl Couscous (0.75 cup)",
+        "Broccoli (8 ounce)",
+        "Chicken Stock Concentrate (2 unit)",
+        "Lemon (1 unit)",
+        "Mozzarella Cheese (0.5 cup)",
+        "Italian Seasoning (0.5 tablespoon)",
+        "Chicken Cutlets (18 ounce)",
+        "Salt",
+        "Olive Oil (2.5 tablespoon (tbsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Honey-Lemon Roasted Salmon",
+      "headline": "with Toasty Pistachio Salad, Apple & Parmesan",
+      "url": "https://www.hellofresh.com/recipes/honey-lemon-roasted-salmon-6a46beaa816872ea2761a0ce",
+      "category": "Seafood",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Carb Conscious",
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "670 kcal",
+        "Fat": "47 g",
+        "Saturated Fat": "9 g",
+        "Carbohydrate": "30 g",
+        "Sugar": "18 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "36 g",
+        "Cholesterol": "95 mg",
+        "Sodium": "370 mg"
+      },
+      "ingredients": [
+        "Pistachios (0.5 ounce)",
+        "Lemon (2 unit)",
+        "Mixed Greens (4 ounce)",
+        "Honey (2 teaspoon)",
+        "Apple (1 unit)",
+        "Parmesan Cheese Block (1 unit)",
+        "Dijon Mustard (2 teaspoon)",
+        "Salmon (10 ounce)",
+        "Salt",
+        "Olive Oil (2.5 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Tree Nuts",
+        "Milk",
+        "Fish"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Sweet Soy–Glazed Steak & Broccoli Bowls",
+      "headline": "with Rice, Sriracha & Sesame Seeds",
+      "url": "https://www.hellofresh.com/recipes/sweet-soy-glazed-steak-and-broccoli-bowls-69baacd9fff2efa4150ec73e",
+      "category": "Beef",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "710 kcal",
+        "Fat": "13 g",
+        "Saturated Fat": "3 g",
+        "Carbohydrate": "105 g",
+        "Sugar": "29 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "35 g",
+        "Cholesterol": "75 mg",
+        "Sodium": "3060 mg"
+      },
+      "ingredients": [
+        "Cornstarch (1 tablespoon)",
+        "Vegetarian Oyster Sauce (4 tablespoon)",
+        "Rice Wine Vinegar (5 teaspoon)",
+        "Broccoli (8 ounce)",
+        "Ranch Steak (10 ounce)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Sesame Seeds (1 tablespoon)",
+        "Scallions (2 unit)",
+        "Jasmine Rice (0.75 cup)",
+        "Sriracha (1 teaspoon)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Soy",
+        "Sesame",
+        "Wheat"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Chicken & Prosciutto Spring Pea Risotto",
+      "headline": "with Parmesan",
+      "url": "https://www.hellofresh.com/recipes/chicken-and-prosciutto-spring-pea-risotto-686d40be249cc147aea827ae",
+      "category": "Pork",
+      "difficulty": 2,
+      "prep_time": "40 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Gluten-Free Friendly",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar"
+      ],
+      "nutrition": {
+        "Calories": "830 kcal",
+        "Fat": "29 g",
+        "Saturated Fat": "11 g",
+        "Carbohydrate": "76 g",
+        "Sugar": "6 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "58 g",
+        "Cholesterol": "175 mg",
+        "Sodium": "1190 mg"
+      },
+      "ingredients": [
+        "Peas (4 ounce)",
+        "Cream Cheese (2 tablespoon)",
+        "Chicken Stock Concentrate (2 unit)",
+        "Lemon (1 unit)",
+        "Arborio Rice (0.75 cup)",
+        "Parmesan Cheese Block (1 unit)",
+        "Chicken Cutlets (12 ounce)",
+        "Prosciutto (2 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Olive Oil (2 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "One-Pan Steak & Bell Pepper Lo Mein",
+      "headline": "with Tomato & Red Onion",
+      "url": "https://www.hellofresh.com/recipes/one-pan-steak-and-bell-pepper-lo-mein-69eb809ca9f41d816354f228",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "$9.99/serving",
+      "tags": [
+        "Easy Cleanup"
+      ],
+      "nutrition": {
+        "Calories": "720 kcal",
+        "Fat": "25 g",
+        "Saturated Fat": "8 g",
+        "Carbohydrate": "81 g",
+        "Sugar": "24 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "38 g",
+        "Cholesterol": "90 mg",
+        "Sodium": "2320 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (1 unit)",
+        "Cornstarch (0.5 tablespoon)",
+        "Red Onion (1 unit)",
+        "Lo Mein Noodles (4.5 ounce)",
+        "Bavette Steak (10 ounce)",
+        "Chicken Stock Concentrate (1 unit)",
+        "Soy Sauce (1 tablespoon)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Ketchup (1 unit)",
+        "Tomato (1 unit)",
+        "Scallions (2 unit)",
+        "Sriracha (1 teaspoon)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Penne with Pork Meatballs",
+      "headline": "in a Creamy Mushroom Sauce",
+      "url": "https://www.hellofresh.com/recipes/penne-with-pork-meatballs-682c10d2ddaf24d721839e10",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep"
+      ],
+      "nutrition": {
+        "Calories": "1060 kcal",
+        "Fat": "62 g",
+        "Saturated Fat": "26 g",
+        "Carbohydrate": "78 g",
+        "Sugar": "7 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "41 g",
+        "Cholesterol": "205 mg",
+        "Sodium": "910 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Button Mushrooms (4 ounce)",
+        "Cream Cheese (4 tablespoon)",
+        "Penne Pasta (6 ounce)",
+        "Italian Seasoning (0.33 tablespoon)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Mushroom Stock Concentrate (1 unit)",
+        "Ground Pork (10 ounce)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Chili Flakes (1 teaspoon)",
+        "Garlic (1 clove)",
+        "Scallions (2 unit)",
+        "Salt (2 teaspoon (tsp))",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Lemony Linguine with Brussels Sprouts",
+      "headline": "sprinkled with Toasted Panko & Scallions",
+      "url": "https://www.hellofresh.com/recipes/lemony-linguine-with-brussels-sprouts-6905008079e2c370e48f4f44",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "High Fiber",
+        "Low Added Sugar",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "720 kcal",
+        "Fat": "31 g",
+        "Saturated Fat": "14 g",
+        "Carbohydrate": "91 g",
+        "Sugar": "9 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "21 g",
+        "Cholesterol": "65 mg",
+        "Sodium": "760 mg"
+      },
+      "ingredients": [
+        "Cream Cheese (2 tablespoon)",
+        "Brussels Sprouts (8 ounce)",
+        "Lemon (1 unit)",
+        "Linguine Pasta (6 ounce)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Garlic Herb Butter (2 tablespoon)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Chili Flakes (1 teaspoon)",
+        "Cheese Roux Concentrate (1 ounce)",
+        "Scallions (2 unit)",
+        "Salt",
+        "Olive Oil (2 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.7
+    },
+    {
+      "meal": "Banh Mi Chicken Lettuce Wraps",
+      "headline": "with Pickled Veggies, Cilantro & Sriracha Aioli",
+      "url": "https://www.hellofresh.com/recipes/banh-mi-chicken-lettuce-wraps-6a62622b98739a998ee97481",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Carb Conscious",
+        "Easy Prep",
+        "High Fiber",
+        "High Protein",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "590 kcal",
+        "Fat": "39 g",
+        "Saturated Fat": "7 g",
+        "Carbohydrate": "26 g",
+        "Sugar": "12 g",
+        "Dietary Fiber": "7 g",
+        "Protein": "32 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "930 mg"
+      },
+      "ingredients": [
+        "Ponzu Sauce (6 milliliters)",
+        "Baby Lettuce (1 unit)",
+        "Shredded Carrots (4 ounce)",
+        "Ground Chicken (10 ounce)",
+        "White Wine Vinegar (10 teaspoon)",
+        "Mayonnaise (4 tablespoon)",
+        "Garlic-Ginger Scallion Paste (2 ounce)",
+        "Lime (1 unit)",
+        "Sriracha (3 teaspoon)",
+        "Cilantro (0.25 ounce)",
+        "Shallot (1 unit)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Fish",
+        "Soy",
+        "Wheat",
+        "Eggs",
+        "Sesame"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Curried Chicken & Chickpea Lettuce Wraps",
+      "headline": "with Coconut Yogurt Sauce, Tomato & Scallions",
+      "url": "https://www.hellofresh.com/recipes/curried-chicken-and-chickpea-lettuce-wraps-6a51506d748b7cf792503a5c",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "670 kcal",
+        "Fat": "25 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "58 g",
+        "Sugar": "21 g",
+        "Dietary Fiber": "12 g",
+        "Protein": "49 g",
+        "Cholesterol": "105 mg",
+        "Sodium": "1150 mg"
+      },
+      "ingredients": [
+        "Baby Lettuce (1 unit)",
+        "Shredded Coconut (0.25 cup)",
+        "Chopped Chicken Breast (10 ounce)",
+        "Curry Sauce Base (5 ounce)",
+        "Chickpeas (1 unit)",
+        "Yogurt (4 tablespoon)",
+        "Tomato (1 unit)",
+        "Scallions (2 unit)",
+        "Salt",
+        "Sugar (1.13 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Tree Nuts",
+        "Milk"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "XL Boo-Beef Chili with Jack-o’-Lantern Crisps",
+      "headline": "2x the portions for family dinner or leftovers ",
+      "url": "https://www.hellofresh.com/recipes/xl-boo-beef-chili-with-jack-o-lantern-crisps-6a3362e6962b251b8d568e58",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "$6.99/serving",
+      "tags": [
+        "Easy Cleanup",
+        "Kid Friendly",
+        "New",
+        "Seasonal"
+      ],
+      "nutrition": {
+        "Calories": "1000 kcal",
+        "Fat": "54 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "81 g",
+        "Sugar": "19 g",
+        "Dietary Fiber": "13 g",
+        "Protein": "41 g",
+        "Cholesterol": "100 mg",
+        "Sodium": "1370 mg"
+      },
+      "ingredients": [
+        "Sour Cream (6 tablespoon)",
+        "Cheddar Cheese (1 cup)",
+        "Tomato Paste (2 unit)",
+        "Carrot (6 ounce)",
+        "Ground Beef (10 ounce)",
+        "Chicken Stock Concentrate (2 unit)",
+        "Black Beans (2 unit)",
+        "Flour Tortillas (6 unit)",
+        "Guacamole (8 tablespoon)",
+        "Buttermilk Ranch Dressing (3 ounce)",
+        "Southwest Spice Blend (2 tablespoon)",
+        "Cucumber (1 unit)",
+        "Corn (1 unit)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy",
+        "Eggs"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Low-Lift Bean & Cheese Quesadillas with Lime Slaw",
+      "headline": "Enjoy a head start with prepped ingredients",
+      "url": "https://www.hellofresh.com/recipes/low-lift-bean-and-cheese-quesadillas-with-lime-slaw-699f60f1e7bff1dd159c2a95",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Quick",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "1140 kcal",
+        "Fat": "58 g",
+        "Saturated Fat": "22 g",
+        "Carbohydrate": "121 g",
+        "Sugar": "14 g",
+        "Dietary Fiber": "17 g",
+        "Protein": "35 g",
+        "Cholesterol": "80 mg",
+        "Sodium": "3130 mg"
+      },
+      "ingredients": [
+        "Flour Tortillas (2 unit)",
+        "Sour Cream (4.5 tablespoon)",
+        "Refried Black Beans (16 ounce)",
+        "Somos Mexican Brown Rice (1 unit)",
+        "Pepper Jack Cheese (1 cup)",
+        "Fresh Red Salsa (4 ounce)",
+        "Red Cabbage and Carrot Mix (4 ounce)",
+        "Lime (1 unit)",
+        "Guacamole (8 tablespoon)",
+        "Buttermilk Ranch Dressing (1.5 ounce)",
+        "Hot Sauce (2 teaspoon)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 3.1
+    },
+    {
+      "meal": "Low-Lift Green Enchilada Turkey Chili",
+      "headline": "Enjoy a head start with prepped ingredients",
+      "url": "https://www.hellofresh.com/recipes/low-lift-green-enchilada-turkey-chili-6a73af2debec54be3cd9f09a",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "10 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Easy Prep",
+        "High Protein",
+        "Low Added Sugar",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "930 kcal",
+        "Fat": "48 g",
+        "Saturated Fat": "15 g",
+        "Carbohydrate": "57 g",
+        "Sugar": "13 g",
+        "Dietary Fiber": "16 g",
+        "Protein": "50 g",
+        "Cholesterol": "135 mg",
+        "Sodium": "1590 mg"
+      },
+      "ingredients": [
+        "Corn (1 unit)",
+        "Somos Enchilada Green Sauce (1 unit)",
+        "Cheddar Cheese (0.5 cup)",
+        "Ground Turkey (10 ounce)",
+        "Southwest Honey Oregano Dressing (1.5 ounce)",
+        "Cannellini Beans (1 unit)",
+        "Spinach (2.5 ounce)",
+        "Crispy Fried Onions (1 unit)",
+        "Scallions (2 unit)",
+        "Coleslaw Mix (4 ounce)",
+        "Pepitas (0.5 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs",
+        "Wheat"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Prep & Bake Sweet Soy Glazed Chicken Grain Bowls",
+      "headline": "Includes recyclable aluminum tray",
+      "url": "https://www.hellofresh.com/recipes/sweet-soy-glazed-chicken-grain-bowls-6a6cda0bda9bb148d3631256",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein"
+      ],
+      "nutrition": {
+        "Calories": "780 kcal",
+        "Fat": "25 g",
+        "Saturated Fat": "5 g",
+        "Carbohydrate": "85 g",
+        "Sugar": "30 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "46 g",
+        "Cholesterol": "125 mg",
+        "Sodium": "1400 mg"
+      },
+      "ingredients": [
+        "Plum Jam (1 unit)",
+        "Rice Wine Vinegar (5 teaspoon)",
+        "Oven-Ready Tray (1 unit)",
+        "Mini Cucumber (1 unit)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Wonton Strips (1 unit)",
+        "Chicken Cutlets (12 ounce)",
+        "Coleslaw Mix (4 ounce)",
+        "Dijon Mustard (2 teaspoon)",
+        "Microwavable Grain Blend (1 unit)",
+        "Salt",
+        "Olive Oil (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Soy",
+        "Wheat"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Prep & Bake Cheesy Tomato Ravioli",
+      "headline": " Includes recyclable aluminum tray",
+      "url": "https://www.hellofresh.com/recipes/cheesy-tomato-ravioli-68d65555d232ff05cfc47991",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "790 kcal",
+        "Fat": "46 g",
+        "Saturated Fat": "19 g",
+        "Carbohydrate": "70 g",
+        "Sugar": "5 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "26 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "1620 mg"
+      },
+      "ingredients": [
+        "Pesto (4 tablespoon)",
+        "Ciabatta (1 unit)",
+        "Oven-Ready Tray (1 unit)",
+        "Cream Sauce Base (4 ounce)",
+        "Mozzarella Cheese (0.5 cup)",
+        "Tomato (2 unit)",
+        "Fresh Tomato Ricotta Ravioli (9 ounce)",
+        "Salt",
+        "Cooking Spray (1 unit)",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy",
+        "Eggs"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "BBQ Meatloaf & Loaded Potato Wedges Bar",
+      "headline": "Build your way to the perfect plate",
+      "url": "https://www.hellofresh.com/recipes/bbq-meatloaf-and-loaded-potato-wedges-bar-689093e4733506e6d59b23d5",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "High Protein",
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "930 kcal",
+        "Fat": "44 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "87 g",
+        "Sugar": "26 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "44 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "1320 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Cheddar Cheese (0.5 cup)",
+        "BBQ Sauce (4 tablespoon)",
+        "Panko Breadcrumbs (0.5 cup)",
+        "Fry Seasoning (1 tablespoon)",
+        "Broccoli (8 ounce)",
+        "Ground Beef (10 ounce)",
+        "Beef Stock Concentrate (1 unit)",
+        "Ketchup (1 unit)",
+        "Scallions (2 unit)",
+        "Brown Sugar (1 tablespoon)",
+        "Potatoes (5 unit)",
+        "Salt (1 teaspoon (tsp))",
+        "Cooking Oil (3 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Pan-Seared Steak with Parsley Butter",
+      "headline": "plus Roasted Potatoes, Zesty Carrots & Pistachios",
+      "url": "https://www.hellofresh.com/recipes/pan-seared-steak-with-parsley-butter-68d65604d232ff05cfc47fc8",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "$9.99/serving",
+      "tags": [
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Kid Friendly",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "810 kcal",
+        "Fat": "40 g",
+        "Saturated Fat": "16 g",
+        "Carbohydrate": "80 g",
+        "Sugar": "29 g",
+        "Dietary Fiber": "11 g",
+        "Protein": "37 g",
+        "Cholesterol": "120 mg",
+        "Sodium": "230 mg"
+      },
+      "ingredients": [
+        "Carrot (12 ounce)",
+        "Bavette Steak (10 ounce)",
+        "Pistachios (0.5 ounce)",
+        "Dried Thyme (1 teaspoon)",
+        "Dried Cherries (1 ounce)",
+        "Orange (1 unit)",
+        "Parsley (0.25 ounce)",
+        "Potatoes (5 unit)",
+        "Salt",
+        "Cooking Oil (3 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Tree Nuts",
+        "Milk"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Pepperoni Calzone Snake",
+      "headline": "with Ranch Salad & Marinara",
+      "url": "https://www.hellofresh.com/recipes/pepperoni-calzone-snake-6a42bf610875049c063da873",
+      "category": "Pork",
+      "difficulty": 3,
+      "prep_time": "1 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Kid Friendly",
+        "New"
+      ],
+      "nutrition": {
+        "Calories": "1240 kcal",
+        "Fat": "68 g",
+        "Saturated Fat": "20 g",
+        "Carbohydrate": "117 g",
+        "Sugar": "19 g",
+        "Dietary Fiber": "7 g",
+        "Protein": "45 g",
+        "Cholesterol": "105 mg",
+        "Sodium": "2730 mg"
+      },
+      "ingredients": [
+        "Mixed Greens (4 ounce)",
+        "Mozzarella Cheese (1 cup)",
+        "Pepperoni (3.5 ounce)",
+        "Pizza Dough (2 unit)",
+        "Buttermilk Ranch Dressing (3 ounce)",
+        "Marinara Sauce (5 ounce)",
+        "Olive Oil (2 teaspoon (tsp))"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Eggs"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Veggie Supreme Strombolis",
+      "headline": "with Green Pepper, Onion, Mushrooms, Mozzarella & Marinara",
+      "url": "https://www.hellofresh.com/recipes/veggie-supreme-strombolis-6a6ce059da9bb148d36312ac",
+      "category": "Veggie",
+      "difficulty": 2,
+      "prep_time": "1 min",
+      "surcharge": "",
+      "tags": [
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "1010 kcal",
+        "Fat": "45 g",
+        "Saturated Fat": "15 g",
+        "Carbohydrate": "125 g",
+        "Sugar": "21 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "38 g",
+        "Cholesterol": "70 mg",
+        "Sodium": "1550 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (1 unit)",
+        "Onion (1 unit)",
+        "Mozzarella Cheese (1 cup)",
+        "Pizza Dough (2 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Marinara Sauce (5 ounce)",
+        "Button Mushrooms (4 ounce)",
+        "Basil Paste (1 ounce)",
+        "Salt",
+        "Olive Oil (3 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Chicken Parm Meatballs with Cheesy Bread",
+      "headline": "plus Italian Salad",
+      "url": "https://www.hellofresh.com/recipes/chicken-parm-meatballs-with-cheesy-bread-6a46c034bcb653703caa69fc",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "High Protein"
+      ],
+      "nutrition": {
+        "Calories": "1000 kcal",
+        "Fat": "63 g",
+        "Saturated Fat": "16 g",
+        "Carbohydrate": "55 g",
+        "Sugar": "16 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "52 g",
+        "Cholesterol": "165 mg",
+        "Sodium": "2080 mg"
+      },
+      "ingredients": [
+        "Marinara Sauce (14 ounce)",
+        "Baby Lettuce (1 unit)",
+        "Ground Chicken (10 ounce)",
+        "Ciabatta (1 unit)",
+        "Italian Dressing (1.5 ounce)",
+        "Mozzarella Cheese (0.5 cup)",
+        "Italian Seasoning (1 tablespoon)",
+        "Mayonnaise (2 tablespoon)",
+        "Parmesan Cheese Block (2 unit)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Salt (2 teaspoon (tsp))",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Cooking Oil (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "One-Pan Turkey Enchiladas Verdes",
+      "headline": "with Zesty Cheese & Hot Sauce Crema",
+      "url": "https://www.hellofresh.com/recipes/one-pan-turkey-enchiladas-verdes-6772ce50d8e11bf886853877",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Easy Prep",
+        "High Protein"
+      ],
+      "nutrition": {
+        "Calories": "750 kcal",
+        "Fat": "39 g",
+        "Saturated Fat": "17 g",
+        "Carbohydrate": "53 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "42 g",
+        "Cholesterol": "145 mg",
+        "Sodium": "1340 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Ground Turkey (10 ounce)",
+        "Long Green Pepper (1 unit)",
+        "Green Salsa (1 unit)",
+        "Flour Tortillas (6 unit)",
+        "Scallions (2 unit)",
+        "Southwest Spice Blend (1 tablespoon)",
+        "Mexican Cheese Blend (0.5 cup)",
+        "Hot Sauce (1 teaspoon)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Creamy Garden Herb Chicken",
+      "headline": "Balances protein and fiber while limiting fat, sodium, and added sugar",
+      "url": "https://www.hellofresh.com/recipes/creamy-garden-herb-chicken-698f7827947f254b517003ed",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Carb Conscious",
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Low Added Sugar",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "540 kcal",
+        "Fat": "27 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "33 g",
+        "Sugar": "15 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "44 g",
+        "Cholesterol": "155 mg",
+        "Sodium": "510 mg"
+      },
+      "ingredients": [
+        "Sour Cream (1.5 tablespoon)",
+        "Carrot (12 ounce)",
+        "Green Beans (8 ounce)",
+        "Cream Cheese (2 tablespoon)",
+        "Chicken Stock Concentrate (1 unit)",
+        "Lemon (1 unit)",
+        "Chicken Cutlets (12 ounce)",
+        "Ranch Spice (1 tablespoon)",
+        "Garlic (1 clove)",
+        "Salt",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Garlicky Shrimp Couscous Bowls",
+      "headline": "with Chili-Roasted Broccoli & Fresh Parsley",
+      "url": "https://www.hellofresh.com/recipes/garlicky-shrimp-couscous-bowls-695c10b5725ffb771e095238",
+      "category": "Seafood",
+      "difficulty": 1,
+      "prep_time": "25 min",
+      "surcharge": "",
+      "tags": [
+        "High Fiber",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar"
+      ],
+      "nutrition": {
+        "Calories": "540 kcal",
+        "Fat": "21 g",
+        "Saturated Fat": "5 g",
+        "Carbohydrate": "58 g",
+        "Sugar": "6 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "30 g",
+        "Cholesterol": "235 mg",
+        "Sodium": "1050 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (1 unit)",
+        "Pearl Couscous (0.75 cup)",
+        "Lemon (1 unit)",
+        "Shrimp (10 ounce)",
+        "Broccoli (1 unit)",
+        "Chili Flakes (1 teaspoon)",
+        "Garlic (2 clove)",
+        "Parsley (0.25 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Olive Oil (5 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Shellfish",
+        "Milk"
+      ],
+      "rating": 3.7
+    },
+    {
+      "meal": "Chicken & Greek Salad Pita Pockets",
+      "headline": "with Feta",
+      "url": "https://www.hellofresh.com/recipes/chicken-and-greek-salad-pita-pockets-695c10f2725ffb771e095246",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Easy Prep",
+        "High Protein",
+        "Low Added Sugar",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "600 kcal",
+        "Fat": "21 g",
+        "Saturated Fat": "6 g",
+        "Carbohydrate": "46 g",
+        "Sugar": "4 g",
+        "Dietary Fiber": "2 g",
+        "Protein": "42 g",
+        "Cholesterol": "130 mg",
+        "Sodium": "1240 mg"
+      },
+      "ingredients": [
+        "Feta Cheese (0.5 cup)",
+        "Chopped Chicken Breast (10 ounce)",
+        "Pitas (2 unit)",
+        "Greek Vinaigrette (1.5 ounce)",
+        "Mini Cucumber (1 unit)",
+        "Tomato (1 unit)",
+        "Scallions (2 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Sesame",
+        "Wheat",
+        "Eggs"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Slammin’ Secret Sauce Chicken Sandwiches",
+      "headline": "with Scallion Cabbage Slaw",
+      "url": "https://www.hellofresh.com/recipes/slammin-secret-sauce-chicken-sandwiches-6847d71d4b128cef4ed186a1",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "650 kcal",
+        "Fat": "33 g",
+        "Saturated Fat": "10 g",
+        "Carbohydrate": "50 g",
+        "Sugar": "17 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "39 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "890 mg"
+      },
+      "ingredients": [
+        "Sour Cream (1.5 tablespoon)",
+        "Sliced Dill Pickle (1 unit)",
+        "Frank's Hot Sauce (1 unit)",
+        "White Wine Vinegar (2.5 teaspoon)",
+        "Mayonnaise (2 tablespoon)",
+        "Chicken Cutlets (10 ounce)",
+        "Brioche Buns (2 unit)",
+        "Shredded Red Cabbage (4 ounce)",
+        "Sweet and Smoky BBQ Seasoning (1 tablespoon)",
+        "Scallions (2 unit)",
+        "Salt",
+        "Sugar (1.75 teaspoon (tsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs",
+        "Wheat"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Cheesy Smashed Burgers",
+      "headline": "with Old Bay Fries, Caramelized Onion & Special Sauce",
+      "url": "https://www.hellofresh.com/recipes/cheesy-smashed-burgers-6798ef6535c238be91c9a6a9",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "1040 kcal",
+        "Fat": "54 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "88 g",
+        "Sugar": "14 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "44 g",
+        "Cholesterol": "140 mg",
+        "Sodium": "1760 mg"
+      },
+      "ingredients": [
+        "Onion (1 unit)",
+        "White Cheddar Cheese (0.5 cup)",
+        "Ground Beef (10 ounce)",
+        "Old Bay Seasoning (1 tablespoon)",
+        "Ketchup (1 unit)",
+        "Mayonnaise (2 tablespoon)",
+        "Potato Buns (2 unit)",
+        "Dijon Mustard (2 teaspoon)",
+        "Potatoes (5 unit)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs",
+        "Soy",
+        "Wheat"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Chinese-Style Speedy Beef Ramen Noodles",
+      "headline": "with Garlic Chili Oil & Sesame Seeds",
+      "url": "https://www.hellofresh.com/recipes/chinese-style-speedy-beef-ramen-noodles-682c172019a8d01c515a73b3",
+      "category": "Beef",
+      "difficulty": 1,
+      "prep_time": "15 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "720 kcal",
+        "Fat": "31 g",
+        "Saturated Fat": "9 g",
+        "Carbohydrate": "70 g",
+        "Sugar": "19 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "36 g",
+        "Cholesterol": "95 mg",
+        "Sodium": "1680 mg"
+      },
+      "ingredients": [
+        "Pork Ramen Stock Concentrate (1 unit)",
+        "Ground Beef (10 ounce)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Red Cabbage and Carrot Mix (4 ounce)",
+        "Sesame Seeds (1 tablespoon)",
+        "Chili Flakes (0.5 teaspoon)",
+        "Garlic (1 clove)",
+        "Scallions (2 unit)",
+        "Ramen Noodles (4.5 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Soy",
+        "Wheat"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Ginger Chicken & Rice Bowls",
+      "headline": "with Spicy Gochujang Cucumbers & Peanuts",
+      "url": "https://www.hellofresh.com/recipes/ginger-chicken-and-rice-bowls-67cfde97ceae9743fd559e2a",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "690 kcal",
+        "Fat": "15 g",
+        "Saturated Fat": "2 g",
+        "Carbohydrate": "89 g",
+        "Sugar": "21 g",
+        "Dietary Fiber": "1 g",
+        "Protein": "39 g",
+        "Cholesterol": "110 mg",
+        "Sodium": "890 mg"
+      },
+      "ingredients": [
+        "Ponzu Sauce (18 milliliters)",
+        "Chopped Chicken Breast (10 ounce)",
+        "Sweet Thai Chili Sauce (1 ounce)",
+        "Jasmine Rice (0.75 cup)",
+        "Korean Chili Flakes (1 teaspoon)",
+        "Mini Cucumber (2 unit)",
+        "Umami Ginger Sauce (4 tablespoon)",
+        "Sesame Oil (0.5 tablespoon)",
+        "Garlic (1 clove)",
+        "Peanuts (0.5 ounce)",
+        "Gochujang Sauce (0.5 ounce)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Fish",
+        "Soy",
+        "Wheat",
+        "Sesame",
+        "Peanuts"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Chicken Sausage Rigatoni",
+      "headline": "in a Creamy Pink Sauce with Bell Pepper & Parmesan",
+      "url": "https://www.hellofresh.com/recipes/chicken-sausage-rigatoni-68d653f1681e58ed6e5b29f2",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "870 kcal",
+        "Fat": "37 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "83 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "41 g",
+        "Cholesterol": "180 mg",
+        "Sodium": "1490 mg"
+      },
+      "ingredients": [
+        "Rigatoni Pasta (6 ounce)",
+        "Italian Chicken Sausage Mix (9 ounce)",
+        "Tomato Paste (1 unit)",
+        "Cream Sauce Base (4 ounce)",
+        "Italian Seasoning (1 tablespoon)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Scallions (2 unit)",
+        "Bell Pepper (1 unit)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Crispy Kickin’ Cayenne Chicken Cutlets",
+      "headline": "with Mashed Potatoes, Roasted Carrots & a Honey Drizzle",
+      "url": "https://www.hellofresh.com/recipes/crispy-kickin-cayenne-chicken-cutlets-67a0d3e69c4cafbaaa0403f2",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Fiber",
+        "High Protein"
+      ],
+      "nutrition": {
+        "Calories": "830 kcal",
+        "Fat": "39 g",
+        "Saturated Fat": "19 g",
+        "Carbohydrate": "72 g",
+        "Sugar": "18 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "50 g",
+        "Cholesterol": "200 mg",
+        "Sodium": "780 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Carrot (12 ounce)",
+        "Honey (2 teaspoon)",
+        "Frank's Seasoning Blend (0.25 ounce)",
+        "Monterey Jack Cheese (0.25 cup)",
+        "Chicken Cutlets (12 ounce)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Scallions (2 unit)",
+        "Potatoes (5 unit)",
+        "Salt",
+        "Cooking Oil (3 teaspoon (tsp))",
+        "Butter (3 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.7
+    },
+    {
+      "meal": "Roasted Italian Sausage & Butternut Hash",
+      "headline": "with Potatoes, Kale & Red Pepper Jam Sourdough",
+      "url": "https://www.hellofresh.com/recipes/roasted-italian-sausage-and-butternut-hash-68d65575681e58ed6e5b31cd",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "45 min",
+      "surcharge": "",
+      "tags": [
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "1010 kcal",
+        "Fat": "63 g",
+        "Saturated Fat": "22 g",
+        "Carbohydrate": "83 g",
+        "Sugar": "19 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "29 g",
+        "Cholesterol": "115 mg",
+        "Sodium": "1180 mg"
+      },
+      "ingredients": [
+        "Onion (1 unit)",
+        "Kale (4 ounce)",
+        "Red Potatoes (12 ounce)",
+        "Cumin (1 teaspoon)",
+        "Butternut Squash (8 ounce)",
+        "Sourdough Bread (2 slice)",
+        "Smoked Paprika (1 teaspoon)",
+        "Red Pepper Jam (1 unit)",
+        "Parsley (0.25 ounce)",
+        "Bell Pepper (1 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Italian Pork Sausage (9 ounce)",
+        "Salt",
+        "Olive Oil (2 tablespoon (tbsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Soy",
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Creamy Lemon-Basil Pork Rigatoni",
+      "headline": "with Zucchini & Scallions",
+      "url": "https://www.hellofresh.com/recipes/creamy-lemon-basil-pork-rigatoni-67fcde63e22258bf02840512",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Quick",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "920 kcal",
+        "Fat": "50 g",
+        "Saturated Fat": "19 g",
+        "Carbohydrate": "76 g",
+        "Sugar": "9 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "37 g",
+        "Cholesterol": "180 mg",
+        "Sodium": "500 mg"
+      },
+      "ingredients": [
+        "Rigatoni Pasta (6 ounce)",
+        "Zucchini (1 unit)",
+        "Cream Cheese (2 tablespoon)",
+        "Cream Sauce Base (4 ounce)",
+        "Lemon (1 unit)",
+        "Ground Pork (10 ounce)",
+        "Scallions (2 unit)",
+        "Garlic Powder (1 teaspoon)",
+        "Basil Paste (1 ounce)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Sesame Soy Beef Bowls",
+      "headline": "with Shredded Carrots, Buttery Rice & Sriracha Mayo",
+      "url": "https://www.hellofresh.com/recipes/sesame-soy-beef-bowls-67c564b2f0a31bc0c3010abf",
+      "category": "Beef",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "920 kcal",
+        "Fat": "49 g",
+        "Saturated Fat": "15 g",
+        "Carbohydrate": "80 g",
+        "Sugar": "14 g",
+        "Dietary Fiber": "2 g",
+        "Protein": "32 g",
+        "Cholesterol": "125 mg",
+        "Sodium": "790 mg"
+      },
+      "ingredients": [
+        "Shredded Carrots (4 ounce)",
+        "Ground Beef (10 ounce)",
+        "White Wine Vinegar (2.5 teaspoon)",
+        "Sweet Soy Glaze (2.52 tablespoon)",
+        "Sesame Oil (1 tablespoon)",
+        "Mayonnaise (2 tablespoon)",
+        "Scallions (2 unit)",
+        "Jasmine Rice (0.75 cup)",
+        "Sriracha (1 teaspoon)",
+        "Salt",
+        "Sugar (0.75 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Soy",
+        "Wheat",
+        "Eggs",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Chicken Sausage, Zucchini & Tomato Flatbreads",
+      "headline": "with Garlicky White Sauce, Mozzarella & Parmesan",
+      "url": "https://www.hellofresh.com/recipes/chicken-sausage-zucchini-and-tomato-flatbreads-68d654aa9ed4d6794189ee2d",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "940 kcal",
+        "Fat": "53 g",
+        "Saturated Fat": "19 g",
+        "Carbohydrate": "71 g",
+        "Sugar": "12 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "47 g",
+        "Cholesterol": "175 mg",
+        "Sodium": "2060 mg"
+      },
+      "ingredients": [
+        "Italian Chicken Sausage Mix (9 ounce)",
+        "Flatbreads (2 unit)",
+        "Zucchini (1 unit)",
+        "Heirloom Grape Tomatoes (4 ounce)",
+        "Cream Cheese (4 tablespoon)",
+        "Lemon (1 unit)",
+        "Mozzarella Cheese (0.5 cup)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Garlic (2 clove)",
+        "Flour (1 tablespoon)",
+        "Salt",
+        "Sugar (0.5 teaspoon (tsp))",
+        "Olive Oil (1 teaspoon (tsp))",
+        "Cooking Oil (5 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Wheat",
+        "Milk",
+        "Soy",
+        "May contain traces of allergens"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Kung Pao Shrimp & Scallion Pancake",
+      "headline": "Enjoy a multi-dish culinary tour of a new destination!",
+      "url": "https://www.hellofresh.com/recipes/kung-pao-shrimp-and-scallion-pancake-698f6ef6753621b2c23a1a1d",
+      "category": "Seafood",
+      "difficulty": 3,
+      "prep_time": "55 min",
+      "surcharge": "$7.99/serving",
+      "tags": [],
+      "nutrition": {
+        "Calories": "1330 kcal",
+        "Fat": "43 g",
+        "Saturated Fat": "5 g",
+        "Carbohydrate": "190 g",
+        "Sugar": "40 g",
+        "Dietary Fiber": "11 g",
+        "Protein": "48 g",
+        "Cholesterol": "220 mg",
+        "Sodium": "4550 mg"
+      },
+      "ingredients": [
+        "Cornstarch (2 tablespoon)",
+        "Rice Wine Vinegar (5 teaspoon)",
+        "Broccoli (8 ounce)",
+        "Soy Sauce (2 tablespoon)",
+        "Shrimp (10 ounce)",
+        "Mini Cucumber (4 unit)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Szechuan Paste (2 tablespoon)",
+        "Pizza Dough (1 unit)",
+        "Garlic (4 clove)",
+        "Scallions (6 unit)",
+        "Chili Crisp (1 unit)",
+        "Bell Pepper (2 unit)",
+        "Jasmine Rice (0.75 cup)",
+        "Ginger Paste (0.5 ounce)",
+        "Peanuts (1 ounce)",
+        "Salt",
+        "Sugar (4 teaspoon (tsp))",
+        "Cooking Oil (5 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Soy",
+        "Wheat",
+        "Shellfish",
+        "Sesame",
+        "Peanuts"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Citrus Pork Tacos",
+      "headline": "with Pickled Onion & Southwest Crema",
+      "url": "https://www.hellofresh.com/recipes/citrus-pork-tacos-687e3f3fe93f2d6b735ae8d1",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "High Protein",
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "840 kcal",
+        "Fat": "47 g",
+        "Saturated Fat": "17 g",
+        "Carbohydrate": "69 g",
+        "Sugar": "22 g",
+        "Dietary Fiber": "7 g",
+        "Protein": "32 g",
+        "Cholesterol": "145 mg",
+        "Sodium": "1580 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Onion (1 unit)",
+        "Long Green Pepper (1 unit)",
+        "Ground Pork (10 ounce)",
+        "Lime (1 unit)",
+        "Flour Tortillas (6 unit)",
+        "Orange (1 unit)",
+        "Tex-Mex Paste (1 unit)",
+        "Southwest Spice Blend (1 tablespoon)",
+        "Cilantro (0.25 ounce)",
+        "Salt",
+        "Sugar (0.25 teaspoon (tsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Moroccan Lamb Stuffed Peppers",
+      "headline": "with Toasted Almonds & Garlic Aioli",
+      "url": "https://www.hellofresh.com/recipes/moroccan-lamb-stuffed-peppers-6a51525a748b7cf792503b46",
+      "category": "Lamb",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Gluten-Free Friendly"
+      ],
+      "nutrition": {
+        "Calories": "1170 kcal",
+        "Fat": "88 g",
+        "Saturated Fat": "31 g",
+        "Carbohydrate": "60 g",
+        "Sugar": "8 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "37 g",
+        "Cholesterol": "175 mg",
+        "Sodium": "880 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (2 unit)",
+        "Onion (1 unit)",
+        "Ground Lamb (10 ounce)",
+        "Jasmine Rice (0.5 cup)",
+        "Ras el Hanout (1 tablespoon)",
+        "Chicken Stock Concentrate (2 unit)",
+        "Mozzarella Cheese (0.5 cup)",
+        "Mayonnaise (4 tablespoon)",
+        "Tomato (1 unit)",
+        "Parsley (0.25 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Sliced Almonds (0.5 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs",
+        "Tree Nuts"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Smoky Mustard Pecan-Crusted Salmon",
+      "headline": "with Mashed Potatoes & Roasted Brussels Sprouts",
+      "url": "https://www.hellofresh.com/recipes/smoky-mustard-pecan-crusted-salmon-6891c504733506e6d59b2820",
+      "category": "Seafood",
+      "difficulty": 1,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "940 kcal",
+        "Fat": "56 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "71 g",
+        "Sugar": "9 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "41 g",
+        "Cholesterol": "145 mg",
+        "Sodium": "460 mg"
+      },
+      "ingredients": [
+        "Sour Cream (1.5 tablespoon)",
+        "Pecans (0.5 ounce)",
+        "Brussels Sprouts (8 ounce)",
+        "Smoky Mustard (1 ounce)",
+        "Lemon (0.5 unit)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Dijon Mustard (2 teaspoon)",
+        "Potatoes (6 unit)",
+        "Salmon (10 ounce)",
+        "Salt",
+        "Cooking Oil (3 teaspoon (tsp))",
+        "Butter (3 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Tree Nuts",
+        "Wheat",
+        "Fish"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "BBQ Cheddar Pork Burgers",
+      "headline": "with Chipotle Aioli & Potato Wedges",
+      "url": "https://www.hellofresh.com/recipes/bbq-cheddar-pork-burgers-678ecd8d8cb13d95928276fe",
+      "category": "Pork",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "",
+      "tags": [
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "1070 kcal",
+        "Fat": "62 g",
+        "Saturated Fat": "22 g",
+        "Carbohydrate": "79 g",
+        "Sugar": "20 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "38 g",
+        "Cholesterol": "190 mg",
+        "Sodium": "1210 mg"
+      },
+      "ingredients": [
+        "Cheddar Cheese (0.5 cup)",
+        "BBQ Sauce (4 tablespoon)",
+        "Chipotle Powder (1 teaspoon)",
+        "Fry Seasoning (1 tablespoon)",
+        "Onion (1 unit)",
+        "Mayonnaise (2 tablespoon)",
+        "Ground Pork (10 ounce)",
+        "Potato Buns (2 unit)",
+        "Russet Potato (1 unit)",
+        "Salt (2 teaspoon (tsp))",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs",
+        "Soy",
+        "Wheat"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Spicy-Sweet Szechuan Portobello Lo Mein",
+      "headline": "with Bell Pepper & Peanuts",
+      "url": "https://www.hellofresh.com/recipes/spicy-sweet-szechuan-portobello-lo-mein-687e50fe418995bdd84fa49b",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Quick",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "500 kcal",
+        "Fat": "14 g",
+        "Saturated Fat": "2.5 g",
+        "Carbohydrate": "80 g",
+        "Sugar": "24 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "15 g",
+        "Cholesterol": "0 mg",
+        "Sodium": "1790 mg"
+      },
+      "ingredients": [
+        "Green Bell Pepper (1 unit)",
+        "Lo Mein Noodles (4.5 ounce)",
+        "Rice Wine Vinegar (2.5 teaspoon)",
+        "Onion (1 unit)",
+        "Soy Sauce (1 tablespoon)",
+        "Szechuan Paste (1 tablespoon)",
+        "Honey (4 teaspoon)",
+        "Miso Sauce Concentrate (1 unit)",
+        "Portobello Mushrooms (2 unit)",
+        "Peanuts (1 ounce)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Soy",
+        "Sesame",
+        "Peanuts"
+      ],
+      "rating": 3.4
+    },
+    {
+      "meal": "Roasted Tilapia with Garlic-Scallion Oil",
+      "headline": "plus Creamy Chickpeas & Kale",
+      "url": "https://www.hellofresh.com/recipes/roasted-tilapia-with-garlic-scallion-oil-68d6572a681e58ed6e5b3d80",
+      "category": "Seafood",
+      "difficulty": 1,
+      "prep_time": "25 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Low Added Sugar"
+      ],
+      "nutrition": {
+        "Calories": "700 kcal",
+        "Fat": "37 g",
+        "Saturated Fat": "14 g",
+        "Carbohydrate": "46 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "10 g",
+        "Protein": "47 g",
+        "Cholesterol": "130 mg",
+        "Sodium": "920 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (1 unit)",
+        "Chickpeas (1 unit)",
+        "Crème Fraîche (4 tablespoon)",
+        "Tilapia (11 ounce)",
+        "Kale (4 ounce)",
+        "Lemon (1 unit)",
+        "Garlic (2 clove)",
+        "Scallions (2 unit)",
+        "Salt",
+        "Cooking Oil (4 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Fish"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Low-Lift Spinach Ravioli & Turkey Rosa Sauce",
+      "headline": "Enjoy a head start with prepped ingredients",
+      "url": "https://www.hellofresh.com/recipes/low-lift-spinach-ravioli-and-turkey-rosa-sauce-69efcf3ca9f41d81635562b5",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "15 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Easy Prep",
+        "High Protein",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "960 kcal",
+        "Fat": "51 g",
+        "Saturated Fat": "16 g",
+        "Carbohydrate": "68 g",
+        "Sugar": "18 g",
+        "Dietary Fiber": "7 g",
+        "Protein": "50 g",
+        "Cholesterol": "200 mg",
+        "Sodium": "1700 mg"
+      },
+      "ingredients": [
+        "Marinara Sauce (14 ounce)",
+        "Croutons (1 unit)",
+        "Ground Turkey (10 ounce)",
+        "Pesto (4 tablespoon)",
+        "Zucchini (1 unit)",
+        "Crème Fraîche (2 tablespoon)",
+        "Spinach and Ricotta Ravioli (9 ounce)",
+        "Italian Seasoning (1 tablespoon)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Salt",
+        "Olive Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "British-Style Roasted Half Chicken",
+      "headline": "Enjoy an abundant 3-course meal with a main, sides, and appetizers",
+      "url": "https://www.hellofresh.com/recipes/british-style-roasted-half-chicken-69ebb5c6a9f41d816354ff54",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "1 min",
+      "surcharge": "$6.99/serving",
+      "tags": [],
+      "nutrition": {
+        "Calories": "1880 kcal",
+        "Fat": "114 g",
+        "Saturated Fat": "43 g",
+        "Carbohydrate": "124 g",
+        "Sugar": "23 g",
+        "Dietary Fiber": "16 g",
+        "Protein": "88 g",
+        "Cholesterol": "385 mg",
+        "Sodium": "1660 mg"
+      },
+      "ingredients": [
+        "Fry Seasoning (1 tablespoon)",
+        "Carrot (6 ounce)",
+        "Onion (1 unit)",
+        "Mint (0.25 ounce)",
+        "Peas (8 ounce)",
+        "Cream Cheese (4 tablespoon)",
+        "Chicken Stock Concentrate (2 unit)",
+        "Cream Sauce Base (4 ounce)",
+        "Mini Cucumber (2 unit)",
+        "Green Goddess Dressing (1 ounce)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Half Chicken (1 unit)",
+        "Garlic Herb Butter (2 tablespoon)",
+        "White Bread (4 slice)",
+        "Flour (1 tablespoon)",
+        "Potatoes (6 unit)",
+        "Salt",
+        "Cooking Oil (5 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.2
+    },
+    {
+      "meal": "Cumin Lamb Chops with Spiced Yogurt Sauce",
+      "headline": "Bring elevated, restaurant-style flavors to your kitchen",
+      "url": "https://www.hellofresh.com/recipes/cumin-lamb-chops-with-spiced-yogurt-sauce-69ebce76fe534c766c462513",
+      "category": "Lamb",
+      "difficulty": 2,
+      "prep_time": "40 min",
+      "surcharge": "$14.99/serving",
+      "tags": [
+        "Gluten-Free Friendly"
+      ],
+      "nutrition": {
+        "Calories": "1320 kcal",
+        "Fat": "88 g",
+        "Saturated Fat": "32 g",
+        "Carbohydrate": "59 g",
+        "Sugar": "21 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "71 g",
+        "Cholesterol": "215 mg",
+        "Sodium": "620 mg"
+      },
+      "ingredients": [
+        "Thyme (0.25 ounce)",
+        "Baby Broccoli (1 unit)",
+        "Crème Fraîche (4 tablespoon)",
+        "Red Potatoes (12 ounce)",
+        "Cumin (1 teaspoon)",
+        "Yogurt (4 tablespoon)",
+        "Grape Tomatoes (8 ounce)",
+        "Lamb Chops (15 ounce)",
+        "Garlic (2 clove)",
+        "Parsley (0.25 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Golden Raisins (1 ounce)",
+        "Green Olives (1 unit)",
+        "Salt",
+        "Olive Oil (4 tablespoon (tbsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "rating": 3.7
+    },
+    {
+      "meal": "XL Sweet Soy Chicken Bowls",
+      "headline": "2x the portions for family dinner or leftovers",
+      "url": "https://www.hellofresh.com/recipes/xl-sweet-soy-chicken-bowls-696e137084d22895b02b55c4",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "35 min",
+      "surcharge": "$6.99/serving",
+      "tags": [
+        "High Protein",
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "730 kcal",
+        "Fat": "22 g",
+        "Saturated Fat": "4 g",
+        "Carbohydrate": "91 g",
+        "Sugar": "23 g",
+        "Dietary Fiber": "2 g",
+        "Protein": "34 g",
+        "Cholesterol": "145 mg",
+        "Sodium": "1320 mg"
+      },
+      "ingredients": [
+        "Rice Wine Vinegar (10 teaspoon)",
+        "Onion (1 unit)",
+        "Diced Chicken Thighs (20 ounce)",
+        "Long Green Pepper (1 unit)",
+        "Korean Chili Flakes (1 teaspoon)",
+        "Sweet Soy Glaze (8 tablespoon)",
+        "Sesame Seeds (1 tablespoon)",
+        "Mayonnaise (4 tablespoon)",
+        "Scallions (2 unit)",
+        "Jasmine Rice (1.5 cup)",
+        "Cucumber (1 unit)",
+        "Gochujang Sauce (0.5 ounce)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Soy",
+        "Wheat",
+        "Eggs"
+      ],
+      "rating": 4
+    },
+    {
+      "meal": "Balsamic & Fig Rib-Eye Steak",
+      "headline": "Bring elevated, restaurant-style flavors to your kitchen",
+      "url": "https://www.hellofresh.com/recipes/balsamic-and-fig-rib-eye-steak-69ebc2fdb2918f341e7b7d07",
+      "category": "Beef",
+      "difficulty": 2,
+      "prep_time": "45 min",
+      "surcharge": "$12.99/serving",
+      "tags": [
+        "Seasonal"
+      ],
+      "nutrition": {
+        "Calories": "1550 kcal",
+        "Fat": "99 g",
+        "Saturated Fat": "41 g",
+        "Carbohydrate": "108 g",
+        "Sugar": "35 g",
+        "Dietary Fiber": "10 g",
+        "Protein": "63 g",
+        "Cholesterol": "255 mg",
+        "Sodium": "1030 mg"
+      },
+      "ingredients": [
+        "Sour Cream (1.5 tablespoon)",
+        "Walnuts (0.5 ounce)",
+        "Balsamic Vinegar (5 teaspoon)",
+        "Brussels Sprouts (8 ounce)",
+        "Grass-Fed Rib-Eye Steak (16 ounce)",
+        "Ricotta Cheese (4 ounce)",
+        "Rosemary (0.25 ounce)",
+        "Fig Jam (1 unit)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Beef Stock Concentrate (1 unit)",
+        "Honey (4 teaspoon)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Garlic (1 clove)",
+        "Demi-Baguette (1 unit)",
+        "Potatoes (5 unit)",
+        "Shallot (1 unit)",
+        "Salt",
+        "Olive Oil (2 tablespoon (tbsp))",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Butter (3 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Tree Nuts",
+        "Wheat",
+        "Soy"
+      ],
+      "rating": 3.3
+    },
+    {
+      "meal": "Yakitori-Style Steak Skewers",
+      "headline": "with Soy Butter Broccoli & Mushrooms over Toasted Sesame Rice",
+      "url": "https://www.hellofresh.com/recipes/yakitori-style-steak-skewers-6886f96fc2892140d719b0bf",
+      "category": "Beef",
+      "difficulty": 3,
+      "prep_time": "40 min",
+      "surcharge": "$9.99/serving",
+      "tags": [],
+      "nutrition": {
+        "Calories": "980 kcal",
+        "Fat": "42 g",
+        "Saturated Fat": "16 g",
+        "Carbohydrate": "108 g",
+        "Sugar": "26 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "42 g",
+        "Cholesterol": "120 mg",
+        "Sodium": "2490 mg"
+      },
+      "ingredients": [
+        "Katsu Sauce (4 tablespoon)",
+        "Bavette Steak (10 ounce)",
+        "Broccoli (8 ounce)",
+        "Button Mushrooms (4 ounce)",
+        "Soy Sauce (2 tablespoon)",
+        "Lemon (1 unit)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Wooden Skewers (8 unit)",
+        "Sesame Seeds (1 tablespoon)",
+        "Scallions (2 unit)",
+        "Bell Pepper (1 unit)",
+        "Jasmine Rice (0.75 cup)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Soy",
+        "Wheat",
+        "Sesame",
+        "Milk"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Vegan Maple Carrot Power Bowls",
+      "headline": "with Turmeric-Toasted Couscous & Lemony Hummus",
+      "url": "https://www.hellofresh.com/recipes/vegan-maple-carrot-power-bowls-6888c2ef3947e0d99f1705ce",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "High Fiber",
+        "Kid Friendly",
+        "Sodium Smart",
+        "Vegan"
+      ],
+      "nutrition": {
+        "Calories": "770 kcal",
+        "Fat": "39 g",
+        "Saturated Fat": "5 g",
+        "Carbohydrate": "94 g",
+        "Sugar": "29 g",
+        "Dietary Fiber": "13 g",
+        "Protein": "15 g",
+        "Cholesterol": "0 mg",
+        "Sodium": "580 mg"
+      },
+      "ingredients": [
+        "Veggie Stock Concentrate (1 unit)",
+        "Hummus (8 tablespoon)",
+        "Carrot (12 ounce)",
+        "Walnuts (0.5 ounce)",
+        "Kale (4 ounce)",
+        "Lemon (1 unit)",
+        "Turmeric (0.25 teaspoon)",
+        "Dried Cranberries (1 ounce)",
+        "Harissa Powder (0.08 tablespoon)",
+        "Maple Syrup (1 tablespoon)",
+        "Garlic Powder (1 teaspoon)",
+        "Pearl Couscous (0.75 cup)",
+        "Salt",
+        "Olive Oil (2 tablespoon (tbsp))",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Tree Nuts",
+        "Wheat"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Miso Apricot Chicken",
+      "headline": "with Garlic Ginger Rice & Zesty Carrots",
+      "url": "https://www.hellofresh.com/recipes/miso-apricot-chicken-67ebc14c8ea82de25bbd1553",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "40 min",
+      "surcharge": "",
+      "tags": [
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Kid Friendly",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "780 kcal",
+        "Fat": "24 g",
+        "Saturated Fat": "9 g",
+        "Carbohydrate": "93 g",
+        "Sugar": "14 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "46 g",
+        "Cholesterol": "155 mg",
+        "Sodium": "410 mg"
+      },
+      "ingredients": [
+        "Apricot Jam (0.5 unit)",
+        "Carrot (12 ounce)",
+        "Miso Sauce Concentrate (1 unit)",
+        "Chicken Cutlets (12 ounce)",
+        "Lime (1 unit)",
+        "Garlic (1 clove)",
+        "Scallions (2 unit)",
+        "Jasmine Rice (0.75 cup)",
+        "Ginger (1 thumb)",
+        "Salt",
+        "Cooking Oil (1 tablespoon (tbsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Soy",
+        "Milk"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Garlic Chicken & Creamy Lemon Spaghetti",
+      "headline": "with Peas & Scallions",
+      "url": "https://www.hellofresh.com/recipes/garlic-chicken-and-creamy-lemon-spaghetti-68d654199ed4d6794189ea94",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Fiber",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Quick"
+      ],
+      "nutrition": {
+        "Calories": "760 kcal",
+        "Fat": "23 g",
+        "Saturated Fat": "9 g",
+        "Carbohydrate": "81 g",
+        "Sugar": "11 g",
+        "Dietary Fiber": "8 g",
+        "Protein": "52 g",
+        "Cholesterol": "165 mg",
+        "Sodium": "810 mg"
+      },
+      "ingredients": [
+        "Vidalia Onion Paste (0.5 ounce)",
+        "Peas (4 ounce)",
+        "Cream Sauce Base (4 ounce)",
+        "Lemon (1 unit)",
+        "Chicken Cutlets (12 ounce)",
+        "Scallions (2 unit)",
+        "Spaghetti (6 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat"
+      ],
+      "rating": 3.5
+    },
+    {
+      "meal": "Creamy Chicken & Mushroom Cavatappi",
+      "headline": "with Parmesan & Scallions",
+      "url": "https://www.hellofresh.com/recipes/creamy-chicken-and-mushroom-cavatappi-68d65415d232ff05cfc47211",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "25 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Protein",
+        "Low Added Sugar"
+      ],
+      "nutrition": {
+        "Calories": "850 kcal",
+        "Fat": "37 g",
+        "Saturated Fat": "18 g",
+        "Carbohydrate": "72 g",
+        "Sugar": "7 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "47 g",
+        "Cholesterol": "190 mg",
+        "Sodium": "710 mg"
+      },
+      "ingredients": [
+        "Chopped Chicken Breast (10 ounce)",
+        "Cavatappi Pasta (6 ounce)",
+        "Button Mushrooms (4 ounce)",
+        "Cream Sauce Base (4 ounce)",
+        "Italian Seasoning (1 tablespoon)",
+        "Parmesan Cheese (3 tablespoon)",
+        "Mushroom Stock Concentrate (1 unit)",
+        "Garlic (1 clove)",
+        "Scallions (2 unit)",
+        "Salt",
+        "Olive Oil (2 teaspoon (tsp))",
+        "Butter (2 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Wheat",
+        "Milk"
+      ],
+      "rating": 2.9
+    },
+    {
+      "meal": "Salsa Macha Chicken & Rice Bowls",
+      "headline": "with Fajita Veggies & Crema",
+      "url": "https://www.hellofresh.com/recipes/salsa-macha-chicken-and-rice-bowls-6a1de230e62d1005802a49a1",
+      "category": "Poultry",
+      "difficulty": 2,
+      "prep_time": "45 min",
+      "surcharge": "",
+      "tags": [
+        "Gluten-Free Friendly",
+        "High Protein",
+        "Low Added Sugar",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "730 kcal",
+        "Fat": "24 g",
+        "Saturated Fat": "6 g",
+        "Carbohydrate": "82 g",
+        "Sugar": "9 g",
+        "Dietary Fiber": "5 g",
+        "Protein": "42 g",
+        "Cholesterol": "120 mg",
+        "Sodium": "230 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Red Onion (1 unit)",
+        "White Wine Vinegar (5 teaspoon)",
+        "Ancho Chili Powder (1 teaspoon)",
+        "Long Green Pepper (1 unit)",
+        "Fajita Spice Blend (1 tablespoon)",
+        "Sesame Seeds (1 tablespoon)",
+        "Chicken Cutlets (10 ounce)",
+        "Mexican Spice Blend (1 tablespoon)",
+        "Jasmine Rice (0.75 cup)",
+        "Cilantro (0.25 ounce)",
+        "Hot Sauce (1 teaspoon)",
+        "Peanuts (0.5 ounce)",
+        "Salt",
+        "Sugar (0.5 teaspoon (tsp))",
+        "Cooking Oil (3 teaspoon (tsp))"
+      ],
+      "allergens": [
+        "Milk",
+        "Sesame",
+        "Peanuts"
+      ],
+      "rating": 0
+    },
+    {
+      "meal": "Smoky Paprika Chicken & Rice Bowls",
+      "headline": "with Chicken Thighs, Bell Pepper & Lemon-Cilantro Crema",
+      "url": "https://www.hellofresh.com/recipes/smoky-paprika-chicken-and-rice-bowls-669eb7fe46ae2b14647c3ba7",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "20 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Gluten-Free Friendly",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar",
+        "Quick",
+        "Sodium Smart"
+      ],
+      "nutrition": {
+        "Calories": "630 kcal",
+        "Fat": "17 g",
+        "Saturated Fat": "6 g",
+        "Carbohydrate": "83 g",
+        "Sugar": "5 g",
+        "Dietary Fiber": "3 g",
+        "Protein": "36 g",
+        "Cholesterol": "155 mg",
+        "Sodium": "340 mg"
+      },
+      "ingredients": [
+        "Sour Cream (4.5 tablespoon)",
+        "Onion (1 unit)",
+        "Savory Paprika Blend (1 tablespoon)",
+        "Diced Chicken Thighs (10 ounce)",
+        "Lemon (1 unit)",
+        "Dried Oregano (1 teaspoon)",
+        "Bell Pepper (1 unit)",
+        "Jasmine Rice (0.75 cup)",
+        "Garlic Powder (1 teaspoon)",
+        "Cilantro (0.25 ounce)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "rating": 3.2
+    },
+    {
+      "meal": "Kale & Grain Bowls with Feta Dressing",
+      "headline": "plus Roasted Broccoli & Pickled Radishes",
+      "url": "https://www.hellofresh.com/recipes/kale-and-grain-bowls-with-feta-dressing-68d65572681e58ed6e5b31c6",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "High Fiber",
+        "Low Added Sugar",
+        "Sodium Smart",
+        "Veggie"
+      ],
+      "nutrition": {
+        "Calories": "620 kcal",
+        "Fat": "35 g",
+        "Saturated Fat": "11 g",
+        "Carbohydrate": "64 g",
+        "Sugar": "7 g",
+        "Dietary Fiber": "9 g",
+        "Protein": "15 g",
+        "Cholesterol": "50 mg",
+        "Sodium": "500 mg"
+      },
+      "ingredients": [
+        "Sour Cream (3 tablespoon)",
+        "Feta Cheese (0.5 cup)",
+        "Broccoli (8 ounce)",
+        "Kale (4 ounce)",
+        "Lemon (1 unit)",
+        "White Wine Vinegar (5 teaspoon)",
+        "Mayonnaise (2 tablespoon)",
+        "Radishes (3 unit)",
+        "Dried Oregano (0.5 teaspoon)",
+        "Garlic Powder (1 teaspoon)",
+        "Microwavable Grain Blend (1 unit)",
+        "Salt",
+        "Sugar (1 teaspoon (tsp))",
+        "Olive Oil (4 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Eggs"
+      ],
+      "rating": 3.1
+    },
+    {
+      "meal": "One-Pot Cowboy Turkey & Bean Chili",
+      "headline": "with Jalapeño & Smoky Red Pepper Crema",
+      "url": "https://www.hellofresh.com/recipes/one-pot-cowboy-turkey-bean-chili-664cac7c5e4dc3c6a6a9413b",
+      "category": "Poultry",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Cleanup",
+        "Gluten-Free Friendly",
+        "High Fiber",
+        "High Protein",
+        "Kid Friendly",
+        "Low Added Sugar"
+      ],
+      "nutrition": {
+        "Calories": "620 kcal",
+        "Fat": "25 g",
+        "Saturated Fat": "6 g",
+        "Carbohydrate": "48 g",
+        "Sugar": "9 g",
+        "Dietary Fiber": "11 g",
+        "Protein": "43 g",
+        "Cholesterol": "110 mg",
+        "Sodium": "1730 mg"
+      },
+      "ingredients": [
+        "Ground Turkey (10 ounce)",
+        "Tomato Paste (1 unit)",
+        "Chicken Stock Concentrate (2 unit)",
+        "Smoky Red Pepper Crema (2 tablespoon)",
+        "Jalapeño (1 unit)",
+        "Black Beans (1 unit)",
+        "Tomato (1 unit)",
+        "Scallions (2 unit)",
+        "Tex-Mex Paste (1 unit)",
+        "Southwest Spice Blend (2 tablespoon)",
+        "Salt",
+        "Cooking Oil (2 teaspoon (tsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Szechuan Pork Noodle Stir-Fry",
+      "headline": "with Carrot, Scallions & Peanuts",
+      "url": "https://www.hellofresh.com/recipes/szechuan-pork-noodle-stir-fry-674e06d9f546e01c8f277257",
+      "category": "Pork",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "High Protein"
+      ],
+      "nutrition": {
+        "Calories": "870 kcal",
+        "Fat": "44 g",
+        "Saturated Fat": "15 g",
+        "Carbohydrate": "76 g",
+        "Sugar": "24 g",
+        "Dietary Fiber": "4 g",
+        "Protein": "35 g",
+        "Cholesterol": "145 mg",
+        "Sodium": "2100 mg"
+      },
+      "ingredients": [
+        "Carrot (3 ounce)",
+        "Pork Ramen Stock Concentrate (1 unit)",
+        "White Wine Vinegar (2.5 teaspoon)",
+        "Sweet Soy Glaze (4 tablespoon)",
+        "Szechuan Paste (1 tablespoon)",
+        "Peanut Butter (0.5 unit)",
+        "Ground Pork (10 ounce)",
+        "Chili Flakes (1 teaspoon)",
+        "Garlic (1 clove)",
+        "Scallions (2 unit)",
+        "Ramen Noodles (4.5 ounce)",
+        "Peanuts (0.5 ounce)",
+        "Salt",
+        "Sugar (1.5 teaspoon (tsp))",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (1 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Sesame",
+        "Soy",
+        "Wheat",
+        "Peanuts",
+        "Milk"
+      ],
+      "rating": 3.6
+    },
+    {
+      "meal": "Butternut Agnolotti in Brown Butter & Parmesan",
+      "headline": "with Caramelized Pear, Arugula & Toasted Breadcrumbs",
+      "url": "https://www.hellofresh.com/recipes/butternut-agnolotti-in-brown-butter-and-parmesan-694ec42401054b149ef7574d",
+      "category": "Veggie",
+      "difficulty": 1,
+      "prep_time": "30 min",
+      "surcharge": "",
+      "tags": [
+        "Easy Prep",
+        "Kid Friendly"
+      ],
+      "nutrition": {
+        "Calories": "690 kcal",
+        "Fat": "36 g",
+        "Saturated Fat": "21 g",
+        "Carbohydrate": "72 g",
+        "Sugar": "15 g",
+        "Dietary Fiber": "6 g",
+        "Protein": "18 g",
+        "Cholesterol": "125 mg",
+        "Sodium": "430 mg"
+      },
+      "ingredients": [
+        "Arugula (2 ounce)",
+        "Crème Fraîche (4 tablespoon)",
+        "Pear (1 unit)",
+        "Parmesan Cheese Block (1 unit)",
+        "Panko Breadcrumbs (0.25 cup)",
+        "Butternut Squash Agnolotti (9 ounce)",
+        "Garlic Powder (1 teaspoon)",
+        "Shallot (1 unit)",
+        "Salt",
+        "Cooking Oil (1 teaspoon (tsp))",
+        "Butter (3 tablespoon (tbsp))",
+        "Black Pepper"
+      ],
+      "allergens": [
+        "Milk",
+        "Wheat",
+        "Eggs"
+      ],
+      "rating": 3.3
+    }
+  ]
+}
