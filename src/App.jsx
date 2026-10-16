@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
-// PANTHER v7.1 — LOCAL-FIRST DAILY UTILITY
+// PANTHER v7.2 — LOCAL-FIRST DAILY UTILITY
 // ============================================================================
 //
 // 1. SCRIPT   — Read-only daily view + one-tap step-through workout runner
@@ -43,9 +43,9 @@ const DEFAULT_WORKOUT = {
       ]},
       { name: "Main Work", exercises: [
         { name: "Bodyweight Squats", sets: 3, reps: "MAX", rest: 90, notes: "Deep as possible, full range", video: "aclHkVaku9U" },
-        { name: "Nordic Curl Negatives", sets: 5, reps: 5, rest: 90, notes: "5 sec lowering - FIGHT IT! Catch with hands.", video: "HUXS3S2xSK4" },
-        { name: "Bulgarian Split Squats", sets: 4, reps: "12 each", rest: 60, notes: "15 lb each hand, rear foot elevated, deep", video: "2C-uNgKwPLE" },
-        { name: "Single-Leg RDL", sets: 4, reps: "10 each", rest: 60, notes: "15 lb, feel hamstring stretch at bottom", video: "j7pPR0XAX4s" },
+        { name: "Nordic Curl Negatives", track: true, sets: 5, reps: 5, rest: 90, notes: "5 sec lowering - FIGHT IT! Catch with hands.", video: "HUXS3S2xSK4" },
+        { name: "Bulgarian Split Squats", track: true, sets: 4, reps: "12 each", rest: 60, notes: "15 lb each hand, rear foot elevated, deep", video: "2C-uNgKwPLE" },
+        { name: "Single-Leg RDL", track: true, sets: 4, reps: "10 each", rest: 60, notes: "15 lb, feel hamstring stretch at bottom", video: "j7pPR0XAX4s" },
         { name: "Jump Squats", sets: 4, reps: 15, rest: 60, notes: "Explode every rep - max height", video: "YGGq0AE5Vyk" }
       ]}
     ]}
@@ -69,7 +69,7 @@ const DEFAULT_WORKOUT = {
         { name: "Push-ups", sets: 1, reps: 15, rest: 60, notes: "Get blood flowing", video: "_l3ySVKYVJ8" }
       ]},
       { name: "Main Work", exercises: [
-        { name: "Dips", sets: 5, reps: "MAX", rest: 120, notes: "Full depth, lean slightly forward, GO TO FAILURE", video: "2z8JmcrW-As" },
+        { name: "Dips", track: true, sets: 5, reps: "MAX", rest: 120, notes: "Full depth, lean slightly forward, GO TO FAILURE", video: "2z8JmcrW-As" },
         { name: "Mike Tyson Push-ups", sets: 4, reps: 10, rest: 90, notes: "Feet on wall, rock back to squat, dive forward", video: "WeFGIPR8yxA" },
         { name: "Pike Push-ups (Feet Elevated)", sets: 5, reps: "MAX", rest: 90, notes: "Feet on chair/stairs - shoulder builder", video: "sposDXWEB0A" },
         { name: "Push-ups", sets: 5, reps: "MAX", rest: 90, notes: "Perfect form to failure - chest to ground", video: "_l3ySVKYVJ8" },
@@ -98,7 +98,7 @@ const DEFAULT_WORKOUT = {
       { name: "Main Work", exercises: [
         { name: "Hanging Leg Raises", sets: 5, reps: "MAX", rest: 90, notes: "Control the swing - NO KIPPING", video: "Pr1ieGZ5atk" },
         { name: "Russian Twists (15 lb)", sets: 4, reps: "30 total", rest: 45, notes: "Feet elevated, control rotation", video: "wkD8rjkodUI" },
-        { name: "Dead Hang", sets: 5, reps: "Max Time", rest: 60, notes: "Full grip on bar - DON'T LET GO", video: "dkOAOjPqaOQ" },
+        { name: "Dead Hang", track: true, sets: 5, reps: "Max Time", rest: 60, notes: "Full grip on bar - DON'T LET GO", video: "dkOAOjPqaOQ" },
         { name: "Towel Hang", sets: 3, reps: "Max Time", rest: 60, notes: "Towel over bar - brutal grip", video: "IEOwe3xXWcg" }
       ]}
     ]}
@@ -122,9 +122,9 @@ const DEFAULT_WORKOUT = {
         { name: "Inverted Rows", sets: 1, reps: 10, rest: 60, notes: "Get blood to back muscles", video: "hXTc1mDnZCw" }
       ]},
       { name: "Main Work", exercises: [
-        { name: "Pull-ups", sets: 5, reps: "MAX", rest: 120, notes: "Dead hang start, chin over bar, TO FAILURE", video: "eGo4IYlbE5g" },
+        { name: "Pull-ups", track: true, sets: 5, reps: "MAX", rest: 120, notes: "Dead hang start, chin over bar, TO FAILURE", video: "eGo4IYlbE5g" },
         { name: "Inverted Rows", sets: 5, reps: "MAX", rest: 90, notes: "Body horizontal, pull chest to bar", video: "hXTc1mDnZCw" },
-        { name: "Chin-ups", sets: 4, reps: "MAX", rest: 90, notes: "Palms facing you - bicep emphasis", video: "brhRXlOhsAM" }
+        { name: "Chin-ups", track: true, sets: 4, reps: "MAX", rest: 90, notes: "Palms facing you - bicep emphasis", video: "brhRXlOhsAM" }
       ]},
       { name: "Neck Work", exercises: [
         { name: "Neck Curls (Face Up)", sets: 4, reps: 15, rest: 45, notes: "Chin to chest, head off edge of bed", video: "gA3uw5yk3zU" },
@@ -132,7 +132,7 @@ const DEFAULT_WORKOUT = {
         { name: "Isometric Neck Holds", sets: 3, reps: "15 sec × 4 directions", rest: 30, notes: "Push head into hand, resist", video: "gA3uw5yk3zU" }
       ]},
       { name: "Finisher", exercises: [
-        { name: "Dead Hang", sets: 1, reps: "Max Time", rest: 0, notes: "Beat your record!", video: "dkOAOjPqaOQ" }
+        { name: "Dead Hang", track: true, sets: 1, reps: "Max Time", rest: 0, notes: "Beat your record!", video: "dkOAOjPqaOQ" }
       ]}
     ]}
   },
@@ -154,8 +154,8 @@ const DEFAULT_WORKOUT = {
       ]},
       { name: "Main Work", exercises: [
         { name: "Bodyweight Squats", sets: 3, reps: "MAX", rest: 90, notes: "Full depth every rep", video: "aclHkVaku9U" },
-        { name: "Nordic Curl Negatives", sets: 5, reps: 5, rest: 90, notes: "Fight the lowering", video: "HUXS3S2xSK4" },
-        { name: "Bulgarian Split Squats", sets: 4, reps: "15 each", rest: 60, notes: "More reps than Monday", video: "2C-uNgKwPLE" },
+        { name: "Nordic Curl Negatives", track: true, sets: 5, reps: 5, rest: 90, notes: "Fight the lowering", video: "HUXS3S2xSK4" },
+        { name: "Bulgarian Split Squats", track: true, sets: 4, reps: "15 each", rest: 60, notes: "More reps than Monday", video: "2C-uNgKwPLE" },
         { name: "Box Jumps", sets: 4, reps: 10, rest: 60, notes: "Explode up, soft landing", video: "52r_Ul5k03g" },
         { name: "Single-Leg Calf Raises", sets: 4, reps: "25 each", rest: 30, notes: "15 lb, full range", video: "OeTJ7NHJD7M" }
       ]}
@@ -187,9 +187,9 @@ const DEFAULT_WORKOUT = {
         { name: "Explosive Pull-ups", sets: 4, reps: 6, rest: 60, notes: "Pull chest to bar FAST", video: "5eSk68SBqMM" }
       ]},
       { name: "Strength", exercises: [
-        { name: "Bulgarian Split Squats", sets: 4, reps: "12 each", rest: 60, notes: "15 lb each hand", video: "2C-uNgKwPLE" },
-        { name: "Dips", sets: 4, reps: 15, rest: 60, notes: "Full depth", video: "2z8JmcrW-As" },
-        { name: "Pull-ups", sets: 4, reps: "MAX", rest: 90, notes: "Full range", video: "eGo4IYlbE5g" }
+        { name: "Bulgarian Split Squats", track: true, sets: 4, reps: "12 each", rest: 60, notes: "15 lb each hand", video: "2C-uNgKwPLE" },
+        { name: "Dips", track: true, sets: 4, reps: 15, rest: 60, notes: "Full depth", video: "2z8JmcrW-As" },
+        { name: "Pull-ups", track: true, sets: 4, reps: "MAX", rest: 90, notes: "Full range", video: "eGo4IYlbE5g" }
       ]}
     ]}
   },
@@ -283,15 +283,47 @@ const STRETCH_DATA = [
 // STAPLES & UTILITIES
 // ============================================================================
 
+const EMPTY_MACROS = { cal:0, pro:0, fat:0, sat:0, carb:0, fib:0, sug:0, chol:0, sod:0 };
+
 const DAILY_STAPLES = [
-  { id: 'yogurt',   name: 'Greek Yogurt + Go Raw Pumpkin Seeds', cal: 180, pro: 8 },
-  { id: 'collagen', name: 'Vital Proteins Collagen',             cal: 70,  pro: 18 },
-  { id: 'shake',    name: 'Factor Protein Shake',                cal: 210, pro: 32 },
-  { id: 'bar',      name: "Honey Mama's Protein Bar",            cal: 260, pro: 13 },
+  { id: 'yogurt',   name: 'Greek Yogurt + Go Raw Pumpkin Seeds', cal: 180, pro: 8,  fat: 12, sat: 3, carb: 10, fib: 2, sug: 6,  chol: 10,  sod: 50 },
+  { id: 'collagen', name: 'Vital Proteins Collagen',             cal: 70,  pro: 18, fat: 0,  sat: 0, carb: 0,  fib: 0, sug: 0,  chol: 0,   sod: 0 },
+  { id: 'shake',    name: 'Factor Protein Shake',                cal: 210, pro: 32, fat: 3,  sat: 1, carb: 15, fib: 1, sug: 3,  chol: 10,  sod: 180 },
+  { id: 'bar',      name: "Honey Mama's Protein Bar",            cal: 260, pro: 13, fat: 16, sat: 10,carb: 22, fib: 3, sug: 12, chol: 0,   sod: 40 },
 ];
 
 const parseNum = (s) => parseFloat(s) || 0;
-const parseMealMacros = (n) => ({ cal: Math.round(parseNum(n?.Calories)), pro: Math.round(parseNum(n?.Protein)) });
+const parseMealMacros = (n) => ({
+  cal:  Math.round(parseNum(n?.Calories)),
+  pro:  Math.round(parseNum(n?.Protein)),
+  fat:  Math.round(parseNum(n?.Fat)),
+  sat:  Math.round(parseNum(n?.['Saturated Fat'])),
+  carb: Math.round(parseNum(n?.Carbohydrate)),
+  fib:  Math.round(parseNum(n?.['Dietary Fiber'])),
+  sug:  Math.round(parseNum(n?.Sugar)),
+  chol: Math.round(parseNum(n?.Cholesterol)),
+  sod:  Math.round(parseNum(n?.Sodium)),
+});
+const addMacros = (a, b) => {
+  const o = { ...EMPTY_MACROS };
+  for (const k of Object.keys(EMPTY_MACROS)) o[k] = (a?.[k] || 0) + (b?.[k] || 0);
+  return o;
+};
+const macroLine = (m) => {
+  if (!m) return '';
+  const parts = [`${m.cal||0} cal`, `${m.pro||0}p`, `${m.fat||0}f`, `${m.carb||0}c`];
+  if (m.fib) parts.push(`${m.fib}fib`);
+  return parts.join(' · ');
+};
+const macroDetail = (m) => {
+  if (!m) return '';
+  const parts = [];
+  if (m.sat) parts.push(`${m.sat}g sat`);
+  if (m.sug) parts.push(`${m.sug}g sugar`);
+  if (m.chol) parts.push(`${m.chol}mg chol`);
+  if (m.sod) parts.push(`${m.sod}mg na`);
+  return parts.join(' · ');
+};
 const todayStr = () => new Date().toISOString().split('T')[0];
 const fmtTime = (s) => `${Math.floor(s/60)}:${(s%60).toString().padStart(2,'0')}`;
 const fmtDate = (d) => new Date(d+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
@@ -353,7 +385,7 @@ function parseWorkoutText(text) {
     } else if (ln.startsWith('- ')) {
       if (!curSec) continue;
       const parts = ln.slice(2).split('|').map(s => s.trim());
-      const ex = { name: parts[0], sets: 1, reps: '—', rest: 0, notes: '', video: null };
+      const ex = { name: parts[0], sets: 1, reps: '—', rest: 0, notes: '', video: null, track: false };
       const notes = [];
       for (let i = 1; i < parts.length; i++) {
         const p = parts[i];
@@ -364,6 +396,8 @@ function parseWorkoutText(text) {
           ex.rest = parseInt(p.replace(/^rest:\s*/i, ''));
         } else if (/^video:\s*.+/i.test(p)) {
           ex.video = parseVideoRef(p.replace(/^video:\s*/i, ''));
+        } else if (/^track(?::\s*(yes|true|on|1))?$/i.test(p)) {
+          ex.track = true;
         } else { notes.push(p); }
       }
       ex.notes = notes.join(', ');
@@ -523,6 +557,9 @@ export default function PantherApp() {
   const [workoutHistory, setWorkoutHistory] = useState(()=>safeJson(localStorage.getItem('p_history'),[]));
   const [currentStreak, setCurrentStreak] = useState(0);
   const [progView, setProgView] = useState('overview');
+  const [liftLog, setLiftLog] = useState(()=>safeJson(localStorage.getItem('p_lifts'),[]));
+  const [wkWeight, setWkWeight] = useState('');
+  const [wkRepsIn, setWkRepsIn] = useState('');
 
   // Import modals
   const [showRoutineImport, setShowRoutineImport] = useState(false);
@@ -565,25 +602,19 @@ export default function PantherApp() {
   useEffect(()=>{localStorage.setItem('p_factor_sel',JSON.stringify(factorSel));},[factorSel]);
   useEffect(()=>{localStorage.setItem('p_hf_sel',JSON.stringify(hfSel));},[hfSel]);
 
-  // ---- Auto-fetch meal data from GitHub Actions ----
+  // ---- Auto-fetch meal data from GitHub Actions (refreshes weekly JSON) ----
   useEffect(() => {
     const base = import.meta.env.BASE_URL || '/panther/';
-    if (!factorMeals) {
-      fetch(`${base}data/factor_week.json`).then(r=>r.ok?r.json():null).then(d=>{
+    const load = (file, setter) => {
+      fetch(`${base}data/${file}`).then(r=>r.ok?r.json():null).then(d=>{
         if(d?.meals?.length){
           const meals=d.meals.map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
-          setFactorMeals({week:d.week||'',scraped:d.scraped_on||'',meals});
+          setter({week:d.week||'',scraped:d.scraped_on||'',meals});
         }
       }).catch(()=>{});
-    }
-    if (!hfMeals) {
-      fetch(`${base}data/hellofresh_week.json`).then(r=>r.ok?r.json():null).then(d=>{
-        if(d?.meals?.length){
-          const meals=d.meals.map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
-          setHfMeals({week:d.week||'',scraped:d.scraped_on||'',meals});
-        }
-      }).catch(()=>{});
-    }
+    };
+    load('factor_week.json', setFactorMeals);
+    load('hellofresh_week.json', setHfMeals);
   }, []);
 
   // ---- Streak calc ----
@@ -593,6 +624,16 @@ export default function PantherApp() {
     for(let i=0;i<365;i++){const d=new Date(t);d.setDate(d.getDate()-i);const ds=d.toISOString().split('T')[0];const has=h.some(w=>w.date===ds);if(has||i===0){if(has)s++;}else break;}
     setCurrentStreak(s);
   }, [workoutHistory]);
+
+  // ---- Prefill last logged weight/reps for tracked lifts ----
+  useEffect(() => {
+    if (!wkActive) return;
+    const ex = (workoutData[wkDay] || DEFAULT_WORKOUT[wkDay])?.[wkSession]?.sections?.[wkSecIdx]?.exercises?.[wkExIdx];
+    if (!ex?.track) { setWkWeight(''); setWkRepsIn(''); return; }
+    const last = liftLog.find(e => e.name === ex.name);
+    setWkWeight(last?.weight ? String(last.weight) : '');
+    setWkRepsIn(last?.reps ? String(last.reps) : '');
+  }, [wkActive, wkDay, wkSession, wkSecIdx, wkExIdx, wkSet]);
 
   // ---- Workout runner rest timer ----
   useEffect(() => {
@@ -655,8 +696,21 @@ export default function PantherApp() {
     setWkResting(false);setWkRestTime(0);setWkActive(true);setShowResume(false);
   };
 
+  const lastLift = (name) => liftLog.find(e => e.name === name);
+  const saveLiftSet = (ex) => {
+    if (!ex?.track) return;
+    const w = parseFloat(wkWeight);
+    const r = parseFloat(wkRepsIn);
+    if (!(w > 0) && !(r > 0)) return;
+    const e = { date: todayStr(), name: ex.name, set: wkSet, weight: w || 0, reps: r || 0, session: wkSession, day: wkDay };
+    const n = [e, ...liftLog].slice(0, 2000);
+    setLiftLog(n);
+    localStorage.setItem('p_lifts', JSON.stringify(n));
+  };
+
   const completeWkSet = () => {
     const ex=getWkExercise(); if(!ex)return;
+    saveLiftSet(ex);
     if(wkSet<ex.sets){setWkSet(wkSet+1);if(ex.rest>0){setWkResting(true);setWkRestTime(ex.rest);}}
     else nextWkExercise();
   };
@@ -726,7 +780,25 @@ export default function PantherApp() {
   const toggleFuel = (key) => { setFuelChecks(p=>{const n={...p,[key]:!p[key]};localStorage.setItem(`p_fuel_${fuelDate}`,JSON.stringify(n));return n;}); };
   const shiftFuelDate = (d) => { const dt=new Date(fuelDate+'T12:00:00');dt.setDate(dt.getDate()+d);setFuelDate(dt.toISOString().split('T')[0]); };
   const getSelectedMeals = (brand) => { const src=brand==='factor'?factorMeals:hfMeals,sel=brand==='factor'?factorSel:hfSel; if(!src)return[]; return sel.map(i=>src.meals[i]).filter(Boolean); };
-  const fuelTotal = (()=>{ let c=0,p=0; DAILY_STAPLES.forEach(s=>{if(fuelChecks[`s_${s.id}`]){c+=s.cal;p+=s.pro;}}); getSelectedMeals('factor').forEach((m,i)=>{if(fuelChecks[`f_${i}`]){c+=m.cal;p+=m.pro;}}); getSelectedMeals('hf').forEach((m,i)=>{if(fuelChecks[`h_${i}`]){c+=m.cal;p+=m.pro;}}); return{cal:c,pro:p}; })();
+  const fuelTotal = (()=>{
+    let t = { ...EMPTY_MACROS };
+    DAILY_STAPLES.forEach(s=>{ if(fuelChecks[`s_${s.id}`]) t = addMacros(t, s); });
+    getSelectedMeals('factor').forEach((m,i)=>{ if(fuelChecks[`f_${i}`]) t = addMacros(t, m); });
+    getSelectedMeals('hf').forEach((m,i)=>{ if(fuelChecks[`h_${i}`]) t = addMacros(t, m); });
+    return t;
+  })();
+
+  const trackedLifts = (() => {
+    const names = []; const seen = new Set();
+    DAYS.forEach(day => {
+      const d = workoutData[day]; if (!d) return;
+      ['am','pm'].forEach(sess => d[sess]?.sections?.forEach(sec => sec.exercises.forEach(ex => {
+        if (ex.track && !seen.has(ex.name)) { seen.add(ex.name); names.push(ex.name); }
+      })));
+    });
+    return names;
+  })();
+  const weekStart = (() => { const t=new Date(); t.setHours(0,0,0,0); t.setDate(t.getDate()-t.getDay()); return t.toISOString().split('T')[0]; })();
 
   // ---- Progress / Gains helpers ----
   const logGains = () => {
@@ -813,6 +885,16 @@ export default function PantherApp() {
           </div>
           {ex.notes&&<p style={S.notes}>{ex.notes}</p>}
         </div>
+        {ex.track&&(
+          <div style={S.trackBox}>
+            <div style={S.sectionTag}>LOG THIS SET</div>
+            {lastLift(ex.name)&&<p style={{fontSize:11,color:'#888',margin:'0 0 10px'}}>Last: {lastLift(ex.name).weight} lbs × {lastLift(ex.name).reps}</p>}
+            <div style={{display:'flex',gap:10}}>
+              <div style={{flex:1}}><label style={S.inputLabel}>Weight (lbs)</label><input type="number" inputMode="decimal" value={wkWeight} onChange={e=>setWkWeight(e.target.value)} placeholder="0" style={S.numInput}/></div>
+              <div style={{flex:1}}><label style={S.inputLabel}>Reps / Time</label><input type="number" inputMode="decimal" value={wkRepsIn} onChange={e=>setWkRepsIn(e.target.value)} placeholder="0" style={S.numInput}/></div>
+            </div>
+          </div>
+        )}
         <VideoEmbed video={ex.video} title={ex.name}/>
         <div style={{display:'flex',gap:12,marginTop:'auto'}}>
           <button onClick={prevWkExercise} style={{...S.navBtn,opacity:canBack?1:0.3}} disabled={!canBack}>← PREV</button>
@@ -881,7 +963,7 @@ export default function PantherApp() {
           {sec.exercises.map((ex,ei)=>(
             <div key={ei} style={S.scriptCard}>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                <h3 style={{fontSize:15,fontWeight:700,margin:0,flex:1}}>{ex.name}</h3>
+                <h3 style={{fontSize:15,fontWeight:700,margin:0,flex:1}}>{ex.name}{ex.track&&<span style={S.trackBadge}>TRACK</span>}</h3>
                 <VideoLink video={ex.video}/>
               </div>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:8}}>
@@ -940,7 +1022,7 @@ export default function PantherApp() {
             <button onClick={()=>{setShowImport(brand);setImportText('');}} style={S.smallBtn}>Paste JSON</button>
           </div>
           <input type="text" placeholder="Search meals..." value={shopSearch} onChange={e=>setShopSearch(e.target.value)} style={S.searchInput}/>
-          {sel.length>0&&<div style={{marginBottom:16}}><div style={S.sectionTag}>SELECTED ({sel.length}/7)</div>{sel.map(idx=>{const m=src.meals[idx];if(!m)return null;return(<button key={idx} onClick={()=>toggleShopSel(brand,idx)} style={S.selChip}><span style={{flex:1,fontSize:13,fontWeight:600,color:'#ECF0F1'}}>{m.name}</span><span style={{fontSize:11,color:'#95A5A6'}}>{m.cal}cal·{m.pro}g</span><span style={{fontSize:14,color:'#888',marginLeft:4}}>✕</span></button>);})}</div>}
+          {sel.length>0&&<div style={{marginBottom:16}}><div style={S.sectionTag}>SELECTED ({sel.length}/7)</div>{sel.map(idx=>{const m=src.meals[idx];if(!m)return null;return(<button key={idx} onClick={()=>toggleShopSel(brand,idx)} style={S.selChip}><span style={{flex:1,fontSize:13,fontWeight:600,color:'#ECF0F1'}}>{m.name}</span><span style={{fontSize:11,color:'#95A5A6'}}>{m.cal}cal·{m.pro}p·{m.fat}f</span><span style={{fontSize:14,color:'#888',marginLeft:4}}>✕</span></button>);})}</div>}
           <div style={{display:'flex',flexDirection:'column',gap:6}}>
             {fi.map(idx=>{const m=src.meals[idx],isSel=sel.includes(idx),isDis=!isSel&&sel.length>=7;return(
               <button key={idx} onClick={()=>!isDis&&toggleShopSel(brand,idx)} style={{...S.mealCard,opacity:isDis?0.35:1,borderColor:isSel?'#5D6D7E':'#2C2C2C'}} disabled={isDis}>
@@ -948,7 +1030,8 @@ export default function PantherApp() {
                 <div style={{display:'flex',flexDirection:'column',flex:1}}>
                   <span style={{fontSize:14,fontWeight:600,color:'#ECF0F1'}}>{m.name}</span>
                   {m.headline&&<span style={{fontSize:11,color:'#888',marginTop:2}}>{m.headline}</span>}
-                  <span style={{fontSize:11,color:'#5D6D7E',marginTop:4,fontWeight:500}}>{m.cal}cal · {m.pro}g protein · {m.category}</span>
+                  <span style={{fontSize:11,color:'#5D6D7E',marginTop:4,fontWeight:500}}>{macroLine(m)}{m.category?` · ${m.category}`:''}</span>
+                  {macroDetail(m)&&<span style={{fontSize:10,color:'#555',marginTop:2}}>{macroDetail(m)}</span>}
                 </div>
               </button>
             );})}
@@ -976,13 +1059,22 @@ export default function PantherApp() {
           <button onClick={()=>shiftFuelDate(1)} style={S.dateArrow}>›</button>
         </div>
       </div>
-      <div style={S.macroBar}><div style={S.macroItem}><span style={S.macroNum}>{fuelTotal.cal.toLocaleString()}</span><span style={S.macroLabel}>CALORIES</span></div><div style={S.macroDivider}/><div style={S.macroItem}><span style={S.macroNum}>{fuelTotal.pro}g</span><span style={S.macroLabel}>PROTEIN</span></div></div>
+      <div style={S.macroBar}>
+        {[['CALORIES',fuelTotal.cal.toLocaleString(),''],['PROTEIN',fuelTotal.pro,'g'],['FAT',fuelTotal.fat,'g'],['CARBS',fuelTotal.carb,'g']].map(([l,n,u],i)=>(
+          <React.Fragment key={l}>{i>0&&<div style={S.macroDivider}/>}<div style={S.macroItem}><span style={S.macroNum}>{n}{u}</span><span style={S.macroLabel}>{l}</span></div></React.Fragment>
+        ))}
+      </div>
+      <div style={S.macroSub}>
+        {[['Sat',fuelTotal.sat,'g'],['Fiber',fuelTotal.fib,'g'],['Sugar',fuelTotal.sug,'g'],['Chol',fuelTotal.chol,'mg'],['Sodium',fuelTotal.sod,'mg']].map(([l,n,u])=>(
+          <div key={l} style={S.macroSubItem}><span style={S.macroSubNum}>{n}{u}</span><span style={S.macroSubLabel}>{l}</span></div>
+        ))}
+      </div>
       <div style={{marginBottom:20}}><div style={S.sectionTag}>STAPLES</div>
         {DAILY_STAPLES.map(s=><button key={s.id} onClick={()=>toggleFuel(`s_${s.id}`)} style={{...S.fuelRow,borderColor:fuelChecks[`s_${s.id}`]?'#5D6D7E':'#2C2C2C'}}>
           <div style={{...S.fuelCheck,backgroundColor:fuelChecks[`s_${s.id}`]?'#5D6D7E':'transparent'}}>{fuelChecks[`s_${s.id}`]&&'✓'}</div>
           <div style={{display:'flex',flexDirection:'column',flex:1}}>
             <span style={{fontSize:14,fontWeight:600,color:'#ECF0F1',textDecoration:fuelChecks[`s_${s.id}`]?'line-through':'none',opacity:fuelChecks[`s_${s.id}`]?0.5:1}}>{s.name}</span>
-            <span style={{fontSize:11,color:'#5D6D7E',marginTop:3,fontWeight:500}}>{s.cal} cal · {s.pro}g protein</span>
+            <span style={{fontSize:11,color:'#5D6D7E',marginTop:3,fontWeight:500}}>{macroLine(s)}</span>
           </div>
         </button>)}
       </div>
@@ -992,7 +1084,8 @@ export default function PantherApp() {
           <div style={{...S.fuelCheck,backgroundColor:fuelChecks[`f_${i}`]?'#5D6D7E':'transparent'}}>{fuelChecks[`f_${i}`]&&'✓'}</div>
           <div style={{display:'flex',flexDirection:'column',flex:1}}>
             <span style={{fontSize:14,fontWeight:600,color:'#ECF0F1',textDecoration:fuelChecks[`f_${i}`]?'line-through':'none',opacity:fuelChecks[`f_${i}`]?0.5:1}}>{m.name}</span>
-            <span style={{fontSize:11,color:'#5D6D7E',marginTop:3,fontWeight:500}}>{m.cal} cal · {m.pro}g protein</span>
+            <span style={{fontSize:11,color:'#5D6D7E',marginTop:3,fontWeight:500}}>{macroLine(m)}</span>
+            {macroDetail(m)&&<span style={{fontSize:10,color:'#555',marginTop:2}}>{macroDetail(m)}</span>}
           </div>
         </button>)}
       </div>
@@ -1002,7 +1095,8 @@ export default function PantherApp() {
           <div style={{...S.fuelCheck,backgroundColor:fuelChecks[`h_${i}`]?'#5D6D7E':'transparent'}}>{fuelChecks[`h_${i}`]&&'✓'}</div>
           <div style={{display:'flex',flexDirection:'column',flex:1}}>
             <span style={{fontSize:14,fontWeight:600,color:'#ECF0F1',textDecoration:fuelChecks[`h_${i}`]?'line-through':'none',opacity:fuelChecks[`h_${i}`]?0.5:1}}>{m.name}</span>
-            <span style={{fontSize:11,color:'#5D6D7E',marginTop:3,fontWeight:500}}>{m.cal} cal · {m.pro}g protein</span>
+            <span style={{fontSize:11,color:'#5D6D7E',marginTop:3,fontWeight:500}}>{macroLine(m)}</span>
+            {macroDetail(m)&&<span style={{fontSize:10,color:'#555',marginTop:2}}>{macroDetail(m)}</span>}
           </div>
         </button>)}
       </div>
@@ -1069,10 +1163,29 @@ export default function PantherApp() {
       </div>
       <div style={S.toggleRow}>
         <button onClick={()=>setProgView('overview')} style={{...S.toggleBtn,...(progView==='overview'?S.toggleAct:{})}}>Overview</button>
+        <button onClick={()=>setProgView('lifts')} style={{...S.toggleBtn,...(progView==='lifts'?S.toggleAct:{})}}>Lifts</button>
         <button onClick={()=>setProgView('log')} style={{...S.toggleBtn,...(progView==='log'?S.toggleAct:{})}}>Log</button>
         <button onClick={()=>setProgView('charts')} style={{...S.toggleBtn,...(progView==='charts'?S.toggleAct:{})}}>Charts</button>
       </div>
       {progView==='overview'&&<div style={{display:'flex',flexDirection:'column',gap:8}}>
+        {trackedLifts.length>0&&<>
+          <div style={S.sectionTag}>THIS WEEK — TRACKED LIFTS</div>
+          {trackedLifts.map(name=>{
+            const logs=liftLog.filter(e=>e.name===name&&e.date>=weekStart);
+            const done=logs.length>0;
+            const best=logs.reduce((m,e)=>Math.max(m,e.weight||0),0);
+            const bestR=logs.reduce((m,e)=>Math.max(m,e.reps||0),0);
+            return (
+              <div key={name} style={{backgroundColor:'#111',borderRadius:12,padding:14,display:'flex',alignItems:'center',gap:12,border:`1px solid ${done?'#5D6D7E':'#222'}`}}>
+                <div style={{...S.fuelCheck,backgroundColor:done?'#5D6D7E':'transparent'}}>{done&&'✓'}</div>
+                <div style={{flex:1}}>
+                  <span style={{fontSize:14,fontWeight:600,color:'#fff',display:'block'}}>{name}</span>
+                  <span style={{fontSize:11,color:'#666',marginTop:2,display:'block'}}>{done?`${logs.length} sets · best ${best} lbs × ${bestR}`:'Not logged this week'}</span>
+                </div>
+              </div>
+            );
+          })}
+        </>}
         <div style={S.sectionTag}>RECENT WORKOUTS</div>
         {workoutHistory.length===0?<p style={{fontSize:14,color:'#666',textAlign:'center',padding:'40px 0'}}>No workouts yet. Start training!</p>:
         workoutHistory.slice(0,15).map((w,i)=>(
@@ -1082,6 +1195,28 @@ export default function PantherApp() {
           </div>
         ))}
         {workoutHistory.length>0&&<button onClick={()=>{if(window.confirm('Clear all workout history?')){localStorage.removeItem('p_history');setWorkoutHistory([]);}}} style={{background:'none',border:'1px solid #500',color:'#a00',borderRadius:12,padding:12,fontSize:13,cursor:'pointer',marginTop:16}}>Clear History</button>}
+      </div>}
+      {progView==='lifts'&&<div>
+        {liftLog.length===0?<p style={{fontSize:14,color:'#666',textAlign:'center',padding:'40px 0'}}>Mark lifts with <b>track</b> in your routine. Log weight during the workout — charts appear after 2+ sessions.</p>:
+        [...new Set(liftLog.map(e=>e.name))].map(name=>{
+          const byDay={};
+          liftLog.filter(e=>e.name===name).forEach(e=>{ if(!byDay[e.date]||(e.weight||0)>byDay[e.date].v) byDay[e.date]={date:e.date,v:e.weight||0}; });
+          const chartData=Object.values(byDay).sort((a,b)=>a.date.localeCompare(b.date));
+          const recent=liftLog.filter(e=>e.name===name).slice(0,6);
+          return (
+            <div key={name} style={{marginBottom:20}}>
+              <div style={S.sectionTag}>{name}</div>
+              <MiniChart data={chartData} label="Best set weight" unit="lbs" color="#7FB3D8"/>
+              {recent.map((e,i)=>(
+                <div key={i} style={{display:'flex',justifyContent:'space-between',padding:'8px 4px',borderBottom:'1px solid #1A1A1A'}}>
+                  <span style={{fontSize:12,color:'#888'}}>{fmtDate(e.date)} · set {e.set}</span>
+                  <span style={{fontSize:13,color:'#BDC3C7'}}>{e.weight} lbs × {e.reps}</span>
+                </div>
+              ))}
+            </div>
+          );
+        })}
+        {liftLog.length>0&&<button onClick={()=>{if(window.confirm('Clear all lift logs?')){localStorage.removeItem('p_lifts');setLiftLog([]);}}} style={{background:'none',border:'1px solid #500',color:'#a00',borderRadius:12,padding:12,fontSize:13,cursor:'pointer',marginTop:8,width:'100%'}}>Clear Lift Logs</button>}
       </div>}
       {progView==='log'&&<div>
         <div style={S.sectionTag}>BODYWEIGHT</div>
@@ -1112,6 +1247,12 @@ export default function PantherApp() {
         <MiniChart data={bwData} label="Bodyweight" unit="lbs" color="#7FB3D8"/>
         <MiniChart data={puData} label="Pull-up Weight" unit="lbs" color="#A8D8A8"/>
         <MiniChart data={hangData} label="Hang Time" unit="s" color="#D8A87F"/>
+        {[...new Set(liftLog.map(e=>e.name))].map(name=>{
+          const byDay={};
+          liftLog.filter(e=>e.name===name).forEach(e=>{ if(!byDay[e.date]||(e.weight||0)>byDay[e.date].v) byDay[e.date]={date:e.date,v:e.weight||0}; });
+          const chartData=Object.values(byDay).sort((a,b)=>a.date.localeCompare(b.date));
+          return <MiniChart key={name} data={chartData} label={name} unit="lbs" color="#BDC3C7"/>;
+        })}
       </div>}
     </>);
   };
@@ -1180,7 +1321,7 @@ const S={
   dateArrow:{background:'none',border:'none',color:'#95A5A6',fontSize:28,cursor:'pointer',padding:'4px 12px',fontWeight:300},
   macroBar:{display:'flex',alignItems:'center',justifyContent:'center',gap:24,backgroundColor:'#111',borderRadius:14,padding:20,marginBottom:20,border:'2px solid #2C2C2C'},
   macroItem:{display:'flex',flexDirection:'column',alignItems:'center'},
-  macroNum:{fontSize:28,fontWeight:800,color:'#ECF0F1'},
+  macroNum:{fontSize:16,fontWeight:800,color:'#ECF0F1'},
   macroLabel:{fontSize:9,letterSpacing:2,color:'#666',marginTop:2},
   macroDivider:{width:1,height:36,backgroundColor:'#2C2C2C'},
   fuelRow:{display:'flex',alignItems:'center',gap:12,width:'100%',padding:14,marginBottom:6,backgroundColor:'#111',border:'2px solid #2C2C2C',borderRadius:10,cursor:'pointer',textAlign:'left',transition:'border-color 0.2s'},
@@ -1192,4 +1333,10 @@ const S={
   chartLabel:{fontSize:11,fontWeight:700,letterSpacing:1,color:'#95A5A6',display:'block',marginBottom:8},
   chartSvg:{width:'100%',height:'auto',display:'block'},
   chartEmpty:{fontSize:12,color:'#555',textAlign:'center',padding:'20px 0'},
+  trackBox:{backgroundColor:'#1A1A1A',border:'2px solid #5D6D7E',borderRadius:12,padding:14,marginBottom:16},
+  trackBadge:{marginLeft:8,fontSize:9,letterSpacing:1,color:'#95A5A6',border:'1px solid #5D6D7E',borderRadius:4,padding:'2px 6px',verticalAlign:'middle',fontWeight:700},
+  macroSub:{display:'flex',justifyContent:'space-between',gap:6,marginBottom:20,padding:'0 4px'},
+  macroSubItem:{display:'flex',flexDirection:'column',alignItems:'center',flex:1},
+  macroSubNum:{fontSize:12,fontWeight:700,color:'#BDC3C7'},
+  macroSubLabel:{fontSize:8,letterSpacing:1,color:'#555',marginTop:2,textTransform:'uppercase'},
 };
