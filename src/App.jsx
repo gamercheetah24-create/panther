@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
-// PANTHER v7.2 — LOCAL-FIRST DAILY UTILITY
+// PANTHER v7.3 — LOCAL-FIRST DAILY UTILITY
 // ============================================================================
 //
 // 1. SCRIPT   — Read-only daily view + one-tap step-through workout runner
@@ -333,6 +333,125 @@ const safeJson = (str, fb) => {
   try { const r = JSON.parse(str); return r != null ? r : fb; } catch { return fb; }
 };
 
+const addDays = (iso, n) => {
+  const d = new Date(iso + 'T12:00:00');
+  d.setDate(d.getDate() + n);
+  return d.toISOString().split('T')[0];
+};
+const FUEL_SEED_DATES = ['2026-10-11','2026-10-12','2026-10-13','2026-10-14','2026-10-15']; // Sun–Thu this week, start Friday
+
+const idbOpen = () => new Promise((res, rej) => {
+  const r = indexedDB.open('panther', 1);
+  r.onupgradeneeded = () => r.result.createObjectStore('kv');
+  r.onsuccess = () => res(r.result);
+  r.onerror = () => rej(r.error);
+});
+const idbPut = async (k, v) => {
+  try {
+    const db = await idbOpen();
+    await new Promise((res, rej) => {
+      const tx = db.transaction('kv', 'readwrite');
+      tx.objectStore('kv').put(v, k);
+      tx.oncomplete = res; tx.onerror = () => rej(tx.error);
+    });
+  } catch {}
+};
+const idbGet = async (k) => {
+  try {
+    const db = await idbOpen();
+    return await new Promise((res, rej) => {
+      const tx = db.transaction('kv', 'readonly');
+      const q = tx.objectStore('kv').get(k);
+      q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error);
+    });
+  } catch { return null; }
+};
+const collectAllData = () => {
+  const keys = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && k.startsWith('p_')) keys[k] = localStorage.getItem(k);
+  }
+  return { savedAt: new Date().toISOString(), version: 7.3, keys };
+};
+const restoreAllData = (bag) => {
+  const keys = bag?.keys || bag;
+  if (!keys || typeof keys !== 'object') return false;
+  Object.entries(keys).forEach(([k, v]) => {
+    if (k.startsWith('p_') && typeof v === 'string') localStorage.setItem(k, v);
+  });
+  idbPut('__all__', JSON.stringify(collectAllData()));
+  return true;
+};
+const downloadFile = (name, text, type='text/plain') => {
+  const b = new Blob([text], { type });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(b); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+const buildBackupTxt = (state) => {
+  const keys = state.keys || {};
+  const days = safeJson(keys.p_fuel_days, {});
+  const lifts = safeJson(keys.p_lifts, []);
+  const gains = safeJson(keys.p_gains, []);
+  const hist = safeJson(keys.p_history, []);
+  let t = `PANTHER BACKUP\nSaved: ${state.savedAt || ''}\n\n`;
+  t += '=== FUEL ===\n';
+  Object.keys(days).sort().forEach(d => {
+    const m = days[d];
+    t += `${d}  ${m.empty ? 'NULL / not started' : `${m.cal||0} cal  ${m.pro||0}p  ${m.fat||0}f  ${m.carb||0}c  ${m.fib||0}fib  ${m.chol||0}chol  ${m.sod||0}na`}\n`;
+  });
+  t += '\n=== LIFTS ===\n';
+  lifts.forEach(e => { t += `${e.date}  ${e.name}  set ${e.set}  ${e.weight} lbs x ${e.reps}\n`; });
+  t += '\n=== GAINS ===\n';
+  gains.forEach(e => { t += `${e.date}  bw:${e.bodyweight||'-'}  pu:${e.pullup?`+${e.pullup.weight}x${e.pullup.reps}`:'-'}  hang:${e.hang?`${e.hang.time}s`:'-'}\n`; });
+  t += '\n=== WORKOUTS ===\n';
+  hist.forEach(e => { t += `${e.date}  ${e.day} ${e.session}  ${e.title}\n`; });
+  if (keys.p_workout_text) t += '\n=== WORKOUT ROUTINE ===\n' + keys.p_workout_text + '\n';
+  if (keys.p_stretch_text) t += '\n=== STRETCH ROUTINE ===\n' + keys.p_stretch_text + '\n';
+  return t;
+};
+const GIST_DESC = 'Panther backup (secret)';
+const gistSave = async (token, gistId, state) => {
+  const files = {
+    'panther-state.json': { content: JSON.stringify(state, null, 2) },
+    'panther-backup.txt': { content: buildBackupTxt(state) },
+  };
+  const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' };
+  if (gistId) {
+    const r = await fetch(`https://api.github.com/gists/${gistId}`, { method: 'PATCH', headers, body: JSON.stringify({ files }) });
+    if (r.ok) return gistId;
+  }
+  const list = await fetch('https://api.github.com/gists?per_page=50', { headers });
+  if (list.ok) {
+    const gists = await list.json();
+    const found = (gists || []).find(g => g.description === GIST_DESC);
+    if (found) {
+      const r = await fetch(`https://api.github.com/gists/${found.id}`, { method: 'PATCH', headers, body: JSON.stringify({ files }) });
+      if (r.ok) return found.id;
+    }
+  }
+  const r = await fetch('https://api.github.com/gists', { method: 'POST', headers, body: JSON.stringify({ description: GIST_DESC, public: false, files }) });
+  if (!r.ok) throw new Error('Gist save failed');
+  const j = await r.json();
+  return j.id;
+};
+const gistLoad = async (token, gistId) => {
+  const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' };
+  let id = gistId;
+  if (!id) {
+    const list = await fetch('https://api.github.com/gists?per_page=50', { headers });
+    const gists = list.ok ? await list.json() : [];
+    id = (gists || []).find(g => g.description === GIST_DESC)?.id;
+  }
+  if (!id) return null;
+  const r = await fetch(`https://api.github.com/gists/${id}`, { headers });
+  if (!r.ok) return null;
+  const j = await r.json();
+  const raw = j.files?.['panther-state.json']?.content;
+  return { id, state: raw ? JSON.parse(raw) : null };
+};
+
 const playBeep = () => {
   try {
     const c = new (window.AudioContext || window.webkitAudioContext)();
@@ -550,6 +669,14 @@ export default function PantherApp() {
   // Fuel
   const [fuelDate, setFuelDate] = useState(todayStr);
   const [fuelChecks, setFuelChecks] = useState({});
+  const [fuelView, setFuelView] = useState('today');
+  const [fuelDays, setFuelDays] = useState(()=>safeJson(localStorage.getItem('p_fuel_days'),{}));
+
+  // Data backup
+  const [ghToken, setGhToken] = useState(()=>localStorage.getItem('p_gh_token')||'');
+  const [gistId, setGistId] = useState(()=>localStorage.getItem('p_gist_id')||'');
+  const [syncMsg, setSyncMsg] = useState('');
+  const [lastSync, setLastSync] = useState(()=>localStorage.getItem('p_last_sync')||'');
 
   // Progress / Gains
   const [gainsLog, setGainsLog] = useState(()=>safeJson(localStorage.getItem('p_gains'),[]));
@@ -570,6 +697,56 @@ export default function PantherApp() {
   const wakeLockRef = useRef(null);
   const today = DAYS[new Date().getDay()];
   const dayData = workoutData[today] || DEFAULT_WORKOUT[today];
+
+  // ---- Recover from IndexedDB if the browser wiped localStorage ----
+  useEffect(() => {
+    (async () => {
+      const raw = await idbGet('__all__');
+      if (!raw) return;
+      const bag = typeof raw === 'string' ? safeJson(raw, null) : raw;
+      const keys = bag?.keys || bag;
+      if (!keys) return;
+      let restored = 0;
+      Object.entries(keys).forEach(([k, v]) => {
+        if (k.startsWith('p_') && typeof v === 'string' && localStorage.getItem(k) == null) {
+          localStorage.setItem(k, v); restored++;
+        }
+      });
+      if (restored) window.location.reload();
+    })();
+  }, []);
+
+  // ---- Seed empty fuel days Sun–Thu this week ----
+  useEffect(() => {
+    setFuelDays(prev => {
+      let changed = false;
+      const n = { ...prev };
+      FUEL_SEED_DATES.forEach(d => {
+        if (!n[d]) { n[d] = { ...EMPTY_MACROS, empty: true }; changed = true; }
+      });
+      if (changed) localStorage.setItem('p_fuel_days', JSON.stringify(n));
+      return changed ? n : prev;
+    });
+  }, []);
+
+  // ---- Dump everything to IndexedDB (survives closing the phone app) ----
+  useEffect(() => {
+    const t = setTimeout(() => { idbPut('__all__', JSON.stringify(collectAllData())); }, 400);
+    return () => clearTimeout(t);
+  }, [fuelDays, fuelChecks, gainsLog, workoutHistory, liftLog, factorSel, hfSel, factorMeals, hfMeals]);
+
+  useEffect(() => {
+    const tok = localStorage.getItem('p_gh_token');
+    const gid = localStorage.getItem('p_gist_id');
+    if (!tok || !gid) return;
+    const t = setTimeout(() => {
+      gistSave(tok, gid, collectAllData()).then(() => {
+        const ts = new Date().toLocaleString();
+        localStorage.setItem('p_last_sync', ts);
+      }).catch(()=>{});
+    }, 4000);
+    return () => clearTimeout(t);
+  }, [fuelDays, liftLog, gainsLog, workoutHistory]);
 
   // ---- Load saved workout routine ----
   useEffect(() => {
@@ -799,6 +976,67 @@ export default function PantherApp() {
     return names;
   })();
   const weekStart = (() => { const t=new Date(); t.setHours(0,0,0,0); t.setDate(t.getDate()-t.getDay()); return t.toISOString().split('T')[0]; })();
+
+  useEffect(() => {
+    const empty = fuelTotal.cal === 0 && !Object.values(fuelChecks).some(Boolean);
+    setFuelDays(prev => {
+      const n = { ...prev, [fuelDate]: { ...fuelTotal, empty } };
+      localStorage.setItem('p_fuel_days', JSON.stringify(n));
+      return n;
+    });
+  }, [fuelDate, fuelChecks]);
+
+  const weekDays = [0,1,2,3,4,5,6].map(i => addDays(weekStart, i));
+  const monthDays = (() => {
+    const start = todayStr().slice(0, 8) + '01';
+    const days = [];
+    for (let i = 0; i < 31; i++) {
+      const d = addDays(start, i);
+      if (d.slice(0, 7) !== todayStr().slice(0, 7)) break;
+      days.push(d);
+    }
+    return days;
+  })();
+  const sumFuelRange = (dates) => dates.reduce((a, d) => addMacros(a, fuelDays[d] || EMPTY_MACROS), { ...EMPTY_MACROS });
+  const fuelChart = (dates, key) => dates.filter(d => fuelDays[d]).map(d => ({ date: d, v: fuelDays[d][key] || 0 }));
+
+  const exportBackup = () => {
+    const state = collectAllData();
+    downloadFile(`panther-backup-${todayStr()}.json`, JSON.stringify(state, null, 2), 'application/json');
+    downloadFile(`panther-backup-${todayStr()}.txt`, buildBackupTxt(state));
+  };
+  const importBackupFile = (file) => {
+    const r = new FileReader();
+    r.onload = (e) => {
+      const bag = safeJson(e.target.result, null);
+      if (!bag || !restoreAllData(bag)) { alert('Invalid backup file'); return; }
+      window.location.reload();
+    };
+    r.readAsText(file);
+  };
+  const syncToGist = async () => {
+    if (!ghToken.trim()) { setSyncMsg('Paste a GitHub token first'); return; }
+    setSyncMsg('Saving…');
+    try {
+      localStorage.setItem('p_gh_token', ghToken.trim());
+      const id = await gistSave(ghToken.trim(), gistId, collectAllData());
+      setGistId(id); localStorage.setItem('p_gist_id', id);
+      const ts = new Date().toLocaleString();
+      setLastSync(ts); localStorage.setItem('p_last_sync', ts);
+      setSyncMsg('Saved to private GitHub Gist');
+    } catch (e) { setSyncMsg('Sync failed. Check token (gist scope).'); }
+  };
+  const restoreFromGist = async () => {
+    if (!ghToken.trim()) { setSyncMsg('Paste a GitHub token first'); return; }
+    setSyncMsg('Loading…');
+    try {
+      const r = await gistLoad(ghToken.trim(), gistId);
+      if (!r?.state) { setSyncMsg('No backup found for this token'); return; }
+      setGistId(r.id); localStorage.setItem('p_gist_id', r.id);
+      restoreAllData(r.state);
+      window.location.reload();
+    } catch { setSyncMsg('Restore failed'); }
+  };
 
   // ---- Progress / Gains helpers ----
   const logGains = () => {
@@ -1046,18 +1284,63 @@ export default function PantherApp() {
   // TAB: FUEL
   // ============================================================================
 
+  const renderFuelRange = (dates, label) => {
+    const tot = sumFuelRange(dates);
+    const logged = dates.filter(d => fuelDays[d] && !fuelDays[d].empty);
+    return (<>
+      <div style={S.macroBar}>
+        {[['CALORIES',tot.cal.toLocaleString(),''],['PROTEIN',tot.pro,'g'],['FAT',tot.fat,'g'],['CARBS',tot.carb,'g']].map(([l,n,u],i)=>(
+          <React.Fragment key={l}>{i>0&&<div style={S.macroDivider}/>}<div style={S.macroItem}><span style={S.macroNum}>{n}{u}</span><span style={S.macroLabel}>{l}</span></div></React.Fragment>
+        ))}
+      </div>
+      <div style={S.macroSub}>
+        {[['Sat',tot.sat,'g'],['Fiber',tot.fib,'g'],['Sugar',tot.sug,'g'],['Chol',tot.chol,'mg'],['Sodium',tot.sod,'mg']].map(([l,n,u])=>(
+          <div key={l} style={S.macroSubItem}><span style={S.macroSubNum}>{n}{u}</span><span style={S.macroSubLabel}>{l}</span></div>
+        ))}
+      </div>
+      <p style={{fontSize:12,color:'#666',textAlign:'center',margin:'0 0 16px'}}>{label} · {logged.length}/{dates.length} days logged</p>
+      <div style={{display:'flex',flexDirection:'column',gap:16,marginBottom:16}}>
+        <MiniChart data={fuelChart(dates,'cal')} label="Calories" unit="" color="#7FB3D8"/>
+        <MiniChart data={fuelChart(dates,'pro')} label="Protein" unit="g" color="#A8D8A8"/>
+        <MiniChart data={fuelChart(dates,'fat')} label="Fat" unit="g" color="#D8A87F"/>
+        <MiniChart data={fuelChart(dates,'carb')} label="Carbs" unit="g" color="#C9B8E0"/>
+      </div>
+      <div style={S.sectionTag}>DAYS</div>
+      {dates.map(d => {
+        const m = fuelDays[d];
+        const isEmpty = !m || m.empty;
+        return (
+          <button key={d} onClick={()=>{setFuelDate(d);setFuelView('today');}} style={{...S.fuelRow,borderColor:d===todayStr()?'#5D6D7E':'#2C2C2C'}}>
+            <div style={{flex:1,textAlign:'left'}}>
+              <span style={{fontSize:14,fontWeight:600,color:'#ECF0F1',display:'block'}}>{fmtDate(d)}</span>
+              <span style={{fontSize:11,color:isEmpty?'#555':'#5D6D7E',marginTop:3,display:'block'}}>{isEmpty?'NULL — not started':macroLine(m)}</span>
+            </div>
+            <span style={{fontSize:12,color:'#666'}}>{isEmpty?'—':`${m.cal} cal`}</span>
+          </button>
+        );
+      })}
+    </>);
+  };
+
   const renderFuel = () => {
     const fSel=getSelectedMeals('factor'),hSel=getSelectedMeals('hf');
     return (<>
-      <div style={S.tabHeader}>
-        <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:16}}>
-          <button onClick={()=>shiftFuelDate(-1)} style={S.dateArrow}>‹</button>
-          <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
-            <span style={{fontSize:16,fontWeight:700}}>{fmtDate(fuelDate)}</span>
-            {fuelDate!==todayStr()&&<button onClick={()=>setFuelDate(todayStr())} style={{background:'none',border:'1px solid #5D6D7E',color:'#95A5A6',borderRadius:4,padding:'2px 8px',fontSize:10,cursor:'pointer',marginTop:4}}>Today</button>}
-          </div>
-          <button onClick={()=>shiftFuelDate(1)} style={S.dateArrow}>›</button>
+      <div style={S.tabHeader}><h1 style={S.tabTitle}>FUEL</h1></div>
+      <div style={S.toggleRow}>
+        <button onClick={()=>setFuelView('today')} style={{...S.toggleBtn,...(fuelView==='today'?S.toggleAct:{})}}>Today</button>
+        <button onClick={()=>setFuelView('week')} style={{...S.toggleBtn,...(fuelView==='week'?S.toggleAct:{})}}>Week</button>
+        <button onClick={()=>setFuelView('month')} style={{...S.toggleBtn,...(fuelView==='month'?S.toggleAct:{})}}>Month</button>
+      </div>
+      {fuelView==='week'&&renderFuelRange(weekDays,'This week')}
+      {fuelView==='month'&&renderFuelRange(monthDays, new Date(todayStr()+'T12:00:00').toLocaleString('en-US',{month:'long'}))}
+      {fuelView==='today'&&<>
+      <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:16,marginBottom:16}}>
+        <button onClick={()=>shiftFuelDate(-1)} style={S.dateArrow}>‹</button>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <span style={{fontSize:16,fontWeight:700}}>{fmtDate(fuelDate)}</span>
+          {fuelDate!==todayStr()&&<button onClick={()=>setFuelDate(todayStr())} style={{background:'none',border:'1px solid #5D6D7E',color:'#95A5A6',borderRadius:4,padding:'2px 8px',fontSize:10,cursor:'pointer',marginTop:4}}>Today</button>}
         </div>
+        <button onClick={()=>shiftFuelDate(1)} style={S.dateArrow}>›</button>
       </div>
       <div style={S.macroBar}>
         {[['CALORIES',fuelTotal.cal.toLocaleString(),''],['PROTEIN',fuelTotal.pro,'g'],['FAT',fuelTotal.fat,'g'],['CARBS',fuelTotal.carb,'g']].map(([l,n,u],i)=>(
@@ -1100,6 +1383,7 @@ export default function PantherApp() {
           </div>
         </button>)}
       </div>
+      </>}
     </>);
   };
 
@@ -1166,6 +1450,7 @@ export default function PantherApp() {
         <button onClick={()=>setProgView('lifts')} style={{...S.toggleBtn,...(progView==='lifts'?S.toggleAct:{})}}>Lifts</button>
         <button onClick={()=>setProgView('log')} style={{...S.toggleBtn,...(progView==='log'?S.toggleAct:{})}}>Log</button>
         <button onClick={()=>setProgView('charts')} style={{...S.toggleBtn,...(progView==='charts'?S.toggleAct:{})}}>Charts</button>
+        <button onClick={()=>setProgView('data')} style={{...S.toggleBtn,...(progView==='data'?S.toggleAct:{})}}>Data</button>
       </div>
       {progView==='overview'&&<div style={{display:'flex',flexDirection:'column',gap:8}}>
         {trackedLifts.length>0&&<>
@@ -1254,6 +1539,23 @@ export default function PantherApp() {
           return <MiniChart key={name} data={chartData} label={name} unit="lbs" color="#BDC3C7"/>;
         })}
       </div>}
+      {progView==='data'&&<div>
+        <div style={S.sectionTag}>WHY THIS MATTERS</div>
+        <p style={{fontSize:13,color:'#888',lineHeight:1.5,margin:'0 0 16px'}}>Closing the app does not erase data. iPhone Safari can still wipe site data after ~7 days if Panther is not on your Home Screen. Use both backups below so nothing is ever lost.</p>
+        <div style={S.sectionTag}>ON THIS PHONE</div>
+        <p style={{fontSize:12,color:'#666',lineHeight:1.45,margin:'0 0 12px'}}>Data is saved in the browser (localStorage + IndexedDB). On iPhone: Share → Add to Home Screen, then always open Panther from that icon.</p>
+        <div style={S.sectionTag}>DOWNLOAD FILES</div>
+        <p style={{fontSize:12,color:'#666',lineHeight:1.45,margin:'0 0 12px'}}>Saves a JSON restore file and a readable TXT (fuel, lifts, gains, workouts). Keep them in Files / iCloud / Drive.</p>
+        <button onClick={exportBackup} style={{...S.primaryBtn,marginBottom:10}}>Download Backup Files</button>
+        <label style={{...S.secondaryBtn,display:'block',marginBottom:20,textAlign:'center'}}>Restore from File<input type="file" accept=".json" style={{display:'none'}} onChange={e=>e.target.files[0]&&importBackupFile(e.target.files[0])}/></label>
+        <div style={S.sectionTag}>PRIVATE GITHUB GIST (CLOUD)</div>
+        <p style={{fontSize:12,color:'#666',lineHeight:1.45,margin:'0 0 12px'}}>The public GitHub Pages site cannot hold your personal logs. A secret Gist can. Create a token at GitHub → Settings → Developer settings → Personal access tokens (classic) with the <b>gist</b> scope only. Paste it once. After that, Save to Cloud stores fuel, lifts, and history. If this phone is wiped, paste the same token and tap Restore.</p>
+        <input type="password" value={ghToken} onChange={e=>setGhToken(e.target.value)} placeholder="GitHub token (gist scope)" style={S.searchInput}/>
+        <button onClick={syncToGist} style={{...S.primaryBtn,marginBottom:10}}>Save to Cloud</button>
+        <button onClick={restoreFromGist} style={{...S.secondaryBtn,marginBottom:8}}>Restore from Cloud</button>
+        {lastSync&&<p style={{fontSize:11,color:'#5D6D7E',textAlign:'center'}}>Last saved: {lastSync}</p>}
+        {syncMsg&&<p style={{fontSize:12,color:'#95A5A6',textAlign:'center',marginTop:6}}>{syncMsg}</p>}
+      </div>}
     </>);
   };
 
@@ -1292,7 +1594,7 @@ const S={
   tabTitle:{fontSize:22,fontWeight:800,letterSpacing:4,margin:0},
   tabSub:{fontSize:12,color:'#666',marginTop:6},
   toggleRow:{display:'flex',gap:8,marginBottom:16},
-  toggleBtn:{flex:1,padding:'12px 8px',fontSize:12,fontWeight:600,backgroundColor:'#1A1A1A',border:'2px solid #2C2C2C',borderRadius:10,color:'#888',cursor:'pointer',textAlign:'center'},
+  toggleBtn:{flex:1,padding:'12px 4px',fontSize:11,fontWeight:600,backgroundColor:'#1A1A1A',border:'2px solid #2C2C2C',borderRadius:10,color:'#888',cursor:'pointer',textAlign:'center'},
   toggleAct:{borderColor:'#5D6D7E',color:'#ECF0F1',backgroundColor:'#1E2A35'},
   sectionTag:{fontSize:10,letterSpacing:2,color:'#5D6D7E',textTransform:'uppercase',marginBottom:10,fontWeight:700},
   primaryBtn:{backgroundColor:'#5D6D7E',color:'#ECF0F1',border:'none',borderRadius:10,padding:'14px 24px',fontSize:14,fontWeight:600,cursor:'pointer',textAlign:'center',width:'100%'},
