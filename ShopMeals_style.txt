@@ -1,0 +1,65 @@
+SHOP MEALS FORMAT SPECIFICATION
+================================
+Use this exact format when writing Factor / HelloFresh meals for Panther.
+Paste this into Shop → Import Meals.
+
+You can give this file + your meal list to any AI and say:
+"Convert these meals to this exact format."
+
+
+RULES
+-----
+
+1. BRAND starts with:   # FACTOR | Week label
+                        # HELLOFRESH | Week label
+2. MEALS start with:    - Meal Name | 620 cal | 34p | 30f | 50c | headline: ... | category: ...
+
+   Fields after the name are separated by |
+   Name is required. Everything else is optional.
+
+3. Lines starting with // are comments (ignored)
+4. Empty lines are ignored
+5. You can put BOTH brands in one paste. The app splits them.
+
+
+NUTRIENT FIELDS
+---------------
+Use either the short form or the labeled form.
+
+  620 cal          or   cal: 620
+  34p              or   pro: 34
+  30f              or   fat: 30
+  50c              or   carb: 50
+  8fib             or   fib: 8
+  6sat             or   sat: 6
+  22sug            or   sug: 22
+  70chol           or   chol: 70
+  730na            or   sod: 730
+
+  headline: with Potatoes & Greens
+  category: Seafood
+
+Anything that is not a nutrient or headline/category is treated as the headline.
+
+
+COMPLETE EXAMPLE
+----------------
+
+# FACTOR | Week of Oct 20
+
+- Salmon Burger & Collard Greens | 620 cal | 34p | 30f | 50c | 8fib | 6sat | 22sug | 70chol | 730na | headline: with sweet potatoes | category: Seafood
+- Chicken Alfredo | 710 cal | 42p | 28f | 55c | 4fib | category: Poultry
+- Beef Chili | cal: 540 | pro: 38 | fat: 22 | carb: 40 | fib: 9 | category: Beef
+
+# HELLOFRESH | Week of Oct 20
+
+- Mozzarella & Herb Chicken | 760 cal | 53p | 36f | 58c | 7fib | 14sat | 12sug | 185chol | 650na | headline: with roasted carrots | category: Poultry
+- Moo Shu Pork Bowls | 880 cal | 29p | 39f | 97c | 3fib | headline: with cabbage & rice | category: Pork
+
+
+TIPS
+----
+- Copy numbers off the Factor / HelloFresh card or the nutrition PDF
+- Only list the meals you actually ordered (usually 7 each)
+- Import replaces that brand's list, then pick your 7 in Shop
+- Fuel uses these macros when you check a meal off

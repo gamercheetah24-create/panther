@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
-// PANTHER v7.3 — LOCAL-FIRST DAILY UTILITY
+// PANTHER v7.4 — LOCAL-FIRST DAILY UTILITY
 // ============================================================================
 //
 // 1. SCRIPT   — Read-only daily view + one-tap step-through workout runner
@@ -563,6 +563,86 @@ function parseStretchText(text) {
 }
 
 // ============================================================================
+// SHOP MEALS TEXT PARSER  (ShopMeals_style.txt)
+// ============================================================================
+
+function parseShopMealLine(body) {
+  const parts = body.split('|').map(s => s.trim()).filter(Boolean);
+  const m = { name: parts[0] || 'Unknown', headline: '', category: '', type: 'Meal', ...EMPTY_MACROS };
+  const extra = [];
+  for (let i = 1; i < parts.length; i++) {
+    const p = parts[i];
+    let x;
+    if ((x = p.match(/^(?:cal(?:ories)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*cal(?:ories)?$/i))) { m.cal = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:pro(?:tein)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*(?:p|pro(?:tein)?)$/i))) { m.pro = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^fat\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*f(?:at)?$/i))) { m.fat = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:carb(?:s|ohydrate)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*c(?:arb(?:s)?)?$/i))) { m.carb = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:fib(?:er|re)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*fib(?:er|re)?$/i))) { m.fib = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:sat(?:urated)?(?:\s*fat)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*sat$/i))) { m.sat = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:sug(?:ar)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*sug(?:ar)?$/i))) { m.sug = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:chol(?:esterol)?)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*chol(?:esterol)?$/i))) { m.chol = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^(?:sod(?:ium)?|na)\s*:\s*([\d.]+)/i)) || (x = p.match(/^([\d.]+)\s*(?:na|sod(?:ium)?)$/i))) { m.sod = Math.round(+x[1]); continue; }
+    if ((x = p.match(/^headline\s*:\s*(.+)/i))) { m.headline = x[1].trim(); continue; }
+    if ((x = p.match(/^category\s*:\s*(.+)/i))) { m.category = x[1].trim(); continue; }
+    extra.push(p);
+  }
+  if (!m.headline && extra.length) m.headline = extra.join(', ');
+  return m;
+}
+
+function parseShopText(text) {
+  const out = { factor: null, hf: null };
+  let brand = null, week = '', meals = [];
+  const flush = () => {
+    if (brand && meals.length) {
+      const data = { week, scraped: todayStr(), meals };
+      if (brand === 'factor') out.factor = data; else out.hf = data;
+    }
+  };
+  for (const raw of text.split('\n')) {
+    const ln = raw.trim();
+    if (!ln || ln.startsWith('//')) continue;
+    if (ln.startsWith('# ')) {
+      flush();
+      meals = [];
+      const p = ln.slice(2).split('|').map(s => s.trim());
+      const b = (p[0] || '').toLowerCase().replace(/\s+/g, '');
+      brand = (b.includes('hello') || b === 'hf') ? 'hf' : 'factor';
+      week = p[1] || '';
+    } else if (ln.startsWith('- ')) {
+      if (!brand) continue;
+      meals.push(parseShopMealLine(ln.slice(2)));
+    }
+  }
+  flush();
+  if (!out.factor && !out.hf) {
+    const loose = [];
+    for (const raw of text.split('\n')) {
+      const ln = raw.trim();
+      if (ln.startsWith('- ')) loose.push(parseShopMealLine(ln.slice(2)));
+    }
+    if (loose.length) out._loose = loose;
+  }
+  return out;
+}
+
+function isProgrammedRestDay(dateObj, data) {
+  const key = DAYS[dateObj.getDay()];
+  const d = data?.[key];
+  if (!d) return false;
+  const sessRest = (s) => {
+    if (!s) return true;
+    const t = (s.title || '').toUpperCase();
+    if (t === 'REST' || /\bREST\b/.test(t)) return true;
+    const ex = (s.sections || []).flatMap(sec => sec.exercises || []);
+    return ex.length > 0 && ex.every(e => /rest/i.test(e.name || ''));
+  };
+  if (sessRest(d.am) && sessRest(d.pm)) return true;
+  if (/recovery|rest/i.test(d.name || '') && sessRest(d.pm)) return true;
+  return false;
+}
+
+// ============================================================================
 // MINI CHART
 // ============================================================================
 
@@ -665,6 +745,8 @@ export default function PantherApp() {
   const [shopSection, setShopSection] = useState('factor');
   const [showImport, setShowImport] = useState(null);
   const [importText, setImportText] = useState('');
+  const [factorSource, setFactorSource] = useState(()=>localStorage.getItem('p_factor_source')||'');
+  const [hfSource, setHfSource] = useState(()=>localStorage.getItem('p_hf_source')||'');
 
   // Fuel
   const [fuelDate, setFuelDate] = useState(todayStr);
@@ -779,7 +861,16 @@ export default function PantherApp() {
   useEffect(()=>{localStorage.setItem('p_factor_sel',JSON.stringify(factorSel));},[factorSel]);
   useEffect(()=>{localStorage.setItem('p_hf_sel',JSON.stringify(hfSel));},[hfSel]);
 
-  // ---- Auto-fetch meal data from GitHub Actions (refreshes weekly JSON) ----
+  // ---- Restore manually imported shop meals (do not let scraper overwrite) ----
+  useEffect(() => {
+    const saved = localStorage.getItem('p_shop_text');
+    if (!saved) return;
+    const p = parseShopText(saved);
+    if (p.factor?.meals?.length) { setFactorMeals(p.factor); setFactorSource('imported'); localStorage.setItem('p_factor_source','imported'); }
+    if (p.hf?.meals?.length) { setHfMeals(p.hf); setHfSource('imported'); localStorage.setItem('p_hf_source','imported'); }
+  }, []);
+
+  // ---- Auto-fetch meal data from GitHub Actions (skip if user imported text) ----
   useEffect(() => {
     const base = import.meta.env.BASE_URL || '/panther/';
     const load = (file, setter) => {
@@ -790,17 +881,24 @@ export default function PantherApp() {
         }
       }).catch(()=>{});
     };
-    load('factor_week.json', setFactorMeals);
-    load('hellofresh_week.json', setHfMeals);
+    if (localStorage.getItem('p_factor_source') !== 'imported') load('factor_week.json', setFactorMeals);
+    if (localStorage.getItem('p_hf_source') !== 'imported') load('hellofresh_week.json', setHfMeals);
   }, []);
 
-  // ---- Streak calc ----
+  // ---- Streak calc (programmed rest / recovery days do not break the streak) ----
   useEffect(() => {
     const h = safeJson(localStorage.getItem('p_history'),[]);
     let s=0; const t=new Date(); t.setHours(0,0,0,0);
-    for(let i=0;i<365;i++){const d=new Date(t);d.setDate(d.getDate()-i);const ds=d.toISOString().split('T')[0];const has=h.some(w=>w.date===ds);if(has||i===0){if(has)s++;}else break;}
+    for(let i=0;i<365;i++){
+      const d=new Date(t); d.setDate(d.getDate()-i);
+      const ds=d.toISOString().split('T')[0];
+      const has=h.some(w=>w.date===ds);
+      const rest=isProgrammedRestDay(d, workoutData);
+      if(has||rest||i===0){ if(has||rest) s++; }
+      else break;
+    }
     setCurrentStreak(s);
-  }, [workoutHistory]);
+  }, [workoutHistory, workoutData]);
 
   // ---- Prefill last logged weight/reps for tracked lifts ----
   useEffect(() => {
@@ -934,19 +1032,60 @@ export default function PantherApp() {
   const exitStretch = () => { setStretchOn(false); setStrPartIdx(0); setStrIdx(0); };
 
   // ---- Shop helpers ----
+  const applyShopParsed = (parsed, fallbackBrand) => {
+    let any = false;
+    if (parsed.factor?.meals?.length) {
+      setFactorMeals(parsed.factor); setFactorSel([]);
+      setFactorSource('imported'); localStorage.setItem('p_factor_source','imported'); any = true;
+    }
+    if (parsed.hf?.meals?.length) {
+      setHfMeals(parsed.hf); setHfSel([]);
+      setHfSource('imported'); localStorage.setItem('p_hf_source','imported'); any = true;
+    }
+    if (!any && parsed._loose?.length) {
+      const data = { week: '', scraped: todayStr(), meals: parsed._loose };
+      if (fallbackBrand === 'factor') { setFactorMeals(data); setFactorSel([]); setFactorSource('imported'); localStorage.setItem('p_factor_source','imported'); }
+      else { setHfMeals(data); setHfSel([]); setHfSource('imported'); localStorage.setItem('p_hf_source','imported'); }
+      any = true;
+    }
+    return any;
+  };
+  const importShopText = (text, fallbackBrand) => {
+    const parsed = parseShopText(text);
+    if (!applyShopParsed(parsed, fallbackBrand)) { alert('Could not parse any meals. Use ShopMeals_style.txt format.'); return; }
+    localStorage.setItem('p_shop_text', text);
+    setImportText(''); setShowImport(null);
+  };
   const importMeals = (brand) => {
-    let raw; try{raw=JSON.parse(importText);}catch{alert('Invalid JSON');return;}
-    const meals=(raw.meals||[]).map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
-    if(!meals.length){alert('No meals found');return;}
-    const data={week:raw.week||'',scraped:raw.scraped_on||'',meals};
-    if(brand==='factor'){setFactorMeals(data);setFactorSel([]);}else{setHfMeals(data);setHfSel([]);}
-    setImportText('');setShowImport(null);
+    const t = importText.trim();
+    if (!t) return;
+    if (t.startsWith('{') || t.startsWith('[')) {
+      let raw; try{raw=JSON.parse(t);}catch{alert('Invalid JSON');return;}
+      const meals=(raw.meals||[]).map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
+      if(!meals.length){alert('No meals found');return;}
+      const data={week:raw.week||'',scraped:raw.scraped_on||'',meals};
+      if(brand==='factor'){setFactorMeals(data);setFactorSel([]);setFactorSource('imported');localStorage.setItem('p_factor_source','imported');}
+      else {setHfMeals(data);setHfSel([]);setHfSource('imported');localStorage.setItem('p_hf_source','imported');}
+      setImportText('');setShowImport(null);
+      return;
+    }
+    importShopText(t, brand);
   };
   const handleFileImport = (brand,file) => {
-    const r=new FileReader();r.onload=(e)=>{let raw;try{raw=JSON.parse(e.target.result);}catch{alert('Invalid JSON');return;}
-    const meals=(raw.meals||[]).map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
-    if(!meals.length){alert('No meals found');return;}const data={week:raw.week||'',scraped:raw.scraped_on||'',meals};
-    if(brand==='factor'){setFactorMeals(data);setFactorSel([]);}else{setHfMeals(data);setHfSel([]);}};r.readAsText(file);
+    const r=new FileReader();r.onload=(e)=>{
+      const t=e.target.result;
+      if ((file.name||'').toLowerCase().endsWith('.json') || t.trim().startsWith('{')) {
+        let raw;try{raw=JSON.parse(t);}catch{importShopText(t, brand);return;}
+        const meals=(raw.meals||[]).map(m=>({name:m.meal||m.name||'Unknown',headline:m.headline||'',...parseMealMacros(m.nutrition),category:(typeof m.category==='object'?m.category?.name:m.category)||'',type:m.meal_type||'Meal'}));
+        if(!meals.length){alert('No meals found');return;}const data={week:raw.week||'',scraped:raw.scraped_on||'',meals};
+        if(brand==='factor'){setFactorMeals(data);setFactorSel([]);setFactorSource('imported');localStorage.setItem('p_factor_source','imported');}
+        else {setHfMeals(data);setHfSel([]);setHfSource('imported');localStorage.setItem('p_hf_source','imported');}
+      } else importShopText(t, brand);
+    };r.readAsText(file);
+  };
+  const resetShopBrand = (brand) => {
+    if (brand==='factor') { setFactorMeals(null); setFactorSel([]); setFactorSource(''); localStorage.removeItem('p_factor_source'); localStorage.removeItem('p_factor_meals'); }
+    else { setHfMeals(null); setHfSel([]); setHfSource(''); localStorage.removeItem('p_hf_source'); localStorage.removeItem('p_hf_meals'); }
   };
   const toggleShopSel = (brand,idx) => {
     if(brand==='factor')setFactorSel(p=>p.includes(idx)?p.filter(i=>i!==idx):p.length<7?[...p,idx]:p);
@@ -1247,17 +1386,18 @@ export default function PantherApp() {
       </div>
       {!src?(
         <div style={{textAlign:'center',padding:'40px 0'}}>
-          <p style={{fontSize:16,fontWeight:600,marginBottom:8}}>No {brandLabel} meals imported</p>
-          <p style={{fontSize:13,color:'#666',marginBottom:24}}>Run the scraper, then import the JSON</p>
-          <label style={{...S.primaryBtn,display:'block',marginBottom:10}}>Upload JSON File<input type="file" accept=".json" style={{display:'none'}} onChange={e=>e.target.files[0]&&handleFileImport(brand,e.target.files[0])}/></label>
-          <button onClick={()=>{setShowImport(brand);setImportText('');}} style={S.secondaryBtn}>Paste JSON</button>
+          <p style={{fontSize:16,fontWeight:600,marginBottom:8}}>No {brandLabel} meals yet</p>
+          <p style={{fontSize:13,color:'#666',marginBottom:24}}>Paste text in ShopMeals_style.txt format, or upload a .txt file</p>
+          <label style={{...S.primaryBtn,display:'block',marginBottom:10}}>Upload .txt File<input type="file" accept=".txt,.json" style={{display:'none'}} onChange={e=>e.target.files[0]&&handleFileImport(brand,e.target.files[0])}/></label>
+          <button onClick={()=>{setShowImport(brand);setImportText('');}} style={S.secondaryBtn}>Paste Meals</button>
         </div>
       ):(
         <>
-          <div style={{display:'flex',justifyContent:'space-between',marginBottom:12}}><span style={{fontSize:12,color:'#95A5A6'}}>{src.week||`Scraped ${src.scraped}`}</span><span style={{fontSize:12,color:'#666'}}>{src.meals.length} meals</span></div>
-          <div style={{display:'flex',gap:8,marginBottom:12}}>
-            <label style={S.smallBtn}>Re-import<input type="file" accept=".json" style={{display:'none'}} onChange={e=>e.target.files[0]&&handleFileImport(brand,e.target.files[0])}/></label>
-            <button onClick={()=>{setShowImport(brand);setImportText('');}} style={S.smallBtn}>Paste JSON</button>
+          <div style={{display:'flex',justifyContent:'space-between',marginBottom:12}}><span style={{fontSize:12,color:'#95A5A6'}}>{src.week||((brand==='factor'?factorSource:hfSource)==='imported'?'Imported':`Scraped ${src.scraped}`)}</span><span style={{fontSize:12,color:'#666'}}>{src.meals.length} meals</span></div>
+          <div style={{display:'flex',gap:8,marginBottom:12,flexWrap:'wrap'}}>
+            <button onClick={()=>{setShowImport(brand);setImportText('');}} style={S.smallBtn}>Import Meals</button>
+            <label style={S.smallBtn}>Upload .txt<input type="file" accept=".txt,.json" style={{display:'none'}} onChange={e=>e.target.files[0]&&handleFileImport(brand,e.target.files[0])}/></label>
+            {(brand==='factor'?factorSource:hfSource)==='imported'&&<button onClick={()=>resetShopBrand(brand)} style={S.smallBtn}>Clear list</button>}
           </div>
           <input type="text" placeholder="Search meals..." value={shopSearch} onChange={e=>setShopSearch(e.target.value)} style={S.searchInput}/>
           {sel.length>0&&<div style={{marginBottom:16}}><div style={S.sectionTag}>SELECTED ({sel.length}/7)</div>{sel.map(idx=>{const m=src.meals[idx];if(!m)return null;return(<button key={idx} onClick={()=>toggleShopSel(brand,idx)} style={S.selChip}><span style={{flex:1,fontSize:13,fontWeight:600,color:'#ECF0F1'}}>{m.name}</span><span style={{fontSize:11,color:'#95A5A6'}}>{m.cal}cal·{m.pro}p·{m.fat}f</span><span style={{fontSize:14,color:'#888',marginLeft:4}}>✕</span></button>);})}</div>}
@@ -1276,7 +1416,15 @@ export default function PantherApp() {
           </div>
         </>
       )}
-      {showImport&&<div style={S.modal}><div style={S.modalBox}><h3 style={{fontSize:16,fontWeight:700,marginBottom:16,marginTop:0}}>Paste {showImport==='factor'?'Factor':'HelloFresh'} JSON</h3><textarea value={importText} onChange={e=>setImportText(e.target.value)} placeholder="Paste JSON here..." style={S.modalTextarea}/><div style={{display:'flex',gap:10,marginTop:16}}><button onClick={()=>importMeals(showImport)} style={S.primaryBtn}>Import</button><button onClick={()=>{setShowImport(null);setImportText('');}} style={S.secondaryBtn}>Cancel</button></div></div></div>}
+      {showImport&&<div style={S.modal}><div style={S.modalBox}>
+          <h3 style={{fontSize:16,fontWeight:700,marginBottom:16,marginTop:0}}>Import {showImport==='factor'?'Factor':'HelloFresh'} Meals</h3>
+          <p style={{fontSize:12,color:'#888',marginBottom:12}}>Paste ShopMeals_style.txt format. You can include both # FACTOR and # HELLOFRESH in one paste.</p>
+          <textarea value={importText} onChange={e=>setImportText(e.target.value)} placeholder={"# FACTOR | Week of Oct 20\n- Salmon Burger | 620 cal | 34p | 30f | 50c"} style={S.modalTextarea}/>
+          <div style={{display:'flex',gap:10,marginTop:16}}>
+            <button onClick={()=>importMeals(showImport)} style={S.primaryBtn}>Import</button>
+            <button onClick={()=>{setShowImport(null);setImportText('');}} style={S.secondaryBtn}>Cancel</button>
+          </div>
+        </div></div>}
     </>);
   };
 
