@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // ============================================================================
-// PANTHER v7.4 — LOCAL-FIRST DAILY UTILITY
+// PANTHER v7.5 — LOCAL-FIRST DAILY UTILITY
 // ============================================================================
 //
 // 1. SCRIPT   — Read-only daily view + one-tap step-through workout runner
 // 2. SHOP     — Import & curate weekly Factor / HelloFresh meals (auto-fetch)
 // 3. FUEL     — Daily nutrition checklist (staples + selected meals)
 // 4. STRETCH  — Full body guided stretch routine (importable)
-// 5. PROGRESS — Streak, gains logging, charts, workout history
+// 5. LOOKS    — Daily 30 min neck + face (pick neck work, face is mandatory)
+// 6. PROGRESS — Streak, gains logging, charts, workout history
 //
 // Workout & stretch routines importable via text files
 // Meals auto-fetched from GitHub Actions or imported manually
@@ -280,6 +281,59 @@ const STRETCH_DATA = [
 ];
 
 // ============================================================================
+// LOOKS — daily 30 min. Pick today's neck work. Face routine is every day.
+// ============================================================================
+
+const LOOKS_SUGGEST = { Monday:'flexion', Tuesday:'extension', Wednesday:'iso', Thursday:'flexion', Friday:'extension', Saturday:'iso', Sunday:'rest' };
+
+const LOOKS_NECK_PICKS = [
+  { id: 'flexion', label: 'Front Neck', name: 'Dynamic Neck Flexion', duration: '2 × 15', video: '7HvcoICeA-8',
+    notes: 'Lay face-up on a bench, weight plate on forehead. Stretch back, curl chin to chest. 2 sets of 15.' },
+  { id: 'extension', label: 'Back Neck', name: 'Dynamic Neck Extension', duration: '2 × 15', video: '7HvcoICeA-8',
+    notes: 'Lay face-down on a bench, harness or hand resistance. Stretch down, look up. 2 sets of 15.' },
+  { id: 'iso', label: 'Impact Armor', name: 'F1-Style Max Isometrics', duration: '2 × 3–5 sec / side', video: '7HvcoICeA-8',
+    notes: 'Push head into a padded wall at 70%+ max effort — front, back, left, right. 2 sets of 3–5 sec holds per side.' },
+  { id: 'rest', label: 'Recovery', name: 'Warm-up only', duration: 'No loaded neck', video: null,
+    notes: 'No loaded neck work. Warm-up plus the full face routine is still required today.' },
+];
+
+const LOOKS_WARMUP = [
+  { part: 'Neck Warm-up', name: 'Stretch All Directions', duration: '10 sec each way', video: null,
+    notes: 'Right ear to right shoulder (10s), left ear to left shoulder (10s), chin to chest (10s), look up at the ceiling (10s). Gentle.' },
+  { part: 'Neck Warm-up', name: 'Hand Massage', duration: '60 sec', video: null,
+    notes: 'Squeeze and massage the back of the neck, upper traps, and SCM (front/sides of the neck) for 60 seconds to push blood into the area.' },
+];
+
+const LOOKS_FACE = [
+  { part: 'Face — Daily', name: 'Jaw Massage (Masseter Release)', duration: '60 sec', video: null,
+    notes: 'Knuckles or heels of the hands on the masseters (bulky chewing muscles at the back of the jaw). Firm inward pressure, slow deep circles. Do this before any face work.' },
+  { part: 'Face — Daily', name: 'Hyoid Bone Curls (Supine Chin Tucks)', duration: '2 × 15', video: ['5Gv2PTI9AOE','7HvcoICeA-8'],
+    notes: 'Face-up, head hanging off the edge. Tongue suctioned to the roof of the mouth. Do not curl the whole head — tuck the chin hard into the throat (max double chin) to hit the suprahyoid under the jaw.' },
+  { part: 'Face — Daily', name: 'Thumbpulling Step 0 (Warm-up)', duration: '60 sec', video: 'Aiqwl9wqwh4',
+    notes: 'Wash your hands. Thumbs apply firm pressure up and down the outer edges of the hard palate (roof of the mouth) to loosen maxilla fascia.' },
+  { part: 'Face — Daily', name: 'Advanced Thumbpulling (2-min block)', duration: '2:00 timer', video: 'VapK6E_8mfw', timer: 120,
+    notes: 'Timer is 2 minutes. Cycle Front, Middle, Back palate. Middle is most important. Base: hard chin tuck, max up-and-out pressure 8–12 sec (creaks = enough force). Follow-up: break the tuck, roll head back, keep pressure. Reset: chin tuck again, next palate zone. Repeat until the timer ends. Ideal every 2 hours — minimum once daily.' },
+  { part: 'Face — Daily', name: 'Cheek Puff and Suck', duration: '10 reps', video: null,
+    notes: 'Inhale through the nose. Puff both cheeks. Lips sealed, suck the air inward (hollow cheeks), hold 2–3 sec, release with a slight pop.' },
+  { part: 'Face — Daily', name: 'Full Lymphatic Massage', duration: '~2 min', video: '7HvcoICeA-8',
+    notes: 'Face wet or moisturized. Light fingertip sweeps, 5–10 each: ears→collarbone; under jaw→ears; nose sides→ears; under eyes→ears; forehead center→ears; finish ears→collarbone.' },
+  { part: 'Face — Daily', name: 'Zygo Pushing (Cheekbones)', duration: '3 × 30 sec', video: null,
+    notes: 'Elbows on a table. Heels of palms or thumbs under the zygomatic arches. Press up and out evenly on both sides — do not create asymmetry.' },
+  { part: 'Face — Daily', name: 'Hunter Eyes (Orbicularis Oculi)', duration: '3 × 15 or 3 × 30s', video: '7HvcoICeA-8',
+    notes: 'Index fingers on the outer orbital bone. Pull skin up and slightly out ~1 cm. Against that, squint hard / try to close the eyes. 3 sets of 15 reps or 3 × 30-sec holds.' },
+  { part: 'Face — Daily', name: 'Nose Shaping (Nasion Press)', duration: '3 × 30 sec', video: null,
+    notes: 'Thumb and index on either side of the upper nose bridge (nasion). Pinch and press inward and slightly up. Combine with alternate-nostril breathing (inhale left, exhale right).' },
+];
+
+const buildLooksQueue = (neckId) => {
+  const neck = LOOKS_NECK_PICKS.find(n => n.id === neckId);
+  const steps = LOOKS_WARMUP.map(s => ({ ...s }));
+  if (neck && neckId !== 'rest') steps.push({ part: 'Neck Work', name: neck.name, duration: neck.duration, video: neck.video, notes: neck.notes });
+  LOOKS_FACE.forEach(s => steps.push({ ...s }));
+  return steps;
+};
+
+// ============================================================================
 // STAPLES & UTILITIES
 // ============================================================================
 
@@ -372,7 +426,7 @@ const collectAllData = () => {
     const k = localStorage.key(i);
     if (k && k.startsWith('p_')) keys[k] = localStorage.getItem(k);
   }
-  return { savedAt: new Date().toISOString(), version: 7.3, keys };
+  return { savedAt: new Date().toISOString(), version: 7.5, keys };
 };
 const restoreAllData = (bag) => {
   const keys = bag?.keys || bag;
@@ -407,6 +461,9 @@ const buildBackupTxt = (state) => {
   gains.forEach(e => { t += `${e.date}  bw:${e.bodyweight||'-'}  pu:${e.pullup?`+${e.pullup.weight}x${e.pullup.reps}`:'-'}  hang:${e.hang?`${e.hang.time}s`:'-'}\n`; });
   t += '\n=== WORKOUTS ===\n';
   hist.forEach(e => { t += `${e.date}  ${e.day} ${e.session}  ${e.title}\n`; });
+  const looks = safeJson(keys.p_looks_log, []);
+  t += '\n=== LOOKS ===\n';
+  looks.forEach(e => { t += `${e.date}  neck:${e.neck||'-'}  ${e.completedAt||''}\n`; });
   if (keys.p_workout_text) t += '\n=== WORKOUT ROUTINE ===\n' + keys.p_workout_text + '\n';
   if (keys.p_stretch_text) t += '\n=== STRETCH ROUTINE ===\n' + keys.p_stretch_text + '\n';
   return t;
@@ -672,22 +729,32 @@ function MiniChart({ data, label, unit, color }) {
 
 function VideoEmbed({ video, title }) {
   if (!video) return null;
-  if (isYtId(video)) return (
-    <div style={S.videoWrap}>
-      <iframe src={`https://www.youtube.com/embed/${video}?rel=0&modestbranding=1`} style={S.video} allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen title={title}/>
-    </div>
-  );
-  return (
-    <a href={video} target="_blank" rel="noopener noreferrer" style={S.extVideoBtn}>
-      ▶ Watch Demo Video
-    </a>
-  );
+  const list = Array.isArray(video) ? video : [video];
+  return list.map((v, i) => {
+    if (isYtId(v)) return (
+      <div key={i} style={{...S.videoWrap, marginBottom: 10}}>
+        <iframe src={`https://www.youtube.com/embed/${v}?rel=0&modestbranding=1`} style={S.video} allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowFullScreen title={`${title} ${i+1}`}/>
+      </div>
+    );
+    return (
+      <a key={i} href={v} target="_blank" rel="noopener noreferrer" style={S.extVideoBtn}>
+        ▶ Watch Demo Video
+      </a>
+    );
+  });
 }
 
 function VideoLink({ video }) {
   if (!video) return null;
-  const href = isYtId(video) ? `https://www.youtube.com/watch?v=${video}` : video;
-  return <a href={href} target="_blank" rel="noopener noreferrer" style={S.vidLink}>▶</a>;
+  const list = Array.isArray(video) ? video : [video];
+  return (
+    <span style={{display:'flex',gap:6,flexShrink:0}}>
+      {list.map((v,i) => {
+        const href = isYtId(v) ? `https://www.youtube.com/watch?v=${v}` : v;
+        return <a key={i} href={href} target="_blank" rel="noopener noreferrer" style={S.vidLink} onClick={e=>e.stopPropagation()}>▶</a>;
+      })}
+    </span>
+  );
 }
 
 // ============================================================================
@@ -699,6 +766,7 @@ const ShopIcon=({a})=><svg width="22" height="22" viewBox="0 0 24 24" fill="none
 const FuelIcon=({a})=><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={a?'#BDC3C7':'#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z"/><path d="M12 6v6l4 2"/></svg>;
 const StretchIcon=({a})=><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={a?'#BDC3C7':'#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v10"/><path d="M8 21l4-4 4 4"/></svg>;
 const ProgressIcon=({a})=><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={a?'#BDC3C7':'#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+const LooksIcon=({a})=><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={a?'#BDC3C7':'#666'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="3"/><path d="M4 20c1.5-4 14.5-4 16 0"/><path d="M8 14h8"/></svg>;
 
 // ============================================================================
 // MAIN APP
@@ -735,6 +803,14 @@ export default function PantherApp() {
   const [stretchOn, setStretchOn] = useState(false);
   const [strPartIdx, setStrPartIdx] = useState(0);
   const [strIdx, setStrIdx] = useState(0);
+
+  // Looks mode
+  const [looksOn, setLooksOn] = useState(false);
+  const [looksNeck, setLooksNeck] = useState(()=>LOOKS_SUGGEST[DAYS[new Date().getDay()]]||'flexion');
+  const [looksQueue, setLooksQueue] = useState([]);
+  const [looksIdx, setLooksIdx] = useState(0);
+  const [looksTimer, setLooksTimer] = useState(0);
+  const [looksLog, setLooksLog] = useState(()=>safeJson(localStorage.getItem('p_looks_log'),[]));
 
   // Shop
   const [factorMeals, setFactorMeals] = useState(()=>safeJson(localStorage.getItem('p_factor_meals'),null));
@@ -815,7 +891,7 @@ export default function PantherApp() {
   useEffect(() => {
     const t = setTimeout(() => { idbPut('__all__', JSON.stringify(collectAllData())); }, 400);
     return () => clearTimeout(t);
-  }, [fuelDays, fuelChecks, gainsLog, workoutHistory, liftLog, factorSel, hfSel, factorMeals, hfMeals]);
+  }, [fuelDays, fuelChecks, gainsLog, workoutHistory, liftLog, factorSel, hfSel, factorMeals, hfMeals, looksLog]);
 
   useEffect(() => {
     const tok = localStorage.getItem('p_gh_token');
@@ -828,7 +904,7 @@ export default function PantherApp() {
       }).catch(()=>{});
     }, 4000);
     return () => clearTimeout(t);
-  }, [fuelDays, liftLog, gainsLog, workoutHistory]);
+  }, [fuelDays, liftLog, gainsLog, workoutHistory, looksLog]);
 
   // ---- Load saved workout routine ----
   useEffect(() => {
@@ -930,23 +1006,42 @@ export default function PantherApp() {
     if (wkActive) localStorage.setItem('p_workout_state', JSON.stringify({active:true,day:wkDay,session:wkSession,secIdx:wkSecIdx,exIdx:wkExIdx,set:wkSet,done:wkDone,date:new Date().toISOString()}));
   }, [wkActive,wkSecIdx,wkExIdx,wkSet,wkDone]);
 
+  useEffect(()=>{ localStorage.setItem('p_looks_log', JSON.stringify(looksLog)); }, [looksLog]);
+
+  // ---- Looks 2-min timer (and any timed step) ----
+  useEffect(() => {
+    if (!looksOn) { setLooksTimer(0); return; }
+    const step = looksQueue[looksIdx];
+    if (step?.timer) setLooksTimer(step.timer);
+    else setLooksTimer(0);
+  }, [looksOn, looksIdx]);
+
+  useEffect(() => {
+    if (!looksOn || looksTimer <= 0) return;
+    const t = setTimeout(() => {
+      setLooksTimer(r => { if (r <= 1) { playBeep(); return 0; } return r - 1; });
+    }, 1000);
+    return () => clearTimeout(t);
+  }, [looksOn, looksTimer]);
+
   // ---- Wake lock ----
   useEffect(() => {
-    const acq=async()=>{if((wkActive||stretchOn)&&'wakeLock' in navigator){try{wakeLockRef.current=await navigator.wakeLock.request('screen');}catch{}}};
+    const acq=async()=>{if((wkActive||stretchOn||looksOn)&&'wakeLock' in navigator){try{wakeLockRef.current=await navigator.wakeLock.request('screen');}catch{}}};
     const rel=async()=>{if(wakeLockRef.current){try{await wakeLockRef.current.release();wakeLockRef.current=null;}catch{}}};
-    if(wkActive||stretchOn)acq();else rel(); return ()=>rel();
-  }, [wkActive, stretchOn]);
+    if(wkActive||stretchOn||looksOn)acq();else rel(); return ()=>rel();
+  }, [wkActive, stretchOn, looksOn]);
 
   // ---- Keyboard shortcuts ----
   useEffect(() => {
     const h=(e)=>{
+      if(looksOn){if(e.code==='Space'){e.preventDefault();nextLooks();}else if(e.code==='Escape'){e.preventDefault();exitLooks();}return;}
       if(stretchOn){if(e.code==='Space'){e.preventDefault();nextStretch();}else if(e.code==='Escape'){e.preventDefault();exitStretch();}return;}
       if(!wkActive)return;
       if(e.code==='Space'){e.preventDefault();if(wkResting)skipWkRest();else completeWkSet();}
       else if(e.code==='Escape'){e.preventDefault();exitWorkout();}
     };
     window.addEventListener('keydown',h);return()=>window.removeEventListener('keydown',h);
-  }, [wkActive,wkResting,stretchOn,strPartIdx,strIdx]);
+  }, [wkActive,wkResting,stretchOn,strPartIdx,strIdx,looksOn,looksIdx,looksQueue,looksTimer]);
 
   // ---- Workout runner helpers ----
   const getWkSessionData = () => {
@@ -1030,6 +1125,52 @@ export default function PantherApp() {
     else if(strPartIdx>0){const pp=stretchData[strPartIdx-1];setStrPartIdx(strPartIdx-1);setStrIdx(pp.stretches.length-1);}
   };
   const exitStretch = () => { setStretchOn(false); setStrPartIdx(0); setStrIdx(0); };
+
+  // ---- Looks helpers ----
+  const looksDoneToday = looksLog.some(e => e.date === todayStr());
+  const looksStreak = (() => {
+    let s = 0; const t = new Date(); t.setHours(0,0,0,0);
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(t); d.setDate(d.getDate() - i);
+      const ds = d.toISOString().split('T')[0];
+      const has = looksLog.some(e => e.date === ds);
+      if (has || i === 0) { if (has) s++; }
+      else break;
+    }
+    return s;
+  })();
+  const startLooks = () => {
+    if (!looksNeck) return;
+    const q = buildLooksQueue(looksNeck);
+    setLooksQueue(q);
+    setLooksIdx(0);
+    setLooksTimer(q[0]?.timer || 0);
+    setLooksOn(true);
+  };
+  const nextLooks = () => {
+    const step = looksQueue[looksIdx];
+    if (step?.timer > 0 && looksTimer > 0) return;
+    if (looksIdx < looksQueue.length - 1) {
+      const n = looksIdx + 1;
+      setLooksIdx(n);
+      setLooksTimer(looksQueue[n]?.timer || 0);
+    } else finishLooks();
+  };
+  const prevLooks = () => {
+    if (looksIdx > 0) {
+      const n = looksIdx - 1;
+      setLooksIdx(n);
+      setLooksTimer(looksQueue[n]?.timer || 0);
+    }
+  };
+  const finishLooks = () => {
+    const entry = { date: todayStr(), neck: looksNeck, completedAt: new Date().toISOString() };
+    const n = [entry, ...looksLog.filter(e => e.date !== todayStr())].slice(0, 400);
+    setLooksLog(n);
+    exitLooks();
+  };
+  const exitLooks = () => { setLooksOn(false); setLooksIdx(0); setLooksQueue([]); setLooksTimer(0); };
+  const fmtLooksTimer = (s) => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
 
   // ---- Shop helpers ----
   const applyShopParsed = (parsed, fallbackBrand) => {
@@ -1315,6 +1456,46 @@ export default function PantherApp() {
   }
 
   // ============================================================================
+  // LOOKS MODE (full-screen step-through)
+  // ============================================================================
+
+  if (looksOn) {
+    const step = looksQueue[looksIdx];
+    if (!step) return null;
+    const last = looksIdx === looksQueue.length - 1;
+    const timerLocked = step.timer > 0 && looksTimer > 0;
+    return (
+      <div style={S.container}>
+        <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:16}}>
+          <button onClick={exitLooks} style={S.exitBtn}>✕</button>
+          <div style={{flex:1}}>
+            <div style={{fontSize:11,color:'#666',marginBottom:4}}>{looksIdx+1}/{looksQueue.length}</div>
+            <div style={S.progressBar}><div style={{...S.progressFill,width:`${((looksIdx+1)/looksQueue.length)*100}%`}}/></div>
+          </div>
+        </div>
+        <div style={{backgroundColor:'#1A1A1A',borderRadius:16,padding:20,textAlign:'center',marginBottom:16,border:'2px solid #5D6D7E'}}>
+          <div style={{fontSize:11,color:'#666',letterSpacing:2}}>{step.part}</div>
+          <h2 style={{fontSize:22,fontWeight:800,color:'#BDC3C7',margin:'8px 0 0'}}>{step.name}</h2>
+        </div>
+        <div style={{textAlign:'center',marginBottom:16}}>
+          <div style={{fontSize:18,color:'#95A5A6',fontWeight:600,marginBottom:8}}>{step.duration}</div>
+          {step.timer>0&&(
+            <div style={{fontSize:48,fontWeight:800,color:looksTimer>0?'#ECF0F1':'#7FB3D8',letterSpacing:2,margin:'8px 0 12px'}}>
+              {fmtLooksTimer(looksTimer)}
+            </div>
+          )}
+          {step.notes&&<p style={{fontSize:13,color:'#888',margin:0,lineHeight:1.5,textAlign:'left'}}>{step.notes}</p>}
+        </div>
+        <VideoEmbed video={step.video} title={step.name}/>
+        <div style={{display:'flex',gap:12,marginTop:'auto'}}>
+          <button onClick={prevLooks} style={{...S.navBtn,opacity:looksIdx===0?0.3:1}} disabled={looksIdx===0}>← PREV</button>
+          <button onClick={nextLooks} disabled={timerLocked} style={{...S.primaryBtn,opacity:timerLocked?0.45:1}}>{timerLocked?`HOLD ${fmtLooksTimer(looksTimer)}`:last?'FINISH':'NEXT →'}</button>
+        </div>
+      </div>
+    );
+  }
+
+  // ============================================================================
   // TAB: SCRIPT
   // ============================================================================
 
@@ -1326,6 +1507,9 @@ export default function PantherApp() {
         <h1 style={{fontSize:26,fontWeight:800,letterSpacing:5,margin:0}}>{today.toUpperCase()}</h1>
         <p style={{fontSize:14,color:'#95A5A6',marginTop:4}}>{dayData.name}</p>
       </div>
+      <button onClick={()=>setTab('looks')} style={{...S.primaryBtn,marginBottom:16,padding:'14px 20px',fontSize:14,backgroundColor:looksDoneToday?'#1A2A1A':'#2A1515',border:`2px solid ${looksDoneToday?'#5D7E5D':'#8B4A4A'}`,color:looksDoneToday?'#A8D8A8':'#E8B4B4'}}>
+        {looksDoneToday ? 'LOOKS DONE TODAY ✓' : 'LOOKS DUE TODAY — 30 MIN'}
+      </button>
       <button onClick={()=>startWorkout(today,scriptSession)} style={{...S.primaryBtn,marginBottom:16,padding:'20px 24px',fontSize:17,letterSpacing:0.5}}>
         START {scriptSession.toUpperCase()} WORKOUT
       </button>
@@ -1571,6 +1755,64 @@ export default function PantherApp() {
   </>);
 
   // ============================================================================
+  // TAB: LOOKS
+  // ============================================================================
+
+  const renderLooks = () => {
+    const suggested = LOOKS_SUGGEST[today];
+    return (<>
+      <div style={S.tabHeader}>
+        <h1 style={S.tabTitle}>LOOKS</h1>
+        <p style={S.tabSub}>Daily · ~30 min · face work is required every day</p>
+      </div>
+      <div style={{backgroundColor:looksDoneToday?'#1A2A1A':'#2A1515',border:`2px solid ${looksDoneToday?'#5D7E5D':'#8B4A4A'}`,borderRadius:14,padding:16,marginBottom:16,textAlign:'center'}}>
+        <div style={{fontSize:13,fontWeight:700,letterSpacing:1.5,color:looksDoneToday?'#A8D8A8':'#E8B4B4'}}>
+          {looksDoneToday ? 'DONE TODAY' : 'MANDATORY TODAY'}
+        </div>
+        <div style={{fontSize:12,color:'#888',marginTop:6}}>{looksStreak} day looks streak{looksDoneToday?'':' — finish the routine to keep it'}</div>
+      </div>
+      <div style={S.sectionTag}>1. PICK TODAY'S NECK WORK</div>
+      <p style={{fontSize:12,color:'#666',margin:'0 0 12px',lineHeight:1.45}}>Warm-up always runs first. Face routine always runs after. Pick the neck block — weekday suggestion is marked, you can override.</p>
+      <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:20}}>
+        {LOOKS_NECK_PICKS.map(n=>{
+          const on = looksNeck===n.id;
+          return (
+            <div key={n.id} onClick={()=>setLooksNeck(n.id)} style={{...S.fuelRow,borderColor:on?'#5D6D7E':'#2C2C2C',backgroundColor:on?'#1E2A35':'#111'}}>
+              <div style={{...S.fuelCheck,backgroundColor:on?'#5D6D7E':'transparent'}}>{on&&'✓'}</div>
+              <div style={{flex:1,textAlign:'left'}}>
+                <span style={{fontSize:14,fontWeight:700,color:'#fff',display:'block'}}>{n.label}{n.id===suggested&&<span style={S.trackBadge}>TODAY</span>}</span>
+                <span style={{fontSize:12,color:'#95A5A6',display:'block',marginTop:2}}>{n.name} · {n.duration}</span>
+                <span style={{fontSize:11,color:'#666',display:'block',marginTop:4,lineHeight:1.4}}>{n.notes}</span>
+              </div>
+              <VideoLink video={n.video}/>
+            </div>
+          );
+        })}
+      </div>
+      <button onClick={startLooks} disabled={!looksNeck} style={{...S.primaryBtn,marginBottom:24,padding:'20px 24px',fontSize:17,opacity:looksNeck?1:0.4}}>BEGIN 30 MIN ROUTINE</button>
+      <div style={S.sectionTag}>ALWAYS FIRST — NECK WARM-UP</div>
+      {LOOKS_WARMUP.map((s,i)=>(
+        <div key={i} style={S.scriptCard}>
+          <h3 style={{fontSize:15,fontWeight:700,margin:0}}>{s.name}</h3>
+          <div style={{fontSize:13,color:'#BDC3C7',fontWeight:600,marginTop:6}}>{s.duration}</div>
+          {s.notes&&<p style={{fontSize:12,color:'#888',margin:'8px 0 0',lineHeight:1.4}}>{s.notes}</p>}
+        </div>
+      ))}
+      <div style={S.sectionTag}>2. FACE ROUTINE — EVERY DAY</div>
+      {LOOKS_FACE.map((s,i)=>(
+        <div key={i} style={S.scriptCard}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+            <h3 style={{fontSize:15,fontWeight:700,margin:0,flex:1}}>{i+1}. {s.name}</h3>
+            <VideoLink video={s.video}/>
+          </div>
+          <div style={{fontSize:13,color:'#BDC3C7',fontWeight:600,marginTop:6}}>{s.duration}</div>
+          {s.notes&&<p style={{fontSize:12,color:'#888',margin:'8px 0 0',lineHeight:1.4}}>{s.notes}</p>}
+        </div>
+      ))}
+    </>);
+  };
+
+  // ============================================================================
   // TAB: PROGRESS
   // ============================================================================
 
@@ -1593,6 +1835,10 @@ export default function PantherApp() {
           </div>
         ))}
       </div>
+      <div style={{backgroundColor:'#1A1A1A',borderRadius:16,padding:20,textAlign:'center',marginBottom:20,border:'2px solid #2C2C2C'}}>
+        <span style={{fontSize:28,fontWeight:800,color:'#BDC3C7',display:'block'}}>{looksStreak}</span>
+        <span style={{fontSize:11,letterSpacing:2,color:'#666',marginTop:4,display:'block'}}>LOOKS STREAK{looksDoneToday?'':' — DUE TODAY'}</span>
+      </div>
       <div style={S.toggleRow}>
         <button onClick={()=>setProgView('overview')} style={{...S.toggleBtn,...(progView==='overview'?S.toggleAct:{})}}>Overview</button>
         <button onClick={()=>setProgView('lifts')} style={{...S.toggleBtn,...(progView==='lifts'?S.toggleAct:{})}}>Lifts</button>
@@ -1601,6 +1847,19 @@ export default function PantherApp() {
         <button onClick={()=>setProgView('data')} style={{...S.toggleBtn,...(progView==='data'?S.toggleAct:{})}}>Data</button>
       </div>
       {progView==='overview'&&<div style={{display:'flex',flexDirection:'column',gap:8}}>
+        <div style={S.sectionTag}>THIS WEEK — LOOKS (EVERY DAY)</div>
+        <div style={{display:'flex',gap:6,marginBottom:8}}>
+          {weekDays.map((d,i)=>{
+            const done=looksLog.some(e=>e.date===d);
+            const isToday=d===todayStr();
+            return (
+              <div key={d} style={{flex:1,textAlign:'center',padding:'10px 0',borderRadius:10,backgroundColor:done?'#1E2A35':'#111',border:`1px solid ${done?'#5D6D7E':isToday?'#8B4A4A':'#222'}`}}>
+                <div style={{fontSize:9,color:'#666',letterSpacing:1}}>{DAYS[i].slice(0,2).toUpperCase()}</div>
+                <div style={{fontSize:14,fontWeight:700,color:done?'#A8D8A8':isToday?'#E8B4B4':'#555',marginTop:4}}>{done?'✓':isToday?'•':'–'}</div>
+              </div>
+            );
+          })}
+        </div>
         {trackedLifts.length>0&&<>
           <div style={S.sectionTag}>THIS WEEK — TRACKED LIFTS</div>
           {trackedLifts.map(name=>{
@@ -1711,7 +1970,7 @@ export default function PantherApp() {
   // MAIN RETURN
   // ============================================================================
 
-  const tabs=[{id:'script',label:'Script',I:ScriptIcon},{id:'shop',label:'Shop',I:ShopIcon},{id:'fuel',label:'Fuel',I:FuelIcon},{id:'stretch',label:'Stretch',I:StretchIcon},{id:'progress',label:'Progress',I:ProgressIcon}];
+  const tabs=[{id:'script',label:'Script',I:ScriptIcon},{id:'shop',label:'Shop',I:ShopIcon},{id:'fuel',label:'Fuel',I:FuelIcon},{id:'stretch',label:'Stretch',I:StretchIcon},{id:'looks',label:'Looks',I:LooksIcon},{id:'progress',label:'Progress',I:ProgressIcon}];
 
   return (
     <div style={S.container}>
@@ -1719,10 +1978,12 @@ export default function PantherApp() {
       {tab==='shop'&&renderShop()}
       {tab==='fuel'&&renderFuel()}
       {tab==='stretch'&&renderStretch()}
+      {tab==='looks'&&renderLooks()}
       {tab==='progress'&&renderProgress()}
       <div style={S.bottomNav}>
-        {tabs.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{...S.navItem,...(tab===t.id?{color:'#BDC3C7'}:{})}}>
-          <t.I a={tab===t.id}/><span style={{fontSize:9,letterSpacing:0.5,color:tab===t.id?'#BDC3C7':'#666'}}>{t.label}</span>
+        {tabs.map(t=><button key={t.id} onClick={()=>setTab(t.id)} style={{...S.navItem,padding:'4px 2px',position:'relative',...(tab===t.id?{color:'#BDC3C7'}:{})}}>
+          {t.id==='looks'&&!looksDoneToday&&<span style={{position:'absolute',top:2,right:8,width:7,height:7,borderRadius:'50%',background:'#C0392B'}}/>}
+          <t.I a={tab===t.id}/><span style={{fontSize:8,letterSpacing:0.4,color:tab===t.id?'#BDC3C7':'#666'}}>{t.label}</span>
         </button>)}
       </div>
     </div>
